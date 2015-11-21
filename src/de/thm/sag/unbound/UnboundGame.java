@@ -12,7 +12,7 @@ public class UnboundGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0.5f, 0.5f, 0.2f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 }
