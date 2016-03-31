@@ -1,4 +1,4 @@
-package de.thm.sag.unbound;
+package de.unbound;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
