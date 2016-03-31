@@ -9,7 +9,7 @@ public class ELO {
 	 * @param winner
 	 * @param looser
 	 */
-	public void calcPoints(Ranker winner, Ranker looser) {
+	public void calcPoints(Contestant winner, Contestant looser) {
 		// TODO - implement ELO.calcPoints
 		throw new UnsupportedOperationException();
 	}

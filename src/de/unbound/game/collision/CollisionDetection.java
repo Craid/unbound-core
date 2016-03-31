@@ -61,7 +61,7 @@ public class CollisionDetection {
 	 * 
 	 * @param enemyEntity
 	 */
-	private void add(de.unbound.game.model.entities.mobile.MobileEntity enemyEntity) {
+	public void add(MobileEntity enemyEntity) {
 		// TODO - implement CollisionDetection.add
 		throw new UnsupportedOperationException();
 	}
@@ -88,7 +88,7 @@ public class CollisionDetection {
 	 * 
 	 * @param player
 	 */
-	private void add(Player player) {
+	public void add(Player player) {
 		// TODO - implement CollisionDetection.add
 		throw new UnsupportedOperationException();
 	}
@@ -97,7 +97,7 @@ public class CollisionDetection {
 	 * 
 	 * @param bullet
 	 */
-	private void remove(Projectile bullet) {
+	public void remove(Projectile bullet) {
 		// TODO - implement CollisionDetection.remove
 		throw new UnsupportedOperationException();
 	}
@@ -106,7 +106,7 @@ public class CollisionDetection {
 	 * 
 	 * @param enemyEntity
 	 */
-	private void remove(de.unbound.game.model.entities.mobile.MobileEntity enemyEntity) {
+	private void remove(MobileEntity enemyEntity) {
 		// TODO - implement CollisionDetection.remove
 		throw new UnsupportedOperationException();
 	}
@@ -133,7 +133,7 @@ public class CollisionDetection {
 	 * 
 	 * @param mainBase
 	 */
-	private void add(MainBase mainBase) {
+	public void add(MainBase mainBase) {
 		// TODO - implement CollisionDetection.add
 		throw new UnsupportedOperationException();
 	}

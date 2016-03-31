@@ -1,6 +1,6 @@
 package de.unbound.game.multiplayer;
 
-public class Ranker {
+public class Contestant {
 
 	private String name;
 	private String password;
