@@ -18,8 +18,7 @@ public class FlyweightFactory {
 
 	private FlyweightFactory() {
 		flyweights = new HashMap<String, EntityFlyweight>();
-		flyweightUberModels = EntitiyFlyweightModelJsonHelper.instance
-				.readDocument();
+		flyweightUberModels = EntitiyFlyweightModelJsonHelper.instance.readDocument();
 	}
 
 	/**

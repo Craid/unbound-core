@@ -8,6 +8,4 @@ public class DuckBase extends Base {
 		System.out.println("Created DuckBase");
 	}
 
-
-
 }
