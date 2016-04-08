@@ -2,6 +2,7 @@ package de.unbound.game.factories;
 
 import java.util.ArrayList;
 
+import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.immobile.Base;
 import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.ImmobileEntity;
@@ -18,6 +19,12 @@ import de.unbound.game.model.entities.mobile.Scavenger;
 import de.unbound.game.wave.WaveOrder;
 
 public abstract class AbstractRaceFactory {
+	
+	protected FlyweightFactory flyweightFactory;
+	
+	public AbstractRaceFactory(){
+		flyweightFactory = FlyweightFactory.instance;
+	}
 
 	/**
 	 * 
@@ -66,5 +73,20 @@ public abstract class AbstractRaceFactory {
 	protected abstract Deposit createDeposit();
 
 	protected abstract Spawner createSpawner();
+	
+	private void updateModel(Entity e){
+		e.setModel(flyweightFactory.getFlyweight(e.getClass().getSimpleName()));
+	}
+	
+	protected <T extends Entity> T createEntitiy(Class<T> c){
+		T t = null;
+		try {
+			t = c.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		updateModel(t);
+		return t;
+	}
 
 }

@@ -27,56 +27,56 @@ public class RaceDuckFactory extends AbstractRaceFactory {
 
 	@Override
 	protected Boss createBoss() {
-		return new DuckBoss();
+		return createEntitiy(DuckBoss.class);
 	}
 
 	@Override
 	protected Commander createCommander() {
-		return new DuckCommander();
+		return createEntitiy(DuckCommander.class);
 	}
 
 	@Override
 	protected Scavenger createScavenger() {
-		return new DuckScavenger();
+		return createEntitiy(DuckScavenger.class);
 	}
 
 	@Override
 	protected Pawn createPawn() {
-		return new DuckPawn();
+		return createEntitiy(DuckPawn.class);
 	}
 
 	@Override
 	public Player createPlayer() {
-		return new DuckPlayer();
+		return createEntitiy(DuckPlayer.class);
 	}
 
 	@Override
 	public Collector createCollector() {
-		return new DuckCollector();
+		return createEntitiy(DuckCollector.class);
 	}
 
 	@Override
 	protected MainBase createMainBase() {
-		return new DuckMainBase();
+		return createEntitiy(DuckMainBase.class);
 	}
 
 	@Override
 	protected Base createBase() {
-		return new DuckBase();
+		return createEntitiy(DuckBase.class);
 	}
 
 	@Override
 	public Tower createTower() {
-		return new DuckTower();
+		return createEntitiy(DuckTower.class);
 	}
 
 	@Override
 	protected Deposit createDeposit() {
-		return new DuckDeposit();
+		return createEntitiy(DuckDeposit.class);
 	}
 
 	@Override
 	protected Spawner createSpawner() {
-		return new DuckSpawner();
+		return createEntitiy(DuckSpawner.class);
 	}
 }

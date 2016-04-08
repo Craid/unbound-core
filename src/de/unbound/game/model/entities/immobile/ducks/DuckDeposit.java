@@ -8,15 +8,5 @@ public class DuckDeposit extends Deposit {
 		System.out.println("Created DuckDeposit");
 	}
 
-	@Override
-	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -1,8 +1,10 @@
 package de.unbound.game.model.entities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-import de.unbound.game.model.FlyweightModel;
+import de.unbound.game.model.EntityFlyweight;
 import de.unbound.game.model.state.attack.AttackState;
 import de.unbound.game.model.state.attack.None;
 
@@ -12,7 +14,7 @@ public abstract class Entity {
 	private Vector2 position;
 	private Vector2 direction;
 	private boolean active;
-	private FlyweightModel model;
+	private EntityFlyweight model;
 	
 	public Entity(){
 		attack = new None();
@@ -25,9 +27,16 @@ public abstract class Entity {
 	 * 
 	 * @param deltaTime
 	 */
-	public abstract void update(double deltaTime);
+	public void update(double deltaTime){
+		attack.execute();
+	}
 
-	public abstract void render();
+	public void render(SpriteBatch batch){
+		Sprite sprite = model.getGraphic();
+		sprite.setPosition(position.x, position.y);
+		sprite.setRotation(direction.angle());
+		sprite.draw(batch);
+	}
 
 	public Vector2 getPosition() {
 		return position;
@@ -70,11 +79,11 @@ public abstract class Entity {
 		this.attack = attack;
 	}
 
-	public FlyweightModel getModel() {
+	public EntityFlyweight getModel() {
 		return model;
 	}
 
-	public void setModel(FlyweightModel model) {
+	public void setModel(EntityFlyweight model) {
 		this.model = model;
 	}
 

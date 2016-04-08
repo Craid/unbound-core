@@ -6,6 +6,11 @@ import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Projectile;
 
 public class MobileCollisionHandler extends CollisionHandler<MobileEntity> {
+	
+	public static final MobileCollisionHandler instance = new MobileCollisionHandler();
+	
+	private MobileCollisionHandler() {
+	}
 
 	@Override
 	public void handle(MobileEntity subject, Entity object) {

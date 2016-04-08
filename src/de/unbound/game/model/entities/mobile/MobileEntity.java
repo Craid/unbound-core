@@ -16,6 +16,12 @@ public abstract class MobileEntity extends Entity {
 		move = new Straight();
 		velocity = new Vector2();
 	}
+	
+	@Override
+	public void update(double deltaTime){
+		getAttack().execute();
+		move.execute();
+	}
 
 	
 	// Getter und Setter

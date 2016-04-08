@@ -8,15 +8,4 @@ public class DuckMainBase extends MainBase {
 		System.out.println("Created DuckMainBase");
 	}
 
-	@Override
-	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -27,56 +27,56 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 
 	@Override
 	protected Boss createBoss() {
-		return new PrelateBoss();
+		return createEntitiy(PrelateBoss.class);
 	}
 
 	@Override
 	protected Commander createCommander() {
-		return new PrelateCommander();
+		return createEntitiy(PrelateCommander.class);
 	}
 
 	@Override
 	protected Scavenger createScavenger() {
-		return new PrelateScavenger();
+		return createEntitiy(PrelateScavenger.class);
 	}
 
 	@Override
 	protected Pawn createPawn() {
-		return new PrelatePawn();
+		return createEntitiy(PrelatePawn.class);
 	}
 
 	@Override
 	public Player createPlayer() {
-		return new PrelatePlayer();
+		return createEntitiy(PrelatePlayer.class);
 	}
 
 	@Override
 	public Collector createCollector() {
-		return new PrelateCollector();
+		return createEntitiy(PrelateCollector.class);
 	}
 
 	@Override
 	protected MainBase createMainBase() {
-		return new PrelateMainBase();
+		return createEntitiy(PrelateMainBase.class);
 	}
 
 	@Override
 	protected Base createBase() {
-		return new PrelateBase();
+		return createEntitiy(PrelateBase.class);
 	}
 
 	@Override
 	public Tower createTower() {
-		return new PrelateTower();
+		return createEntitiy(PrelateTower.class);
 	}
 
 	@Override
 	protected Deposit createDeposit() {
-		return new PrelateDeposit();
+		return createEntitiy(PrelateDeposit.class);
 	}
 
 	@Override
 	protected Spawner createSpawner() {
-		return new PrelateSpawner();
+		return createEntitiy(PrelateSpawner.class);
 	}
 }

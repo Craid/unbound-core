@@ -8,15 +8,4 @@ public class PrelateCollector extends Collector {
 		System.out.println("Created PrelateCollector");
 	}
 
-	@Override
-	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -8,16 +8,4 @@ public class PrelateBoss extends Boss {
 		System.out.println("Created PrelateBoss");
 	}
 
-
-	@Override
-	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
 }

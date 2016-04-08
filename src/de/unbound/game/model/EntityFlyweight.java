@@ -1,25 +1,27 @@
 package de.unbound.game.model;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import de.unbound.game.collision.CollisionHandler;
 
-public class FlyweightModel {
+public class EntityFlyweight {
 
-	private int rangeOfVision;
-	private int rangeofCollision;
+	private double rangeOfVision;
+	private double rangeofCollision;
 	private int upgrades;
-	private int graphic;
+	private Sprite graphic;
 	private CollisionHandler collisionHandler;
 	
-	public int getRangeOfVision() {
+	public double getRangeOfVision() {
 		return rangeOfVision;
 	}
-	public void setRangeOfVision(int rangeOfVision) {
+	public void setRangeOfVision(double rangeOfVision) {
 		this.rangeOfVision = rangeOfVision;
 	}
-	public int getRangeofCollision() {
+	public double getRangeofCollision() {
 		return rangeofCollision;
 	}
-	public void setRangeofCollision(int rangeofCollision) {
+	public void setRangeofCollision(double rangeofCollision) {
 		this.rangeofCollision = rangeofCollision;
 	}
 	public int getUpgrades() {
@@ -28,10 +30,10 @@ public class FlyweightModel {
 	public void setUpgrades(int upgrades) {
 		this.upgrades = upgrades;
 	}
-	public int getGraphic() {
+	public Sprite getGraphic() {
 		return graphic;
 	}
-	public void setGraphic(int graphic) {
+	public void setGraphic(Sprite graphic) {
 		this.graphic = graphic;
 	}
 	public CollisionHandler getCollisionHandler() {

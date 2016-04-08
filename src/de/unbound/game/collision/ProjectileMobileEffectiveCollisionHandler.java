@@ -7,6 +7,11 @@ import de.unbound.game.model.entities.mobile.Projectile;
 
 public class ProjectileMobileEffectiveCollisionHandler extends CollisionHandler<Projectile> {
 
+	public static final ProjectileMobileEffectiveCollisionHandler instance = new ProjectileMobileEffectiveCollisionHandler();
+	
+	private ProjectileMobileEffectiveCollisionHandler() {
+	}
+	
 	@Override
 	public void handle(Projectile subject, Entity object) {
 		// TODO Auto-generated method stub
