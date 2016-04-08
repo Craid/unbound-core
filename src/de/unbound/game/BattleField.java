@@ -18,9 +18,15 @@ public class BattleField {
 	private ArrayList<MobileEntity> enemies;
 	private ArrayList<Collector> collectors;
 	private ArrayList<ImmobileEntity> immobileEntities;
-	public BattleField battleField;
+	public static BattleField battleField;
 
 	private BattleField() {
+	}
+	
+	public static BattleField getBattleField(){
+		if(battleField == null)
+			battleField = new BattleField();
+		return battleField;
 	}
 
 	public void init() {

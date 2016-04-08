@@ -2,7 +2,7 @@ package de.unbound.game.model.entities.immobile.prelates;
 
 import de.unbound.game.model.entities.immobile.*;
 
-public class DuckDeposit extends Deposit {
+public class PrelateDeposit extends Deposit {
 
 	@Override
 	public void update(double deltaTime) {

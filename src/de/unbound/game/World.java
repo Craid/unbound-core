@@ -11,12 +11,14 @@ public class World {
 	private AbstractRaceFactory ownFactory;
 	private WaveHandler waveHandler;
 	private CollisionDetection collisionDetection;
+	private BattleField battleField;
 
 	public World(WaveHandler waveHandler){
 		collisionDetection = new CollisionDetection();
 		this.waveHandler = waveHandler;
 		enemyFactory = waveHandler.getEnemyFactory();
 		ownFactory = waveHandler.getOwnFactory();
+		battleField = BattleField.getBattleField();
 	}
 	
 	/**
@@ -32,6 +34,7 @@ public class World {
 
 	private void createWave(WaveOrder order) {
 		 enemyFactory.createWave(order);
+		 //TODO add to Battlefield
 		 System.out.println("Created Wave");
 	}
 

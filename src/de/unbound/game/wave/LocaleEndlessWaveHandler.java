@@ -34,7 +34,7 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 		int boss = difficulity/10;
 		int commander = difficulity/5;
 		int scavenger = difficulity%5;
-		int pawn = difficulity%10 * 3;
+		int pawn = (difficulity%5) * 3;
 		return new WaveOrder(boss, pawn, scavenger, commander, 0, 0, 0, 0);
 	}
 }

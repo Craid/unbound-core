@@ -10,12 +10,12 @@ public class UnboundGame extends Game {
 	
 	private AbstractGameScreen screen;
 	
-	
 	@Override
 	public void create () {
 		screen = new SplashScreen(this);
+		System.out.println("Started!");
 	}
-
+	
 	@Override
 	public void render () {
 		screen.render(Gdx.graphics.getDeltaTime());

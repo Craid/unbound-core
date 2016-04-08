@@ -5,78 +5,78 @@ import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
 import de.unbound.game.model.entities.immobile.Tower;
+import de.unbound.game.model.entities.immobile.prelates.PrelateBase;
+import de.unbound.game.model.entities.immobile.prelates.PrelateDeposit;
+import de.unbound.game.model.entities.immobile.prelates.PrelateMainBase;
+import de.unbound.game.model.entities.immobile.prelates.PrelateSpawner;
+import de.unbound.game.model.entities.immobile.prelates.PrelateTower;
 import de.unbound.game.model.entities.mobile.Boss;
 import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.Commander;
 import de.unbound.game.model.entities.mobile.Pawn;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Scavenger;
+import de.unbound.game.model.entities.mobile.prelates.PrelateBoss;
+import de.unbound.game.model.entities.mobile.prelates.PrelateCollector;
+import de.unbound.game.model.entities.mobile.prelates.PrelateCommander;
+import de.unbound.game.model.entities.mobile.prelates.PrelatePawn;
+import de.unbound.game.model.entities.mobile.prelates.PrelatePlayer;
+import de.unbound.game.model.entities.mobile.prelates.PrelateScavenger;
 
 public class RacePrelateFactory extends AbstractRaceFactory {
 
 	@Override
 	protected Boss createBoss() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateBoss();
 	}
 
 	@Override
 	protected Commander createCommander() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateCommander();
 	}
 
 	@Override
 	protected Scavenger createScavenger() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateScavenger();
 	}
 
 	@Override
 	protected Pawn createPawn() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelatePawn();
 	}
 
 	@Override
 	public Player createPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelatePlayer();
 	}
 
 	@Override
 	public Collector createCollector() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateCollector();
 	}
 
 	@Override
 	protected MainBase createMainBase() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateMainBase();
 	}
 
 	@Override
 	protected Base createBase() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateBase();
 	}
 
 	@Override
 	public Tower createTower() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateTower();
 	}
 
 	@Override
 	protected Deposit createDeposit() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateDeposit();
 	}
 
 	@Override
 	protected Spawner createSpawner() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrelateSpawner();
 	}
 }

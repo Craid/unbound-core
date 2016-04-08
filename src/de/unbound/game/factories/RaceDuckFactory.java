@@ -5,78 +5,78 @@ import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
 import de.unbound.game.model.entities.immobile.Tower;
+import de.unbound.game.model.entities.immobile.ducks.DuckBase;
+import de.unbound.game.model.entities.immobile.ducks.DuckDeposit;
+import de.unbound.game.model.entities.immobile.ducks.DuckMainBase;
+import de.unbound.game.model.entities.immobile.ducks.DuckSpawner;
+import de.unbound.game.model.entities.immobile.ducks.DuckTower;
 import de.unbound.game.model.entities.mobile.Boss;
 import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.Commander;
 import de.unbound.game.model.entities.mobile.Pawn;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Scavenger;
+import de.unbound.game.model.entities.mobile.ducks.DuckBoss;
+import de.unbound.game.model.entities.mobile.ducks.DuckCollector;
+import de.unbound.game.model.entities.mobile.ducks.DuckCommander;
+import de.unbound.game.model.entities.mobile.ducks.DuckPawn;
+import de.unbound.game.model.entities.mobile.ducks.DuckPlayer;
+import de.unbound.game.model.entities.mobile.ducks.DuckScavenger;
 
 public class RaceDuckFactory extends AbstractRaceFactory {
 
 	@Override
 	protected Boss createBoss() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckBoss();
 	}
 
 	@Override
 	protected Commander createCommander() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckCommander();
 	}
 
 	@Override
 	protected Scavenger createScavenger() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckScavenger();
 	}
 
 	@Override
 	protected Pawn createPawn() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckPawn();
 	}
 
 	@Override
 	public Player createPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckPlayer();
 	}
 
 	@Override
 	public Collector createCollector() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckCollector();
 	}
 
 	@Override
 	protected MainBase createMainBase() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckMainBase();
 	}
 
 	@Override
 	protected Base createBase() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckBase();
 	}
 
 	@Override
 	public Tower createTower() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckTower();
 	}
 
 	@Override
 	protected Deposit createDeposit() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckDeposit();
 	}
 
 	@Override
 	protected Spawner createSpawner() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DuckSpawner();
 	}
 }

@@ -9,7 +9,6 @@ public class FlyweightModel {
 	private int upgrades;
 	private int graphic;
 	private CollisionHandler collisionHandler;
-	private int attribute;
 	
 	public int getRangeOfVision() {
 		return rangeOfVision;
@@ -40,12 +39,6 @@ public class FlyweightModel {
 	}
 	public void setCollisionHandler(CollisionHandler collisionHandler) {
 		this.collisionHandler = collisionHandler;
-	}
-	public int getAttribute() {
-		return attribute;
-	}
-	public void setAttribute(int attribute) {
-		this.attribute = attribute;
 	}
 
 }

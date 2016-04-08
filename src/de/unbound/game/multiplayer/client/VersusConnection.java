@@ -2,6 +2,7 @@ package de.unbound.game.multiplayer.client;
 
 import de.unbound.game.wave.*;
 
+//DTO CLIENT Sender
 public class VersusConnection {
 
 	private WaveReport enemyReport;

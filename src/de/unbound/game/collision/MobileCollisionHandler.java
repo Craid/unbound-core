@@ -21,6 +21,8 @@ public class MobileCollisionHandler extends CollisionHandler<MobileEntity> {
 	public void handle(MobileEntity subject, Projectile object) {
 		// TODO - implement MobileCollisionHandler.handle
 		throw new UnsupportedOperationException();
+		//subject.takeDamage(object.getDamage());
+		//object.die();
 	}
 
 	/**

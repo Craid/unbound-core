@@ -11,7 +11,6 @@ public class FlyweightFactory {
 
 	private FlyweightFactory() {
 		// TODO - implement FlyweightFactory.FlyweightFactory
-		throw new UnsupportedOperationException();
 	}
 
 	/**
