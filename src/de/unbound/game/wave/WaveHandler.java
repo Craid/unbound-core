@@ -2,11 +2,39 @@ package de.unbound.game.wave;
 
 import java.util.ArrayList;
 
+import de.unbound.game.factories.AbstractRaceFactory;
+
 public abstract class WaveHandler {
 
-	protected ArrayList<WaveOrder> orders;
-	private de.unbound.game.wave.WaveReport ownWaveReport;
-	private double time;
+	private ArrayList<WaveOrder> orders;
+	private WaveOrder currentOrder;
+	private WaveReport ownWaveReport;
+	private AbstractRaceFactory ownFactory;
+	private AbstractRaceFactory enemyFactory;
+	private boolean newOrder;
+	
+	public WaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
+		setOwnFactory(ownFactory);
+		setEnemyFactory(enemyFactory);
+		orders = new ArrayList<WaveOrder>();
+		newOrder = false;
+	}
+
+	public AbstractRaceFactory getOwnFactory() {
+		return ownFactory;
+	}
+
+	protected void setOwnFactory(AbstractRaceFactory ownFactory) {
+		this.ownFactory = ownFactory;
+	}
+
+	public AbstractRaceFactory getEnemyFactory() {
+		return enemyFactory;
+	}
+
+	protected void setEnemyFactory(AbstractRaceFactory enemyFactory) {
+		this.enemyFactory = enemyFactory;
+	}
 
 	/**
 	 * 
@@ -18,12 +46,22 @@ public abstract class WaveHandler {
 	 * 
 	 * @param n
 	 */
-	public WaveOrder getOrderAtPosition(int n) {
-		// TODO - implement WaveHandler.getOrderAtPosition
-		throw new UnsupportedOperationException();
+	public WaveOrder getCurrentOrder() {
+		if(newOrder){
+			orders.add(currentOrder);
+			newOrder = false;
+			return currentOrder;
+		}else{
+			return WaveOrder.NullOrder();
+		}
+	}
+	
+	protected void setCurrentOrder(WaveOrder wo) {
+		newOrder = true;
+		currentOrder = wo;
 	}
 
-	public de.unbound.game.wave.WaveReport getOwnWaveReport() {
+	public WaveReport getOwnWaveReport() {
 		return this.ownWaveReport;
 	}
 
@@ -35,5 +73,9 @@ public abstract class WaveHandler {
 		// TODO - implement WaveHandler.setWaveReport
 		throw new UnsupportedOperationException();
 	}
-
+	
+	public boolean hasNewOrder(){
+		return newOrder;
+	}
+	
 }

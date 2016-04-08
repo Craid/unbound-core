@@ -14,15 +14,13 @@ public class BattleField {
 
 	private Player player;
 	private MainBase mainBase;
-	private ArrayList<de.unbound.game.model.entities.mobile.Projectile> projectiles;
+	private ArrayList<Projectile> projectiles;
 	private ArrayList<MobileEntity> enemies;
-	private ArrayList<de.unbound.game.model.entities.mobile.Collector> collectors;
+	private ArrayList<Collector> collectors;
 	private ArrayList<ImmobileEntity> immobileEntities;
 	public BattleField battleField;
 
 	private BattleField() {
-		// TODO - implement BattleField.BattleField
-		throw new UnsupportedOperationException();
 	}
 
 	public void init() {

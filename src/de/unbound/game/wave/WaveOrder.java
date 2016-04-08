@@ -10,19 +10,37 @@ public class WaveOrder {
 	private int pawnUpgrades;
 	private int scavengerUpgrades;
 	private int commanderUpgrades;
+	
+	public WaveOrder(){
+		this(0,0,0,0,0,0,0,0);
+	}
+	
+	public static WaveOrder NullOrder(){
+		return new WaveOrder();
+	}
 
-	public int getHeroNumber() {
-		// TODO - implement WaveOrder.getHeroNumber
-		throw new UnsupportedOperationException();
+	public WaveOrder(int bosses, int pawns, int scavengers, int commanders, int bossUpgrades,
+			int pawnUpgrades, int scavengerUpgrades, int commanderUpgrades) {
+		bossNumber = bosses;
+		pawnNumber = pawns;
+		scavengerNumber = scavengers;
+		commanderNumber = commanders;
+		this.bossUpgrades = bossUpgrades;
+		this.pawnUpgrades = pawnUpgrades;
+		this.scavengerUpgrades = scavengerUpgrades;
+		this.commanderUpgrades = commanderUpgrades;
+	}
+
+	public int getBossNumber() {
+		return bossNumber;
 	}
 
 	/**
 	 * 
-	 * @param heroNumber
+	 * @param bossNumber
 	 */
-	public void setHeroNumber(int heroNumber) {
-		// TODO - implement WaveOrder.setHeroNumber
-		throw new UnsupportedOperationException();
+	public void setBossNumber(int bossNumber) {
+		this.bossNumber = bossNumber;
 	}
 
 	public int getPawnNumber() {

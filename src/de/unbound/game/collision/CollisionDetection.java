@@ -22,7 +22,7 @@ public class CollisionDetection {
 
 	public CollisionDetection() {
 		// TODO - implement CollisionDetection.CollisionDetection
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void init() {

@@ -1,8 +1,9 @@
 package de.unbound.game;
 
-import de.unbound.game.factories.*;
-import de.unbound.game.wave.*;
-import de.unbound.game.collision.*;
+import de.unbound.game.collision.CollisionDetection;
+import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.wave.WaveHandler;
+import de.unbound.game.wave.WaveOrder;
 
 public class World {
 
@@ -11,25 +12,27 @@ public class World {
 	private WaveHandler waveHandler;
 	private CollisionDetection collisionDetection;
 
+	public World(WaveHandler waveHandler){
+		collisionDetection = new CollisionDetection();
+		this.waveHandler = waveHandler;
+		enemyFactory = waveHandler.getEnemyFactory();
+		ownFactory = waveHandler.getOwnFactory();
+	}
+	
 	/**
 	 * 
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime) {
-		// TODO - implement World.update
-		throw new UnsupportedOperationException();
+		waveHandler.update(deltaTime);
+		if(waveHandler.hasNewOrder()){
+			createWave(waveHandler.getCurrentOrder());
+		}
 	}
 
-	/**
-	 * 
-	 * @param newWaveHandler
-	 */
-	public void setWaveHandler(WaveHandler newWaveHandler) {
-		this.waveHandler = newWaveHandler;
-	}
-
-	public WaveHandler getWaveHandler() {
-		return this.waveHandler;
+	private void createWave(WaveOrder order) {
+		 enemyFactory.createWave(order);
+		 System.out.println("Created Wave");
 	}
 
 }

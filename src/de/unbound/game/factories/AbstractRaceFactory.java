@@ -24,8 +24,16 @@ public abstract class AbstractRaceFactory {
 	 * @param order
 	 */
 	public ArrayList<MobileEntity> createWave(WaveOrder order) {
-		// TODO - implement AbstractRaceFactory.createWave
-		throw new UnsupportedOperationException();
+		ArrayList<MobileEntity> entities = new ArrayList<MobileEntity>();
+		for(int i = 0; i < order.getBossNumber(); i++)
+			entities.add(createBoss());
+		for(int i = 0; i < order.getCommanderNumber(); i++)
+			entities.add(createCommander());
+		for(int i = 0; i < order.getScavengerNumber(); i++)
+			entities.add(createScavenger());
+		for(int i = 0; i < order.getPawnNumber(); i++)
+			entities.add(createPawn());
+		return entities;
 	}
 
 	protected abstract Boss createBoss();
