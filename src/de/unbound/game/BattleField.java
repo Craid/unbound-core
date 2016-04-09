@@ -30,9 +30,11 @@ public class BattleField {
 	
 	
 	public void update(double deltaTime) {
-		
-		
-		
+		//test
+//		for (Entity e : entitiesForNextUpdate){
+//			gameObjects.add(e);
+//		}
+		gameObjects.addAll(entitiesForNextUpdate);
 	}	
 	
 	
@@ -55,6 +57,7 @@ public class BattleField {
 		collectors = new ArrayList<Collector>();
 		immobileEntities = new ArrayList<ImmobileEntity>();
 		// Liste für alle Game Objects
+		entitiesForNextUpdate = new ArrayList<Entity>();
 		gameObjects = new ArrayList<Entity>();
 	}
 
@@ -78,8 +81,6 @@ public class BattleField {
 	 * 
 	 * @param waveEntities
 	 */
-	
-
 	public void addWave(ArrayList<MobileEntity> waveEntities) {
 		for(MobileEntity e : waveEntities)
 			add(e);
@@ -89,22 +90,22 @@ public class BattleField {
 	public void add(Projectile projectile) {  
 		if (projectile.isHostile()) enemyProjectiles.add(projectile); //Wenn feindlich...
 		else friendlyProjectiles.add(projectile); // wenn freundlich...
-		gameObjects.add(projectile); // 
+		entitiesForNextUpdate.add(projectile); // 
 	}
 	
 	public void add(MobileEntity mobileEntity) {
 		enemies.add(mobileEntity); 
-		gameObjects.add(mobileEntity);
+		entitiesForNextUpdate.add(mobileEntity);
 	}
 	
 	public void add(Collector collector) {
 		collectors.add(collector); 
-		gameObjects.add(collector);
+		entitiesForNextUpdate.add(collector);
 	}
 	
 	public void add(ImmobileEntity immobileEntity) {
 		immobileEntities.add(immobileEntity); 
-		gameObjects.add(immobileEntity);
+		entitiesForNextUpdate.add(immobileEntity);
 	}
 
 	/**
