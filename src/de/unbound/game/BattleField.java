@@ -14,15 +14,33 @@ public class BattleField {
 
 	private Player player;
 	private MainBase mainBase;
-	private ArrayList<Projectile> projectiles;
+	private ArrayList<Projectile> enemyProjectiles;
+	private ArrayList<Projectile> friendlyProjectiles;
 	private ArrayList<MobileEntity> enemies;
 	private ArrayList<Collector> collectors;
 	private ArrayList<ImmobileEntity> immobileEntities;
-	public static BattleField battleField;
+	private ArrayList<Entity> entitiesForNextUpdate; // Alle Entitäten auf dem Battlefield!
+	private ArrayList<Entity> gameObjects; // Alle Entitäten auf dem Battlefield!
+	private static BattleField battleField;
 
 	private BattleField() {
+		init();
 	}
 	
+	
+	
+	public void update(double deltaTime) {
+		
+		
+		
+	}	
+	
+	
+
+	public static void setBattleField(BattleField battleField) {
+		BattleField.battleField = battleField;
+	}
+
 	public static BattleField getBattleField(){
 		if(battleField == null)
 			battleField = new BattleField();
@@ -30,13 +48,14 @@ public class BattleField {
 	}
 
 	public void init() {
-		// TODO - implement BattleField.init
-		throw new UnsupportedOperationException();
-	}
-
-	public void updateQuadTree() {
-		// TODO - implement BattleField.updateQuadTree
-		throw new UnsupportedOperationException();
+		// Selektive Listen
+		enemyProjectiles = new ArrayList<Projectile>();
+		friendlyProjectiles = new ArrayList<Projectile>();
+		enemies = new ArrayList<MobileEntity>();
+		collectors = new ArrayList<Collector>();
+		immobileEntities = new ArrayList<ImmobileEntity>();
+		// Liste für alle Game Objects
+		gameObjects = new ArrayList<Entity>();
 	}
 
 	/**
@@ -59,23 +78,33 @@ public class BattleField {
 	 * 
 	 * @param waveEntities
 	 */
+	
+
 	public void addWave(ArrayList<MobileEntity> waveEntities) {
-		// TODO - implement BattleField.addWave
-		throw new UnsupportedOperationException();
+		for(MobileEntity e : waveEntities)
+			add(e);
 	}
-
-	/**
-	 * 
-	 * @param projectile
-	 */
-	public void addProjectile(Projectile projectile) {
-		// TODO - implement BattleField.addProjectile
-		throw new UnsupportedOperationException();
+	
+	// Add Commands
+	public void add(Projectile projectile) {  
+		if (projectile.isHostile()) enemyProjectiles.add(projectile); //Wenn feindlich...
+		else friendlyProjectiles.add(projectile); // wenn freundlich...
+		gameObjects.add(projectile); // 
 	}
-
-	public void addCollector() {
-		// TODO - implement BattleField.addCollector
-		throw new UnsupportedOperationException();
+	
+	public void add(MobileEntity mobileEntity) {
+		enemies.add(mobileEntity); 
+		gameObjects.add(mobileEntity);
+	}
+	
+	public void add(Collector collector) {
+		collectors.add(collector); 
+		gameObjects.add(collector);
+	}
+	
+	public void add(ImmobileEntity immobileEntity) {
+		immobileEntities.add(immobileEntity); 
+		gameObjects.add(immobileEntity);
 	}
 
 	/**
@@ -83,7 +112,7 @@ public class BattleField {
 	 * @param immobileEntity
 	 */
 	public void addImmobileEntity(ImmobileEntity immobileEntity) {
-		// TODO - implement BattleField.addImmobileEntity
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -92,7 +121,7 @@ public class BattleField {
 	 * @param entity
 	 */
 	public void remove(Entity entity) {
-		// TODO - implement BattleField.remove
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -101,7 +130,7 @@ public class BattleField {
 	 * @param projectile
 	 */
 	private void remove(Projectile projectile) {
-		// TODO - implement BattleField.remove
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -110,7 +139,7 @@ public class BattleField {
 	 * @param enemy
 	 */
 	private void remove(MobileEntity enemy) {
-		// TODO - implement BattleField.remove
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -119,7 +148,7 @@ public class BattleField {
 	 * @param collectors
 	 */
 	private void remove(Collector collectors) {
-		// TODO - implement BattleField.remove
+		
 		throw new UnsupportedOperationException();
 	}
 
@@ -128,8 +157,71 @@ public class BattleField {
 	 * @param immobileEntity
 	 */
 	private void remove(ImmobileEntity immobileEntity) {
-		// TODO - implement BattleField.remove
+		
 		throw new UnsupportedOperationException();
+	}
+
+
+	public void setEnemyProjectiles(ArrayList<Projectile> enemyProjectiles) {
+		this.enemyProjectiles = enemyProjectiles;
+	}
+
+	public ArrayList<Projectile> getFriendlyProjectiles() {
+		return friendlyProjectiles;
+	}
+
+	public void setFriendlyProjectiles(ArrayList<Projectile> friendlyProjectiles) {
+		this.friendlyProjectiles = friendlyProjectiles;
+	}
+
+	public ArrayList<MobileEntity> getEnemies() {
+		return enemies;
+	}
+
+	public void setEnemies(ArrayList<MobileEntity> enemies) {
+		this.enemies = enemies;
+	}
+
+	public ArrayList<Collector> getCollectors() {
+		return collectors;
+	}
+
+	public void setCollectors(ArrayList<Collector> collectors) {
+		this.collectors = collectors;
+	}
+
+	public ArrayList<ImmobileEntity> getImmobileEntities() {
+		return immobileEntities;
+	}
+
+	public void setImmobileEntities(ArrayList<ImmobileEntity> immobileEntities) {
+		this.immobileEntities = immobileEntities;
+	}
+
+	public ArrayList<Entity> getGameObjects() {
+		return gameObjects;
+	}
+
+	public void setGameObjects(ArrayList<Entity> gameObjects) {
+		this.gameObjects = gameObjects;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public MainBase getMainBase() {
+		return mainBase;
+	}
+	public ArrayList<Projectile> getEnemyProjectiles() {
+		return enemyProjectiles;
+	}
+	public ArrayList<Entity> getEntitiesForNextUpdate() {
+		return entitiesForNextUpdate;
+	}
+
+	public void setEntitiesForNextUpdate(ArrayList<Entity> entitiesForNextUpdate) {
+		this.entitiesForNextUpdate = entitiesForNextUpdate;
 	}
 
 }

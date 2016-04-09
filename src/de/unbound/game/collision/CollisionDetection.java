@@ -1,33 +1,17 @@
 package de.unbound.game.collision;
 
-import java.util.ArrayList;
-
-import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
-import de.unbound.game.model.entities.immobile.MainBase;
-import de.unbound.game.model.entities.mobile.Collector;
-import de.unbound.game.model.entities.mobile.MobileEntity;
-import de.unbound.game.model.entities.mobile.Player;
-import de.unbound.game.model.entities.mobile.Projectile;
+import de.unbound.game.BattleField;
 
 public class CollisionDetection {
-
-	private Player player;
-	private ArrayList<Projectile> bullets;
-	private ArrayList<MobileEntity> enemies;
-	private ArrayList<Collector> collectors;
-	private ArrayList<ImmobileEntity> immobileEntites;
-	Entity n;
-	private MainBase mainBase;
+	
+	private BattleField battleField;
 
 	public CollisionDetection() {
-		// TODO - implement CollisionDetection.CollisionDetection
-		
+		init();
 	}
 
 	public void init() {
-		// TODO - implement CollisionDetection.init
-		throw new UnsupportedOperationException();
+		this.battleField = BattleField.getBattleField();
 	}
 
 	/**
@@ -35,107 +19,7 @@ public class CollisionDetection {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime) {
-		// TODO - implement CollisionDetection.update
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param waveEntites
-	 */
-	public void addWave(ArrayList<MobileEntity> waveEntites) {
-		// TODO - implement CollisionDetection.addWave
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param bullet
-	 */
-	public void add(Projectile bullet) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param enemyEntity
-	 */
-	public void add(MobileEntity enemyEntity) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param collector
-	 */
-	public void add(Collector collector) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param immobileEntity
-	 */
-	public void add(ImmobileEntity immobileEntity) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param player
-	 */
-	public void add(Player player) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param bullet
-	 */
-	public void remove(Projectile bullet) {
-		// TODO - implement CollisionDetection.remove
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param enemyEntity
-	 */
-	private void remove(MobileEntity enemyEntity) {
-		// TODO - implement CollisionDetection.remove
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param collector
-	 */
-	private void remove(Collector collector) {
-		// TODO - implement CollisionDetection.remove
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param immobileEntity
-	 */
-	public void remove(ImmobileEntity immobileEntity) {
-		// TODO - implement CollisionDetection.remove
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param mainBase
-	 */
-	public void add(MainBase mainBase) {
-		// TODO - implement CollisionDetection.add
-		throw new UnsupportedOperationException();
+//		battleField.getGameObjects().doCollisionDetetctionStuff()
 	}
 
 }

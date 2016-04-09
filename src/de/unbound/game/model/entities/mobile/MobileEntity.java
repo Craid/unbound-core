@@ -2,25 +2,30 @@ package de.unbound.game.model.entities.mobile;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.unbound.game.collision.CollisionHandler;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.state.move.MoveState;
-import de.unbound.game.model.state.move.Straight;
+import de.unbound.game.model.state.attack.AttackStateStraight;
+import de.unbound.game.model.state.move.AbstractMoveState;
+import de.unbound.game.model.state.move.MoveStateStraight;
 
 public abstract class MobileEntity extends Entity {
 
-	private MoveState move;
+	private AbstractMoveState move;
 	private Vector2 velocity;
 	
 	public MobileEntity(){
-		move = new Straight();
+		setAttack(new AttackStateStraight(this));
+		move = new MoveStateStraight(this); // Maus überarbeitet werden in singleton 
 		velocity = new Vector2();
 	}
 	
 	@Override
 	public void update(double deltaTime){
-		getAttack().execute();
-		move.execute();
+		getAttack().execute(deltaTime);
+		move.execute(deltaTime);
+	}
+	
+	public void updateMoveState(){
+		
 	}
 
 	
@@ -32,6 +37,14 @@ public abstract class MobileEntity extends Entity {
 
 	public void setVelocity(Vector2 velocity) {
 		this.velocity = velocity;
+	}
+
+	public AbstractMoveState getMove() {
+		return move;
+	}
+
+	public void setMove(AbstractMoveState move) {
+		this.move = move;
 	}
 
 }

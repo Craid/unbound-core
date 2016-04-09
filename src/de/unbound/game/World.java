@@ -2,6 +2,7 @@ package de.unbound.game;
 
 import de.unbound.game.collision.CollisionDetection;
 import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.model.entities.Entity;
 import de.unbound.game.wave.WaveHandler;
 import de.unbound.game.wave.WaveOrder;
 
@@ -30,11 +31,13 @@ public class World {
 		if(waveHandler.hasNewOrder()){
 			createWave(waveHandler.getCurrentOrder());
 		}
+		battleField.update(deltaTime);
+		for(Entity e : battleField.getGameObjects())
+			e.update(deltaTime);
 	}
 
 	private void createWave(WaveOrder order) {
-		 enemyFactory.createWave(order);
-		 //TODO add to Battlefield
+		 battleField.addWave(enemyFactory.createWave(order));
 		 System.out.println("Created Wave");
 	}
 

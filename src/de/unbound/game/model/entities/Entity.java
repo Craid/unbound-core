@@ -5,22 +5,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.model.EntityFlyweight;
-import de.unbound.game.model.state.attack.AttackState;
-import de.unbound.game.model.state.attack.None;
+import de.unbound.game.model.state.attack.AbstractAttackState;
+import de.unbound.game.model.state.attack.AttackStateNone;
 
 public abstract class Entity {
 
-	private AttackState attack;
+	private AbstractAttackState attack;
 	private Vector2 position;
 	private Vector2 direction;
 	private boolean active;
 	private EntityFlyweight model;
-	
+	private boolean hostile;
+	private double hp;
+
 	public Entity(){
-		attack = new None();
+		attack = new AttackStateNone(this);
 		position = new Vector2();
 		direction = new Vector2();
 		active = true;
+		hostile = false;
+		setHp(0);
 	}
 
 	/**
@@ -28,7 +32,7 @@ public abstract class Entity {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime){
-		attack.execute();
+		attack.execute(deltaTime);
 	}
 
 	public void render(SpriteBatch batch){
@@ -71,11 +75,11 @@ public abstract class Entity {
 		this.active = active;
 	}
 
-	public AttackState getAttack() {
+	public AbstractAttackState getAttack() {
 		return attack;
 	}
 
-	public void setAttack(AttackState attack) {
+	public void setAttack(AbstractAttackState attack) {
 		this.attack = attack;
 	}
 
@@ -85,6 +89,22 @@ public abstract class Entity {
 
 	public void setModel(EntityFlyweight model) {
 		this.model = model;
+	}
+	
+	public boolean isHostile() {
+		return hostile;
+	}
+
+	public void setHostile(boolean hostile) {
+		this.hostile = hostile;
+	}
+
+	public double getHp() {
+		return hp;
+	}
+
+	public void setHp(double hp) {
+		this.hp = hp;
 	}
 
 }
