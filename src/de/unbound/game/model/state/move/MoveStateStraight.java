@@ -11,6 +11,5 @@ public class MoveStateStraight extends AbstractMoveState {
 	@Override
 	public void execute(double deltaTime) {
 		// TODO Auto-generated method stub
-		
 	}
 }

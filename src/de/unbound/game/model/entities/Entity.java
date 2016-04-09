@@ -106,5 +106,5 @@ public abstract class Entity {
 	public void setHp(double hp) {
 		this.hp = hp;
 	}
-
+	
 }

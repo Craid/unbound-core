@@ -2,7 +2,6 @@ package de.unbound.game.model.state.attack;
 
 import de.unbound.game.model.entities.Entity;
 
-
 public class AttackStateNone extends AbstractAttackState {
 
 	public AttackStateNone(Entity e) {
@@ -15,4 +14,5 @@ public class AttackStateNone extends AbstractAttackState {
 		//System.out.println("E.Class" + e.getClass());
 		//Intentionally left blank!
 	}
+
 }
