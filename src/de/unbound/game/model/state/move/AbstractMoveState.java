@@ -1,16 +1,14 @@
 package de.unbound.game.model.state.move;
 
 import de.unbound.game.model.entities.mobile.MobileEntity;
-public class AbstractMoveState implements MoveState{
+import de.unbound.game.model.state.State;
+
+public abstract class AbstractMoveState implements State{
 	
 	protected MobileEntity e;
 	
 	public AbstractMoveState(MobileEntity e) {
 		this.e = e;
-	}
-
-	
-	public void execute(double deltaTime) {
 	}
 
 }

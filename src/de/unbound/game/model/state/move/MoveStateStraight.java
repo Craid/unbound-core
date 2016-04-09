@@ -9,7 +9,10 @@ public class MoveStateStraight extends AbstractMoveState {
 	}
 
 	@Override
-	public void execute(double deltaTime) {
-		// TODO Auto-generated method stub
+	public void update(double deltaTime) {
+		//TODO Marwin mach mal
+//		e.setVelocity(e.getVelocity().scl((float)(1+deltaTime)));
+//		e.setPosition(e.getPosition().add(e.getVelocity()));
+//		System.out.println(e.getPosition());
 	}
 }

@@ -6,7 +6,6 @@ public abstract class Projectile extends MobileEntity {
 	
 	public Projectile(){
 		super();
-		System.out.println();
 		setAttack(new AttackStateNone(this));
 	}
 	

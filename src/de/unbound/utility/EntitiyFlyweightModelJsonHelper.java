@@ -14,7 +14,9 @@ public class EntitiyFlyweightModelJsonHelper {
 	public static final EntitiyFlyweightModelJsonHelper instance = new EntitiyFlyweightModelJsonHelper();
 	
 	private EntitiyFlyweightModelJsonHelper(){
-		//initDocument();
+		//uncomment to update flyweightmodel.json
+		//needs to be moved from desktop/<root> to android/assests/model/
+//		initDocument(); 
 	}
 
 	public HashMap<String, EntityFlyweightModel> readDocument() {
@@ -34,34 +36,34 @@ public class EntitiyFlyweightModelJsonHelper {
 	private void initDocument() {
 		ArrayList<EntityFlyweightModel> ffml = new ArrayList<EntityFlyweightModel>();
 
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelatePlayer", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateBoss", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateCollector", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateCommander", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelatePawn", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateProjectile", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateScavenger", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateBase", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateDeposit", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateMainBase", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateSpawner", "Prelate"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "PrelateTower", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePlayer", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateBoss", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCollector", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCommander", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePawn", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateProjectile", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateScavenger", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateBase", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateDeposit", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateMainBase", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateSpawner", "Prelate"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateTower", "Prelate"));
 
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckPlayer", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckBoss", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckCollector", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckCommander", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckPawn", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckProjectile", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckScavenger", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckBase", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckDeposit", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckMainBase", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckSpawner", "Duck"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, 0, "DuckTower", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPlayer", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckBoss", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCollector", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCommander", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPawn", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckProjectile", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckScavenger", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckBase", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckDeposit", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckMainBase", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckSpawner", "Duck"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckTower", "Duck"));
 
 		Json json = new Json();
-		FileHandle file = Gdx.files.local("model/flyweightentitymodel.json");
+		FileHandle file = Gdx.files.local("flyweightentitymodel.json");
 		file.writeString(json.toJson(ffml), false);
 	}
 

@@ -1,8 +1,9 @@
 package de.unbound.game.model.state.attack;
 
 import de.unbound.game.model.entities.Entity;
+import de.unbound.game.model.state.State;
 
-public abstract class AbstractAttackState implements AttackState{
+public abstract class AbstractAttackState implements State{
 	
 	protected Entity e;
 	

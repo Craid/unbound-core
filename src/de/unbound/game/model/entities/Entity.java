@@ -32,7 +32,7 @@ public abstract class Entity {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime){
-		attack.execute(deltaTime);
+		attack.update(deltaTime);
 	}
 
 	public void render(SpriteBatch batch){

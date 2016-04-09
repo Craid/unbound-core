@@ -9,7 +9,7 @@ public class MoveStateNone extends AbstractMoveState {
 	}
 
 	@Override
-	public void execute(double deltaTime) {
+	public void update(double deltaTime) {
 	}
 
 }

@@ -12,12 +12,14 @@ public abstract class WaveHandler {
 	private AbstractRaceFactory ownFactory;
 	private AbstractRaceFactory enemyFactory;
 	private boolean newOrder;
+	protected int level;
 	
 	public WaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
 		setOwnFactory(ownFactory);
 		setEnemyFactory(enemyFactory);
 		orders = new ArrayList<WaveOrder>();
 		newOrder = false;
+		level = -1;
 	}
 
 	public AbstractRaceFactory getOwnFactory() {
@@ -76,6 +78,10 @@ public abstract class WaveHandler {
 	
 	public boolean hasNewOrder(){
 		return newOrder;
+	}
+	
+	public int getLevel(){
+		return level;
 	}
 	
 }

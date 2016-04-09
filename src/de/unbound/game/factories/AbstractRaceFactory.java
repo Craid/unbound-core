@@ -41,6 +41,8 @@ public abstract class AbstractRaceFactory {
 			entities.add(createScavenger());
 		for(int i = 0; i < order.getPawnNumber(); i++)
 			entities.add(createPawn());
+		for(MobileEntity e : entities)
+			e.setHostile(true);
 		return entities;
 	}
 
@@ -77,7 +79,6 @@ public abstract class AbstractRaceFactory {
 	
 	private void updateModel(Entity e){
 		e.setModel(flyweightFactory.getFlyweight(e.getClass().getSimpleName()));
-		e.setHostile(true);
 	}
 	
 	protected <T extends Entity> T createEntitiy(Class<T> c){

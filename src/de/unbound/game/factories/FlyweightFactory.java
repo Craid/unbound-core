@@ -41,20 +41,6 @@ public class FlyweightFactory {
 		ef.setRangeOfVision(efm.getRangeOfVision());
 		ef.setUpgrades(efm.getUpgrades());
 
-		switch (efm.getCollisionHandler()) {
-		case 0:
-			ef.setCollisionHandler(MobileCollisionHandler.instance);
-			break;
-		case 1:
-			ef.setCollisionHandler(ProjectileMobileEffectiveCollisionHandler.instance);
-			break;
-		case 2:
-			ef.setCollisionHandler(ProjectileImmobileEffectiveCollisionHandler.instance);
-			break;
-		default:
-			ef.setCollisionHandler(NoneCollisionHandler.instance);
-		}
-
 		// TODO Code for loading assets!
 		// AssetsManager.gibAus efm.graphic den Teilausschnitt efm.name
 		

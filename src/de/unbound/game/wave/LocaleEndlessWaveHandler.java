@@ -6,14 +6,16 @@ import de.unbound.game.factories.RacePrelateFactory;
 
 public class LocaleEndlessWaveHandler extends WaveHandler {
 	
-	private static final int WAVETIMEOUTS = 10;
+	/**
+	 * Timeout in seconds
+	 */
+	private static final int WAVETIMEOUTS = 30;
 	private double cummulativeTime;
-	private int difficulity;
 
 	public LocaleEndlessWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
-		cummulativeTime = 0;
-		difficulity = 1;
+		cummulativeTime = 27; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS
+		level = 1;
 	}
 	
 	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
@@ -25,16 +27,16 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 		cummulativeTime += deltaTime;
 		if(cummulativeTime > WAVETIMEOUTS){
 			cummulativeTime -= WAVETIMEOUTS;
-			difficulity++;
+			level++;
 			setCurrentOrder(createWaveAccordingToDifficulity());
 		}
 	}
 
 	private WaveOrder createWaveAccordingToDifficulity() {
-		int boss = difficulity/10;
-		int commander = difficulity/5;
-		int scavenger = difficulity%5;
-		int pawn = (difficulity%5) * 3;
+		int boss = level/10;
+		int commander = level/5;
+		int scavenger = level%5;
+		int pawn = (level%5) * 3;
 		return new WaveOrder(boss, pawn, scavenger, commander, 0, 0, 0, 0);
 	}
 }

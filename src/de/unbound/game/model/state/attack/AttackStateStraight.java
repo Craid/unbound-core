@@ -16,7 +16,7 @@ public class AttackStateStraight extends AbstractAttackState {
 	}
 	
 	@Override
-	public void execute(double deltaTime) {
+	public void update(double deltaTime) {
 		lastTimeSinceEntityShot += deltaTime;
 		if(lastTimeSinceEntityShot > 5){
 			BattleField.getBattleField().add(createBullet());

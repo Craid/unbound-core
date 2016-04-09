@@ -20,8 +20,8 @@ public abstract class MobileEntity extends Entity {
 	
 	@Override
 	public void update(double deltaTime){
-		getAttack().execute(deltaTime);
-		move.execute(deltaTime);
+		getAttack().update(deltaTime);
+		move.update(deltaTime);
 	}
 	
 	public void updateMoveState(){

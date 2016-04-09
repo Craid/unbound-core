@@ -27,17 +27,10 @@ public class BattleField {
 		init();
 	}
 	
-	
-	
 	public void update(double deltaTime) {
-		//test
-//		for (Entity e : entitiesForNextUpdate){
-//			gameObjects.add(e);
-//		}
 		gameObjects.addAll(entitiesForNextUpdate);
+		entitiesForNextUpdate.clear();
 	}	
-	
-	
 
 	public static void setBattleField(BattleField battleField) {
 		BattleField.battleField = battleField;
@@ -214,9 +207,11 @@ public class BattleField {
 	public MainBase getMainBase() {
 		return mainBase;
 	}
+	
 	public ArrayList<Projectile> getEnemyProjectiles() {
 		return enemyProjectiles;
 	}
+	
 	public ArrayList<Entity> getEntitiesForNextUpdate() {
 		return entitiesForNextUpdate;
 	}

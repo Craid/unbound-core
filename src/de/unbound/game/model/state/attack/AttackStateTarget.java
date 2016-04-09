@@ -11,7 +11,7 @@ public class AttackStateTarget extends AbstractAttackState {
 	}
 	
 	@Override
-	public void execute(double deltaTime) {
+	public void update(double deltaTime) {
 		// TODO Auto-generated method stub
 	}
 	

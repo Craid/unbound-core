@@ -3,17 +3,16 @@ package de.unbound.game.model;
 public class EntityFlyweightModel {
 	
 	private double rangeOfVision, rangeOfCollision;
-	private int upgrades, collisionHandler;
+	private int upgrades;
 	private String graphic, name;
 	
 	public EntityFlyweightModel(){}
 	
-	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, int collisionHandler, String name, String graphic){
+	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String name, String graphic){
 		setRangeOfCollision(rangeOfCollision);
 		setRangeOfVision(rangeOfVision);
 		setUpgrades(upgrades);
 		setGraphic(graphic);
-		setCollisionHandler(collisionHandler);
 		setName(name);
 	}
 
@@ -39,14 +38,6 @@ public class EntityFlyweightModel {
 
 	public void setUpgrades(int upgrades) {
 		this.upgrades = upgrades;
-	}
-
-	public int getCollisionHandler() {
-		return collisionHandler;
-	}
-
-	public void setCollisionHandler(int collisionHandler) {
-		this.collisionHandler = collisionHandler;
 	}
 
 	public String getGraphic() {

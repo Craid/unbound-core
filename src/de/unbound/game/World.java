@@ -34,6 +34,7 @@ public class World {
 		battleField.update(deltaTime);
 		for(Entity e : battleField.getGameObjects())
 			e.update(deltaTime);
+		
 	}
 
 	private void createWave(WaveOrder order) {

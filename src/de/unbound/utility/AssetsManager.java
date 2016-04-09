@@ -27,9 +27,9 @@ public class AssetsManager implements Disposable{
 		this.assetManager = assetManager;
 		//NOTE: This is like the Swing-MediaTracker
 		assetManager.load("img/testLevel.pack", TextureAtlas.class);
-		assetManager.load("sounds/Jump_Gras.mp3", Sound.class);
-		assetManager.load("sounds/JumpOnGrass.mp3", Sound.class);
-		assetManager.load("sounds/LandOnAnything.mp3", Sound.class);
+//		assetManager.load("sounds/Jump_Gras.mp3", Sound.class);
+//		assetManager.load("sounds/JumpOnGrass.mp3", Sound.class);
+//		assetManager.load("sounds/LandOnAnything.mp3", Sound.class);
 		//assetManager.load("music/ForestNoises.mp3", Music.class); 
 		//Music is streamed directly from the location and mustn't be loaded 
 		//Because Of The Low RAM On Smartphones
@@ -37,10 +37,10 @@ public class AssetsManager implements Disposable{
 		Gdx.app.log(TAG,"Finished loading!");
 		//The data is now allocated in the RAM 
 		
-		//Loading the Sound Files Into The Sound Manager HashMap
-		SoundManager.load("sounds/Jump_Gras.mp3", "Jump_Gras");
-		SoundManager.load("sounds/JumpOnGrass.mp3", "JumpOnGrass");
-		SoundManager.load("sounds/LandOnAnything.mp3", "LandOnAnything");
+//		//Loading the Sound Files Into The Sound Manager HashMap
+//		SoundManager.load("sounds/Jump_Gras.mp3", "Jump_Gras");
+//		SoundManager.load("sounds/JumpOnGrass.mp3", "JumpOnGrass");
+//		SoundManager.load("sounds/LandOnAnything.mp3", "LandOnAnything");
 		
 		//Gets the Textures and the TextureRegions
 		TextureAtlas atlas = assetManager.get("img/testLevel.pack");
