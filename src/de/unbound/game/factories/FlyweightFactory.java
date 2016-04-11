@@ -8,6 +8,7 @@ import de.unbound.game.collision.ProjectileImmobileEffectiveCollisionHandler;
 import de.unbound.game.collision.ProjectileMobileEffectiveCollisionHandler;
 import de.unbound.game.model.EntityFlyweight;
 import de.unbound.game.model.EntityFlyweightModel;
+import de.unbound.utility.AssetsManager;
 import de.unbound.utility.EntitiyFlyweightModelJsonHelper;
 
 public class FlyweightFactory {
@@ -42,6 +43,7 @@ public class FlyweightFactory {
 
 		// TODO Code for loading assets!
 		// AssetsManager.gibAus efm.graphic den Teilausschnitt efm.name
+		ef.setGraphic(AssetsManager.instance.getSprite(efm.getName(), efm.getGraphic()));
 		
 		return ef;
 	}
