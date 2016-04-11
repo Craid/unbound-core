@@ -28,7 +28,6 @@ public class FlyweightFactory {
 	public EntityFlyweight getFlyweight(String name) {
 		if (flyweights.get(name) == null){
 			flyweights.put(name, createEntityFlywight(name));
-			System.out.println(flyweightUberModels.get(name).getName());
 		}
 		return flyweights.get(name);
 	}

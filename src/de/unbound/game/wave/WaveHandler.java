@@ -13,6 +13,7 @@ public abstract class WaveHandler {
 	private AbstractRaceFactory enemyFactory;
 	private boolean newOrder;
 	protected int level;
+	private float seed;
 	
 	public WaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
 		setOwnFactory(ownFactory);
@@ -20,6 +21,7 @@ public abstract class WaveHandler {
 		orders = new ArrayList<WaveOrder>();
 		newOrder = false;
 		level = -1;
+		seed = (float) Math.random();
 	}
 
 	public AbstractRaceFactory getOwnFactory() {
@@ -82,6 +84,14 @@ public abstract class WaveHandler {
 	
 	public int getLevel(){
 		return level;
+	}
+	
+	public float getSeed(){
+		return seed;
+	}
+	
+	protected void setSeed(float newSeed){
+		seed = newSeed;
 	}
 	
 }

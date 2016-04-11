@@ -5,7 +5,6 @@ import de.unbound.game.model.entities.mobile.*;
 public class PrelateCommander extends Commander {
 	
 	public PrelateCommander(){
-		System.out.println("Created PrelateCommander");
 	}
 
 }

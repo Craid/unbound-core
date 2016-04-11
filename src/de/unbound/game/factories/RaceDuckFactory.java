@@ -1,11 +1,9 @@
 package de.unbound.game.factories;
 
-import de.unbound.game.model.entities.immobile.Base;
 import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
 import de.unbound.game.model.entities.immobile.Tower;
-import de.unbound.game.model.entities.immobile.ducks.DuckBase;
 import de.unbound.game.model.entities.immobile.ducks.DuckDeposit;
 import de.unbound.game.model.entities.immobile.ducks.DuckMainBase;
 import de.unbound.game.model.entities.immobile.ducks.DuckSpawner;
@@ -58,11 +56,6 @@ public class RaceDuckFactory extends AbstractRaceFactory {
 	@Override
 	protected MainBase createMainBase() {
 		return createEntitiy(DuckMainBase.class);
-	}
-
-	@Override
-	protected Base createBase() {
-		return createEntitiy(DuckBase.class);
 	}
 
 	@Override

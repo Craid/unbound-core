@@ -5,7 +5,6 @@ import de.unbound.game.model.entities.mobile.*;
 public class PrelatePlayer extends Player {
 
 	public PrelatePlayer(){
-		System.out.println("Created PrelatePlayer");
 	}
 	
 }

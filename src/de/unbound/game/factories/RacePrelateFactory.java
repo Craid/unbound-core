@@ -1,11 +1,9 @@
 package de.unbound.game.factories;
 
-import de.unbound.game.model.entities.immobile.Base;
 import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
 import de.unbound.game.model.entities.immobile.Tower;
-import de.unbound.game.model.entities.immobile.prelates.PrelateBase;
 import de.unbound.game.model.entities.immobile.prelates.PrelateDeposit;
 import de.unbound.game.model.entities.immobile.prelates.PrelateMainBase;
 import de.unbound.game.model.entities.immobile.prelates.PrelateSpawner;
@@ -58,11 +56,6 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 	@Override
 	protected MainBase createMainBase() {
 		return createEntitiy(PrelateMainBase.class);
-	}
-
-	@Override
-	protected Base createBase() {
-		return createEntitiy(PrelateBase.class);
 	}
 
 	@Override

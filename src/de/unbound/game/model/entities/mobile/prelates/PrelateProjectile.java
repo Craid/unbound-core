@@ -6,7 +6,6 @@ public class PrelateProjectile extends Projectile {
 
 	public PrelateProjectile(){
 		super();
-		System.out.println("Created PrelateProjectile");
 	}
 	
 }

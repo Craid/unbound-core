@@ -9,12 +9,12 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	/**
 	 * Timeout in seconds
 	 */
-	private static final int WAVETIMEOUTS = 30;
+	private static final int WAVETIMEOUTS = 5;
 	private double cummulativeTime;
 
 	public LocaleEndlessWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
-		cummulativeTime = 27; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS
+		cummulativeTime = 2; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS
 		level = 1;
 	}
 	

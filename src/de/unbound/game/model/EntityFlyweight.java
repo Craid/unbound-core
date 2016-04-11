@@ -10,7 +10,6 @@ public class EntityFlyweight {
 	private double rangeofCollision;
 	private int upgrades;
 	private Sprite graphic;
-	private CollisionHandler collisionHandler;
 	
 	public double getRangeOfVision() {
 		return rangeOfVision;
@@ -35,12 +34,6 @@ public class EntityFlyweight {
 	}
 	public void setGraphic(Sprite graphic) {
 		this.graphic = graphic;
-	}
-	public CollisionHandler getCollisionHandler() {
-		return collisionHandler;
-	}
-	public void setCollisionHandler(CollisionHandler collisionHandler) {
-		this.collisionHandler = collisionHandler;
 	}
 
 }
