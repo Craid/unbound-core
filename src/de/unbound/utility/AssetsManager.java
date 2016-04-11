@@ -20,14 +20,16 @@ public class AssetsManager implements Disposable{
 	public static final AssetsManager instance = new AssetsManager();
 
 	//Singleton pattern
-	private AssetsManager(){}
+	private AssetsManager(){
+		init(new AssetManager());
+	}
 	
 	public void init(AssetManager assetManager){
 		this.assetManager = assetManager;
 		
 		//NOTE: This is like the Swing-MediaTracker
-		assetManager.load("model/img/duck/Duck.atlas", TextureAtlas.class);
-		assetManager.load("model/img/prelate/Prelate.atlas", TextureAtlas.class);
+		assetManager.load("img/duck/DuckOwn.atlas", TextureAtlas.class);
+		assetManager.load("img/prelate/Prelate.atlas", TextureAtlas.class);
 		
 		//assetManager.load("music/ForestNoises.mp3", Music.class); 
 		//Music is streamed directly from the location and mustn't be loaded 
@@ -40,18 +42,21 @@ public class AssetsManager implements Disposable{
 		//The data is now allocated in the RAM 
 		
 		//Gets the Textures and the TextureRegions
-		TextureAtlas atlas = assetManager.get("model/img/duck/Duck.atlas");
+		TextureAtlas atlas = assetManager.get("img/duck/DuckOwn.atlas");
+		//With TextureFilters we can smooth the pixel when upscaled or downscaled
+		for(Texture t : atlas.getTextures()){
+			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		System.out.println("Texture Regions : " +atlas.getRegions());
+		
+		//Gets the Textures and the TextureRegions
+		atlas = assetManager.get("img/prelate/Prelate.atlas");
 		//With TextureFilters we can smooth the pixel when upscaled or downscaled
 		for(Texture t : atlas.getTextures()){
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
-		//Gets the Textures and the TextureRegions
-		atlas = assetManager.get("model/img/prelate/Prelate.atlas");
-		//With TextureFilters we can smooth the pixel when upscaled or downscaled
-		for(Texture t : atlas.getTextures()){
-			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		}
+		System.out.println("Texture Regions : " +atlas.getRegions());
 
 		//The TextureRegions are assigned in the Constructors of these Inner-Classes
 		duckOwn = new AssetDuckOwn(atlas);
