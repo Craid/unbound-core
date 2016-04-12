@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.model.entities.mobile.MobileEntity;
 
-public class MoveStateStraight extends AbstractMoveState {
+public class MoveStateRandom extends AbstractMoveState {
 	
-	public MoveStateStraight(MobileEntity e) {
+	public MoveStateRandom(MobileEntity e) {
 		super(e);
 	}
 
