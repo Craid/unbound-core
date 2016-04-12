@@ -11,7 +11,6 @@ import de.unbound.game.model.entities.immobile.ducks.DuckTower;
 import de.unbound.game.model.entities.mobile.Boss;
 import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.Commander;
-import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Pawn;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Projectile;

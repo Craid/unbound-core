@@ -2,10 +2,6 @@ package de.unbound.game.factories;
 
 import java.util.HashMap;
 
-import de.unbound.game.collision.MobileCollisionHandler;
-import de.unbound.game.collision.NoneCollisionHandler;
-import de.unbound.game.collision.ProjectileImmobileEffectiveCollisionHandler;
-import de.unbound.game.collision.ProjectileMobileEffectiveCollisionHandler;
 import de.unbound.game.model.EntityFlyweight;
 import de.unbound.game.model.EntityFlyweightModel;
 import de.unbound.utility.AssetsManagingHelper;

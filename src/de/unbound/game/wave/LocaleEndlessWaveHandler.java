@@ -3,7 +3,6 @@ package de.unbound.game.wave;
 import de.unbound.game.factories.AbstractRaceFactory;
 import de.unbound.game.factories.RaceDuckFactory;
 import de.unbound.game.factories.RacePrelateFactory;
-import de.unbound.game.model.entities.mobile.Boss;
 
 public class LocaleEndlessWaveHandler extends WaveHandler {
 	

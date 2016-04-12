@@ -1,19 +1,13 @@
 package de.unbound.game;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.collision.CollisionDetection;
 import de.unbound.game.factories.AbstractRaceFactory;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
-import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.wave.WaveHandler;
-import de.unbound.utility.AssetsManagingHelper;
 
 public class World {
 
@@ -22,7 +16,6 @@ public class World {
 	private WaveHandler gameMode;
 	private CollisionDetection collisionDetection;
 	private BattleField battleField;
-	private ArrayList<MobileEntity> wave;
 	private SpriteBatch batch;
 
 	public World(WaveHandler gameMode){
@@ -35,7 +28,6 @@ public class World {
 		enemyFactory = this.gameMode.getEnemyFactory();
 		ownFactory = this.gameMode.getOwnFactory();
 		battleField = BattleField.getBattleField();
-		wave = new ArrayList<MobileEntity>();
 		batch = new SpriteBatch();
 		
 		//Set basic defense units

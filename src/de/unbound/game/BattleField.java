@@ -1,7 +1,6 @@
 package de.unbound.game;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.immobile.ImmobileEntity;
