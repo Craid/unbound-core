@@ -2,38 +2,45 @@ package de.unbound.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import de.unbound.game.collision.CollisionHandler;
-
 public class EntityFlyweight {
 
-	private double rangeOfVision;
-	private double rangeofCollision;
-	private int upgrades;
+	private EntityFlyweightModel model;
 	private Sprite graphic;
 	
+	public float getMaxVelocity(){
+		return (float)model.getMaxVelocity();
+	}
+	
+	public float getAcceleration(){
+		return (float)model.getAcceleration();
+	}
+	
 	public double getRangeOfVision() {
-		return rangeOfVision;
+		return model.getRangeOfVision();
 	}
-	public void setRangeOfVision(double rangeOfVision) {
-		this.rangeOfVision = rangeOfVision;
-	}
+
 	public double getRangeofCollision() {
-		return rangeofCollision;
+		return model.getRangeOfCollision();
 	}
-	public void setRangeofCollision(double rangeofCollision) {
-		this.rangeofCollision = rangeofCollision;
-	}
+
 	public int getUpgrades() {
-		return upgrades;
+		return model.getUpgrades();
 	}
-	public void setUpgrades(int upgrades) {
-		this.upgrades = upgrades;
-	}
+
 	public Sprite getGraphic() {
 		return graphic;
 	}
+	
+	public EntityFlyweightModel getModel(){
+		return model;
+	}
+	
+	public void setModel(EntityFlyweightModel model){
+		this.model = model;
+	}
+	
 	public void setGraphic(Sprite graphic) {
 		this.graphic = graphic;
 	}
-
+	
 }

@@ -3,17 +3,29 @@ package de.unbound.game.model;
 public class EntityFlyweightModel {
 	
 	private double rangeOfVision, rangeOfCollision;
+	private float acceleration, maxVelocity;
 	private int upgrades;
 	private String textureName, atlasName;
 	
 	public EntityFlyweightModel(){}
 	
-	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, String name){
+	/**
+	 * Constructor to set all values in one go
+	 * 
+	 * @param rangeOfVision
+	 * @param rangeOfCollision
+	 * @param upgrades
+	 * @param textureName
+	 * @param name
+	 */
+	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, String name, float accelaration, float maxVelocity){
 		setRangeOfCollision(rangeOfCollision);
 		setRangeOfVision(rangeOfVision);
 		setUpgrades(upgrades);
 		setTextureName(textureName);
 		setAtlasName(name);
+		setAcceleration(accelaration);
+		setMaxVelocity(maxVelocity);
 	}
 
 	public double getRangeOfVision() {
@@ -56,4 +68,19 @@ public class EntityFlyweightModel {
 		this.atlasName = name;
 	}
 
+	public float getAcceleration() {
+		return acceleration;
+	}
+
+	public void setAcceleration(float acceleration) {
+		this.acceleration = acceleration;
+	}
+
+	public float getMaxVelocity() {
+		return maxVelocity;
+	}
+
+	public void setMaxVelocity(float maxVelocity) {
+		this.maxVelocity = maxVelocity;
+	}
 }

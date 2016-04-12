@@ -11,11 +11,11 @@ public class FlyweightFactory {
 
 	public static final FlyweightFactory instance = new FlyweightFactory();
 	private HashMap<String, EntityFlyweight> flyweights;
-	private HashMap<String, EntityFlyweightModel> flyweightUberModels;
+	private HashMap<String, EntityFlyweightModel> flyweightTextModels;
 
 	private FlyweightFactory() {
 		flyweights = new HashMap<String, EntityFlyweight>();
-		flyweightUberModels = EntitiyFlyweightModelJsonHelper.instance.readDocument();
+		flyweightTextModels = EntitiyFlyweightModelJsonHelper.instance.readDocument();
 	}
 
 	/**
@@ -35,13 +35,12 @@ public class FlyweightFactory {
 	 * @return
 	 */
 	private EntityFlyweight createEntityFlywight(String textureName) {
-		EntityFlyweightModel efm = flyweightUberModels.get(textureName);
+		EntityFlyweightModel efm = flyweightTextModels.get(textureName);
 		EntityFlyweight ef = new EntityFlyweight();
-
-		ef.setRangeofCollision(efm.getRangeOfCollision());
-		ef.setRangeOfVision(efm.getRangeOfVision());
-		ef.setUpgrades(efm.getUpgrades());
-
+		
+		System.out.println(efm.getAcceleration());
+		
+		ef.setModel(efm);
 		ef.setGraphic(AssetsManagingHelper.instance.getSprite(efm.getAtlasName(), efm.getTextureName()));
 		
 		return ef;

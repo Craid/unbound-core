@@ -38,29 +38,29 @@ public class EntitiyFlyweightModelJsonHelper {
 
 		
 		//rangeofSight,rangeOfCollision,upgrades,ClassName,atlas
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateBoss", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCommander", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePawn", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateProjectile", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateScavenger", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateSpawner", "PrelateAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePlayer", "PrelateDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCollector", "PrelateDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateDeposit", "PrelateDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateMainBase", "PrelateDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateTower", "PrelateDefender"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateBoss", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCommander", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePawn", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateProjectile", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateScavenger", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateSpawner", "PrelateAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelatePlayer", "PrelateDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateCollector", "PrelateDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateDeposit", "PrelateDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateMainBase", "PrelateDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "PrelateTower", "PrelateDefender",0.17f,3));
 
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckBoss", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCommander", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPawn", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckProjectile", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckScavenger", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckSpawner", "DuckAttacker"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPlayer", "DuckDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCollector", "DuckDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckDeposit", "DuckDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckMainBase", "DuckDefender"));
-		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckTower", "DuckDefender"));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckBoss", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCommander", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPawn", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckProjectile", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckScavenger", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckSpawner", "DuckAttacker",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckPlayer", "DuckDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckCollector", "DuckDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckDeposit", "DuckDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckMainBase", "DuckDefender",0.17f,3));
+		ffml.add(new EntityFlyweightModel(3, 1, 0, "DuckTower", "DuckDefender",0.17f,3));
 
 		Json json = new Json();
 		FileHandle file = Gdx.files.local("flyweightentitymodel.json");
