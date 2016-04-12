@@ -60,6 +60,9 @@ public class BattleField {
 	private <T extends Entity> void updateLists(ArrayList<T> currentList, ArrayList<T> forNextUpdateList){
 		currentList.addAll(forNextUpdateList);
 		forNextUpdateList.clear();
+		for(Entity e : currentList)
+			if(!e.getActive())
+				currentList.remove(e);
 	}
 
 	// Add Commands

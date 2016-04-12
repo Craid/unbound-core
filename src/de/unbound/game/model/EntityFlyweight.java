@@ -41,6 +41,9 @@ public class EntityFlyweight {
 	
 	public void setGraphic(Sprite graphic) {
 		this.graphic = graphic;
+		
+		//Für marwin einkommentieren
+//		this.graphic.rotate90(true);
 	}
 	
 }

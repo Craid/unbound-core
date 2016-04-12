@@ -73,8 +73,8 @@ public abstract class AbstractRaceFactory {
 		for (int i = 0; i < order.getPawnNumber(); i++)
 			wave.add(createPawn());
 
-		Vector2 spawn = new Vector2(35, 190);
 		for (MobileEntity e : wave){
+			Vector2 spawn = new Vector2(35, 190);
 			e.setHostile(true);
 			e.setPosition(spawn);
 		}

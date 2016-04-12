@@ -32,6 +32,7 @@ public class World {
 		
 		//Set basic defense units
 		ownFactory.createImmobileEntities(gameMode.getSeed());
+		//ownFactory.createPlayer();
 	}
 	
 	/**

@@ -15,6 +15,9 @@ public abstract class MobileEntity extends Entity {
 	public MobileEntity(){
 		setAttack(new AttackStateStraight(this));
 		move = new MoveStateStraight(this); // Maus überarbeitet werden in singleton 
+		
+
+		
 		velocity = new Vector2();
 	}
 	

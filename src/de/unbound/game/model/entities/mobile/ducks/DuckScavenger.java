@@ -4,5 +4,7 @@ import de.unbound.game.model.entities.mobile.*;
 
 public class DuckScavenger extends Scavenger {
 
-
+	public DuckScavenger() {
+	}
+	
 }
