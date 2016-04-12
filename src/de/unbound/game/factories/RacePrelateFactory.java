@@ -13,63 +13,103 @@ import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.Commander;
 import de.unbound.game.model.entities.mobile.Pawn;
 import de.unbound.game.model.entities.mobile.Player;
+import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.entities.mobile.Scavenger;
 import de.unbound.game.model.entities.mobile.prelates.PrelateBoss;
 import de.unbound.game.model.entities.mobile.prelates.PrelateCollector;
 import de.unbound.game.model.entities.mobile.prelates.PrelateCommander;
 import de.unbound.game.model.entities.mobile.prelates.PrelatePawn;
 import de.unbound.game.model.entities.mobile.prelates.PrelatePlayer;
+import de.unbound.game.model.entities.mobile.prelates.PrelateProjectile;
 import de.unbound.game.model.entities.mobile.prelates.PrelateScavenger;
 
 public class RacePrelateFactory extends AbstractRaceFactory {
+	
+	private static RacePrelateFactory instance;
+	
+	public static RacePrelateFactory getRacePrelateFactory(){
+		if(instance == null)
+			instance = new RacePrelateFactory();
+		return instance;
+	}
+	
+	private RacePrelateFactory() {
+	}
 
 	@Override
 	protected Boss createBoss() {
-		return createEntitiy(PrelateBoss.class);
+		Boss boss = createEntitiy(PrelateBoss.class);
+		battlefield.add(boss);
+		return boss;
 	}
 
 	@Override
 	protected Commander createCommander() {
-		return createEntitiy(PrelateCommander.class);
+		Commander commander = createEntitiy(PrelateCommander.class);
+		battlefield.add(commander);
+		return commander;
 	}
 
 	@Override
 	protected Scavenger createScavenger() {
-		return createEntitiy(PrelateScavenger.class);
+		Scavenger scavenger = createEntitiy(PrelateScavenger.class);
+		battlefield.add(scavenger);
+		return scavenger;
 	}
 
 	@Override
 	protected Pawn createPawn() {
-		return createEntitiy(PrelatePawn.class);
+		Pawn pawn = createEntitiy(PrelatePawn.class);
+		battlefield.add(pawn);
+		return pawn;
 	}
 
 	@Override
 	public Player createPlayer() {
-		return createEntitiy(PrelatePlayer.class);
+		Player player = createEntitiy(PrelatePlayer.class);
+		battlefield.add(player);
+		return player;
 	}
 
 	@Override
 	public Collector createCollector() {
-		return createEntitiy(PrelateCollector.class);
+		Collector collector = createEntitiy(PrelateCollector.class);
+		battlefield.add(collector);
+		return collector;
 	}
 
 	@Override
 	protected MainBase createMainBase() {
-		return createEntitiy(PrelateMainBase.class);
+		MainBase mainBase = createEntitiy(PrelateMainBase.class);
+		battlefield.add(mainBase);
+		return mainBase;
 	}
 
 	@Override
 	public Tower createTower() {
-		return createEntitiy(PrelateTower.class);
+		Tower tower = createEntitiy(PrelateTower.class);
+		battlefield.add(tower);
+		return tower;
 	}
 
 	@Override
 	protected Deposit createDeposit() {
-		return createEntitiy(PrelateDeposit.class);
+		Deposit deposit = createEntitiy(PrelateDeposit.class);
+		battlefield.add(deposit);
+		return deposit;
 	}
 
 	@Override
 	protected Spawner createSpawner() {
-		return createEntitiy(PrelateSpawner.class);
+		Spawner spawner = createEntitiy(PrelateSpawner.class);
+		battlefield.add(spawner);
+		return spawner;
+	}
+
+	@Override
+	public Projectile createProjectile() {
+		Projectile commander = createEntitiy(PrelateProjectile.class);
+		battlefield.add(commander);
+		return commander;
 	}
 }

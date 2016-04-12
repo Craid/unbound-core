@@ -5,7 +5,6 @@ import de.unbound.game.model.entities.immobile.Deposit;
 public class DuckDeposit extends Deposit {
 	
 	public DuckDeposit() {
-		System.out.println("Created DuckDeposit");
 	}
 
 

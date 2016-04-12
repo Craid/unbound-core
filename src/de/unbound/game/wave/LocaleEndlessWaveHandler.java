@@ -3,6 +3,7 @@ package de.unbound.game.wave;
 import de.unbound.game.factories.AbstractRaceFactory;
 import de.unbound.game.factories.RaceDuckFactory;
 import de.unbound.game.factories.RacePrelateFactory;
+import de.unbound.game.model.entities.mobile.Boss;
 
 public class LocaleEndlessWaveHandler extends WaveHandler {
 	
@@ -19,7 +20,7 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	}
 	
 	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
-		return new LocaleEndlessWaveHandler(new RaceDuckFactory(), new RacePrelateFactory());
+		return new LocaleEndlessWaveHandler(RaceDuckFactory.getRaceDuckFactory(),RacePrelateFactory.getRacePrelateFactory());
 	}
 	
 	@Override
@@ -39,4 +40,5 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 		int pawn = (level%5) * 3;
 		return new WaveOrder(boss, pawn, scavenger, commander, 0, 0, 0, 0);
 	}
+	
 }

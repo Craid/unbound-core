@@ -126,5 +126,9 @@ public class WaveOrder {
 	public void setCommanderUpgrades(int commanderUpgrades) {
 		this.commanderUpgrades = commanderUpgrades;
 	}
+	
+	public String toString(){
+		return "Entity in Wave: " + (bossNumber+commanderNumber+pawnNumber+scavengerNumber);
+	}
 
 }

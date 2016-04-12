@@ -5,7 +5,6 @@ import de.unbound.game.model.entities.immobile.MainBase;
 public class DuckMainBase extends MainBase {
 	
 	public DuckMainBase() {
-		System.out.println("Created DuckMainBase");
 	}
 
 }

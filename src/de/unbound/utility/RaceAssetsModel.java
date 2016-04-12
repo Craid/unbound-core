@@ -14,7 +14,8 @@ public class RaceAssetsModel implements Disposable{
 	public RaceAssetsModel(TextureAtlas atlas){
 		sprites = new HashMap<String, Sprite>();
 		for(AtlasRegion ar : atlas.getRegions()){
-			sprites.put(ar.name, new Sprite(ar));
+			Sprite e = new Sprite(ar);
+			sprites.put(ar.name, e);
 		}
 	}
 	

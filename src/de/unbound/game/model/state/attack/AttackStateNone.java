@@ -10,8 +10,6 @@ public class AttackStateNone extends AbstractAttackState {
 
 	@Override
 	public void update(double deltaTime) {
-//		System.out.println("Doing nothing");
-		//System.out.println("E.Class" + e.getClass());
 		//Intentionally left blank!
 	}
 

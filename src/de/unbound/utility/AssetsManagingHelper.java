@@ -30,29 +30,44 @@ public class AssetsManagingHelper implements Disposable{
 		
 		String[] races = {"Duck","Prelate"};
 		
-		for(String race : races)
-			initLoadRaceAssets(race);
+
+		assetManager.load("img/duck/DuckDefender.pack", TextureAtlas.class);
+		assetManager.load("img/prelate/PrelateAttacker.pack", TextureAtlas.class);
+		
+//		for(String race : races)
+//			initLoadRaceAssets(race);
 		
 		//Synchrones laden!
 		assetManager.finishLoading();
 		
-		for(String race : races)
-			finishLoadRaceAssets(race);
+		updateTextureFilterAndAddToRaceAssetsMap("Duck", DEFENDER);
+		updateTextureFilterAndAddToRaceAssetsMap("Prelate", ATTACKER);
+		
+//		for(String race : races)
+//			finishLoadRaceAssets(race);
 		
 	}
 	
+	/**
+	 * 
+	 * @param race
+	 */
 	private void initLoadRaceAssets(String race){
-		assetManager.load("img/"+race.toLowerCase()+"/"+race+"Attacker.atlas", TextureAtlas.class);
-		assetManager.load("img/"+race.toLowerCase()+"/"+race+"Defender.atlas", TextureAtlas.class);
+		assetManager.load("img/"+race.toLowerCase()+"/"+race+"Attacker.pack", TextureAtlas.class);
+		assetManager.load("img/"+race.toLowerCase()+"/"+race+"Defender.pack", TextureAtlas.class);
 	}
 	
+	/**
+	 * 
+	 * @param race
+	 */
 	private void finishLoadRaceAssets(String race){
 		updateTextureFilterAndAddToRaceAssetsMap(race, ATTACKER);
 		updateTextureFilterAndAddToRaceAssetsMap(race, DEFENDER);
 	}
 
 	private void updateTextureFilterAndAddToRaceAssetsMap(String race, String type) {
-		TextureAtlas atlas = assetManager.get("img/"+race.toLowerCase()+"/"+race+type+".atlas");
+		TextureAtlas atlas = assetManager.get("img/"+race.toLowerCase()+"/"+race+type+".pack");
 		for(Texture t : atlas.getTextures())
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		raceAssets.put(race+type, new RaceAssetsModel(atlas));

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.collision.CollisionDetection;
@@ -37,8 +38,8 @@ public class World {
 		wave = new ArrayList<MobileEntity>();
 		batch = new SpriteBatch();
 		
-		for(ImmobileEntity e : ownFactory.createImmobileEntities(gameMode.getSeed()))
-			battleField.add(e);
+		//Set basic defense units
+		ownFactory.createImmobileEntities(gameMode.getSeed());
 	}
 	
 	/**
@@ -58,26 +59,27 @@ public class World {
 			e.update(deltaTime);
 		}
 
-		batch.begin();
-		System.out.println(AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").getHeight() + " , " + AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").getWidth());
-		AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").draw(batch);;
-//		for(Entity e : battleField.getGameObjects()){
-//			e.render(batch);
-//		}
-		batch.end();
+		render();
 		
+	}
+
+	private void render() {
+		batch.begin();
+
+		//DUMMY TEST CODE
+//		AssetsManagingHelper.instance.getSprite("PrelateAttacker", "PrelateBoss").draw(batch);;
+
+		//REAL CODE
+				for(Entity e : battleField.getGameObjects()){
+					e.render(batch);
+				}
+		batch.end();
 	}
 
 	private void createNextWaveIfReadyAndPushToBattlefield() {
 		if(gameMode.hasNewOrder()){
-			wave = enemyFactory.createWave(gameMode.getCurrentOrder());
+			enemyFactory.createWave(gameMode.getCurrentOrder());
 			System.out.println("Created Wave");
-		}
-		if(wave.size() > 0){
-			int subListLength = Math.min(wave.size(), 9);
-			battleField.addWave(wave.subList(0,	subListLength));
-			wave.subList(0, subListLength).clear();
-			System.out.println("Added Wave Part");
 		}
 	}
 

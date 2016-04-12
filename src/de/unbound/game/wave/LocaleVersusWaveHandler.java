@@ -2,6 +2,7 @@ package de.unbound.game.wave;
 
 import de.unbound.game.factories.AbstractRaceFactory;
 
+
 public class LocaleVersusWaveHandler extends WaveHandler {
 	
 	public LocaleVersusWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {

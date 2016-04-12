@@ -1,10 +1,10 @@
 package de.unbound.game.model.state.attack;
 
 import de.unbound.game.BattleField;
+import de.unbound.game.factories.RaceDuckFactory;
+import de.unbound.game.factories.RacePrelateFactory;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.Projectile;
-import de.unbound.game.model.entities.mobile.ducks.DuckProjectile;
-import de.unbound.game.model.entities.mobile.prelates.PrelateProjectile;
 
 public class AttackStateStraight extends AbstractAttackState {
 	
@@ -28,8 +28,8 @@ public class AttackStateStraight extends AbstractAttackState {
 		Projectile p = null;
 		
 		switch(e.getClass().getSimpleName().substring(0, 3)){
-		case "Pre": p = new PrelateProjectile(); break;
-		case "Duc": p = new DuckProjectile(); break;
+		case "Pre": p = RacePrelateFactory.getRacePrelateFactory().createProjectile() ; break;
+		case "Duc": p = RaceDuckFactory.getRaceDuckFactory().createProjectile(); break;
 		}
 		
 		p.setDirection(e.getDirection());

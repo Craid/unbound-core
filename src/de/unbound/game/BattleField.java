@@ -21,7 +21,7 @@ public class BattleField {
 	private ArrayList<Collector> collectors, collectorsForNextUpdate;
 	private ArrayList<ImmobileEntity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; ; // Alle Entitäten auf dem Battlefield!
-	private static BattleField battleField;
+	public static BattleField battleField;
 	
 	public static BattleField getBattleField(){
 		if(battleField == null)
@@ -63,15 +63,6 @@ public class BattleField {
 		forNextUpdateList.clear();
 	}
 
-	/**
-	 * 
-	 * @param waveEntities
-	 */
-	public void addWave(List<MobileEntity> waveEntities) {
-		for(MobileEntity e : waveEntities)
-			add(e);
-	}
-	
 	// Add Commands
 	public void add(Projectile projectile) {  
 		if (projectile.isHostile()) enemyProjectilesForNextUpdate.add(projectile); //Wenn feindlich...
@@ -108,15 +99,6 @@ public class BattleField {
 	 */
 	public void setMainBase(MainBase mainBase) {
 		this.mainBase = mainBase;
-	}
-
-	/**
-	 * 
-	 * @param immobileEntity
-	 */
-	public void addImmobileEntity(ImmobileEntity immobileEntity) {
-		
-		throw new UnsupportedOperationException();
 	}
 
 	/**

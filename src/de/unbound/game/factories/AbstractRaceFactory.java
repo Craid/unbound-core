@@ -1,14 +1,13 @@
 package de.unbound.game.factories;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.immobile.Deposit;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
 import de.unbound.game.model.entities.immobile.Tower;
@@ -18,6 +17,7 @@ import de.unbound.game.model.entities.mobile.Commander;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Pawn;
 import de.unbound.game.model.entities.mobile.Player;
+import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.entities.mobile.Scavenger;
 import de.unbound.game.wave.WaveOrder;
 
@@ -25,26 +25,27 @@ public abstract class AbstractRaceFactory {
 
 	protected FlyweightFactory flyweightFactory;
 	private ArrayList<MobileEntity> wave;
-
+	protected BattleField battlefield;
+	
 	public AbstractRaceFactory() {
 		flyweightFactory = FlyweightFactory.instance;
 		wave = new ArrayList<MobileEntity>();
+		battlefield = BattleField.getBattleField();
 	}
 	
 	/**
 	 * 
 	 * @param seed
 	 */
-	public ArrayList<ImmobileEntity> createImmobileEntities(double seed) {
-		ArrayList<ImmobileEntity> immobileEntities = new ArrayList<ImmobileEntity>();
-		immobileEntities.add(createMainBase());
+	public void createImmobileEntities(double seed) {
+		
+		createMainBase();
 		
 		Tower tempTower = createTower();
 		tempTower.setPosition(new Vector2(35,65));
-		immobileEntities.add(tempTower);
+		
 		tempTower = createTower();
 		tempTower.setPosition(new Vector2(35,130));
-		immobileEntities.add(tempTower);
 		
 		Random random = new Random((long)seed);
 		for(int i = 0; i < 6; i++){
@@ -52,17 +53,15 @@ public abstract class AbstractRaceFactory {
 			float x = (float)(random.nextFloat()*20+20);
 			float y = (float)(random.nextFloat()*20+20 + (i/2)*65);
 			tempDeposit.setPosition(new Vector2(x, y));
-			immobileEntities.add(tempDeposit);
 		}
 		
-		return immobileEntities;
 	}
 
 	/**
 	 * 
 	 * @param order
 	 */
-	public ArrayList<MobileEntity> createWave(WaveOrder order) {
+	public void createWave(WaveOrder order) {
 		wave.clear();
 
 		for (int i = 0; i < order.getBossNumber(); i++)
@@ -80,9 +79,6 @@ public abstract class AbstractRaceFactory {
 			e.setPosition(spawn);
 		}
 		
-		Collections.shuffle(wave);
-
-		return wave;
 	}
 
 	protected <T extends Entity> T createEntitiy(Class<T> c) {
@@ -103,6 +99,8 @@ public abstract class AbstractRaceFactory {
 	protected abstract Scavenger createScavenger();
 
 	protected abstract Pawn createPawn();
+
+	public abstract Projectile createProjectile();
 
 	public abstract Player createPlayer();
 

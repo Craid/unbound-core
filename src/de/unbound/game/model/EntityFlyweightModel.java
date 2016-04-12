@@ -4,16 +4,16 @@ public class EntityFlyweightModel {
 	
 	private double rangeOfVision, rangeOfCollision;
 	private int upgrades;
-	private String graphic, name;
+	private String textureName, atlasName;
 	
 	public EntityFlyweightModel(){}
 	
-	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String name, String graphic){
+	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, String name){
 		setRangeOfCollision(rangeOfCollision);
 		setRangeOfVision(rangeOfVision);
 		setUpgrades(upgrades);
-		setGraphic(graphic);
-		setName(name);
+		setTextureName(textureName);
+		setAtlasName(name);
 	}
 
 	public double getRangeOfVision() {
@@ -40,20 +40,20 @@ public class EntityFlyweightModel {
 		this.upgrades = upgrades;
 	}
 
-	public String getGraphic() {
-		return graphic;
+	public String getTextureName() {
+		return textureName;
 	}
 
-	public void setGraphic(String graphic) {
-		this.graphic = graphic;
+	public void setTextureName(String textureName) {
+		this.textureName = textureName;
 	}
 
-	public String getName() {
-		return name;
+	public String getAtlasName() {
+		return atlasName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAtlasName(String name) {
+		this.atlasName = name;
 	}
 
 }

@@ -33,15 +33,20 @@ public class FlyweightFactory {
 		return flyweights.get(name);
 	}
 
-	private EntityFlyweight createEntityFlywight(String name) {
-		EntityFlyweightModel efm = flyweightUberModels.get(name);
+	/**
+	 * 
+	 * @param textureName Is the same as the Class Name of the Entity
+	 * @return
+	 */
+	private EntityFlyweight createEntityFlywight(String textureName) {
+		EntityFlyweightModel efm = flyweightUberModels.get(textureName);
 		EntityFlyweight ef = new EntityFlyweight();
 
 		ef.setRangeofCollision(efm.getRangeOfCollision());
 		ef.setRangeOfVision(efm.getRangeOfVision());
 		ef.setUpgrades(efm.getUpgrades());
 
-		ef.setGraphic(AssetsManagingHelper.instance.getSprite(efm.getName(), efm.getGraphic()));
+		ef.setGraphic(AssetsManagingHelper.instance.getSprite(efm.getAtlasName(), efm.getTextureName()));
 		
 		return ef;
 	}
