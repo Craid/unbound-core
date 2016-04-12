@@ -1,5 +1,7 @@
 package de.unbound.game.model.state.attack;
 
+import com.badlogic.gdx.math.Vector2;
+
 import de.unbound.game.BattleField;
 import de.unbound.game.factories.RaceDuckFactory;
 import de.unbound.game.factories.RacePrelateFactory;
@@ -32,8 +34,11 @@ public class AttackStateStraight extends AbstractAttackState {
 		case "Duc": p = RaceDuckFactory.getRaceDuckFactory().createProjectile(); break;
 		}
 		
-		p.setDirection(e.getDirection());
-		p.setPosition(e.getPosition());
+		Vector2 pPos = new Vector2(e.getPosition().x, e.getPosition().y);
+		Vector2 pDir = new Vector2(e.getDirection().x, e.getDirection().y);
+		
+		p.setDirection(pDir);
+		p.setPosition(pPos);
 		p.setHostile(e.isHostile());
 		return p;
 	}
