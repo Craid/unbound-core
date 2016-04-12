@@ -37,7 +37,7 @@ public abstract class Entity {
 
 	public void render(SpriteBatch batch){
 		Sprite sprite = model.getGraphic();
-		sprite.setPosition(position.x, position.y);
+		sprite.setPosition(position.x-(sprite.getWidth()/2), position.y-(sprite.getHeight()/2));
 		sprite.setRotation(direction.angle());
 		sprite.draw(batch);
 	}

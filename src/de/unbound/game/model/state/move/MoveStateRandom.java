@@ -16,12 +16,13 @@ public class MoveStateRandom extends AbstractMoveState {
 		
 		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
 		
-		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().cpy().scl((float)(e.getModel().getAcceleration()*deltaTime))));
-
-		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl((float)(e.getModel().getAcceleration()*deltaTime));
-				
+		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().cpy().nor().scl((float)(e.getModel().getAcceleration()*deltaTime*0.11f))));
+		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl((float)(deltaTime*60));
 		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
 		
+//		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
+//		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(acceleration);
+//		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
 
 
 	}
