@@ -21,7 +21,7 @@ public abstract class Entity {
 	public Entity(){
 		attack = new AttackStateNone(this);
 		position = new Vector2();
-		direction = new Vector2(0,-1);
+		direction = new Vector2(0,1);
 		active = true;
 		hostile = false;
 		setHp(0);
