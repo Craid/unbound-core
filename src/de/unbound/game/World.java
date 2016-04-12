@@ -12,7 +12,7 @@ import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.immobile.ImmobileEntity;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.wave.WaveHandler;
-import de.unbound.utility.AssetsManager;
+import de.unbound.utility.AssetsManagingHelper;
 
 public class World {
 
@@ -59,8 +59,8 @@ public class World {
 		}
 
 		batch.begin();
-		System.out.println(AssetsManager.instance.getSprite("Prelate", "PrelateBoss").getHeight() + " , " + AssetsManager.instance.getSprite("Prelate", "PrelateBoss").getWidth());
-		AssetsManager.instance.getSprite("Prelate", "PrelateBoss").draw(batch);;
+		System.out.println(AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").getHeight() + " , " + AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").getWidth());
+		AssetsManagingHelper.instance.getSprite("Prelate", "PrelateBoss").draw(batch);;
 //		for(Entity e : battleField.getGameObjects()){
 //			e.render(batch);
 //		}
