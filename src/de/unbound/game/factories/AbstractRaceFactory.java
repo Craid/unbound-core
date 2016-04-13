@@ -20,6 +20,7 @@ import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.entities.mobile.Scavenger;
 import de.unbound.game.wave.WaveOrder;
+import de.unbound.utility.UnboundConstants;
 
 public abstract class AbstractRaceFactory {
 
@@ -39,19 +40,22 @@ public abstract class AbstractRaceFactory {
 	 */
 	public void createImmobileEntities(double seed) {
 		
-		createMainBase();
+		MainBase m = createMainBase();
+		m.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT*5));
 		
 		Tower tempTower = createTower();
-		tempTower.setPosition(new Vector2(35,65));
+		tempTower.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT/3));
 		
 		tempTower = createTower();
-		tempTower.setPosition(new Vector2(35,130));
+		tempTower.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT*2/3));
 		
 		Random random = new Random((long)seed);
+		
+		int multiGrid20 = 20 * UnboundConstants.SINGLEGRIDWIDTH;
 		for(int i = 0; i < 6; i++){
 			Deposit tempDeposit = createDeposit();
-			float x = (float)(random.nextFloat()*20+20);
-			float y = (float)(random.nextFloat()*20+20 + (i/2)*65);
+			float x = (float)(random.nextFloat()*multiGrid20+multiGrid20);
+			float y = (float)(random.nextFloat()*multiGrid20+multiGrid20 + (i/2)*UnboundConstants.WORLDHEIGHT/3);
 			tempDeposit.setPosition(new Vector2(x, y));
 		}
 		
@@ -74,7 +78,7 @@ public abstract class AbstractRaceFactory {
 			wave.add(createPawn());
 
 		for (MobileEntity e : wave){
-			Vector2 spawn = new Vector2(35, 190);
+			Vector2 spawn = new Vector2(UnboundConstants.WORLDWIDTH/2, UnboundConstants.SINGLEGRIDHEIGHT*190);
 			e.setHostile(true);
 			e.setPosition(spawn);
 		}

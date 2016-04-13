@@ -34,11 +34,8 @@ public class AttackStateStraight extends AbstractAttackState {
 		case "Duc": p = RaceDuckFactory.getRaceDuckFactory().createProjectile(); break;
 		}
 		
-		Vector2 pPos = new Vector2(e.getPosition().x, e.getPosition().y);
-		Vector2 pDir = new Vector2(e.getDirection().x, e.getDirection().y);
-		
-		p.setDirection(pDir);
-		p.setPosition(pPos);
+		p.setDirection(e.getDirection().cpy());
+		p.setPosition(e.getPosition().cpy());
 		p.setHostile(e.isHostile());
 		return p;
 	}
