@@ -7,6 +7,7 @@ import de.unbound.game.factories.RaceDuckFactory;
 import de.unbound.game.factories.RacePrelateFactory;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.Projectile;
+import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
 public class AttackStateStraight extends AbstractAttackState {
 	
@@ -36,6 +37,7 @@ public class AttackStateStraight extends AbstractAttackState {
 		
 		p.setDirection(e.getDirection().cpy());
 		p.setPosition(e.getPosition().cpy());
+		p.setMove(new MoveStateStraightSpinning(p));
 		p.setHostile(e.isHostile());
 		return p;
 	}

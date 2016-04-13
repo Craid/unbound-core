@@ -22,6 +22,7 @@ import de.unbound.game.model.entities.mobile.prelates.PrelatePawn;
 import de.unbound.game.model.entities.mobile.prelates.PrelatePlayer;
 import de.unbound.game.model.entities.mobile.prelates.PrelateProjectile;
 import de.unbound.game.model.entities.mobile.prelates.PrelateScavenger;
+import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
 public class RacePrelateFactory extends AbstractRaceFactory {
 	
@@ -108,8 +109,8 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 
 	@Override
 	public Projectile createProjectile() {
-		Projectile commander = createEntitiy(PrelateProjectile.class);
-		battlefield.add(commander);
-		return commander;
+		Projectile projectile = createEntitiy(PrelateProjectile.class);
+		battlefield.add(projectile);
+		return projectile;
 	}
 }

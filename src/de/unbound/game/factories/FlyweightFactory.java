@@ -39,7 +39,7 @@ public class FlyweightFactory {
 		EntityFlyweight ef = new EntityFlyweight();
 		
 		ef.setModel(efm);
-		ef.setGraphic(AssetsManagingHelper.instance.getSprite(efm.getAtlasName(), efm.getTextureName()));
+		ef.setGraphic(AssetsManagingHelper.instance.getSprite(efm.getTextureName()));
 		
 		return ef;
 	}

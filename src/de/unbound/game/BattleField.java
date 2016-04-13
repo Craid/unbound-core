@@ -91,8 +91,9 @@ public class BattleField {
 	 * 
 	 * @param player
 	 */
-	public void setPlayer(Player player) {
+	public void add(Player player) {
 		this.player = player;
+		gameObjectsForNextUpdate.add(player);
 	}
 
 	/**

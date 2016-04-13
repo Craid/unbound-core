@@ -19,7 +19,7 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	}
 	
 	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
-		return new LocaleEndlessWaveHandler(RaceDuckFactory.getRaceDuckFactory(),RacePrelateFactory.getRacePrelateFactory());
+		return new LocaleEndlessWaveHandler(RacePrelateFactory.getRacePrelateFactory(),RaceDuckFactory.getRaceDuckFactory());
 	}
 	
 	@Override

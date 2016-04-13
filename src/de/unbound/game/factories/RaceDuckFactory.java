@@ -22,6 +22,7 @@ import de.unbound.game.model.entities.mobile.ducks.DuckPawn;
 import de.unbound.game.model.entities.mobile.ducks.DuckPlayer;
 import de.unbound.game.model.entities.mobile.ducks.DuckProjectile;
 import de.unbound.game.model.entities.mobile.ducks.DuckScavenger;
+import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
 public class RaceDuckFactory extends AbstractRaceFactory {
 	
@@ -108,8 +109,8 @@ public class RaceDuckFactory extends AbstractRaceFactory {
 
 	@Override
 	public Projectile createProjectile() {
-		Projectile commander = createEntitiy(DuckProjectile.class);
-		battlefield.add(commander);
-		return commander;
+		Projectile projectile = createEntitiy(DuckProjectile.class);
+		battlefield.add(projectile);
+		return projectile;
 	}
 }

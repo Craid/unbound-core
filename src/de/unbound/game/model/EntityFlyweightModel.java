@@ -5,7 +5,7 @@ public class EntityFlyweightModel {
 	private double rangeOfVision, rangeOfCollision;
 	private float acceleration, maxVelocity;
 	private int upgrades;
-	private String textureName, atlasName;
+	private String textureName;
 	
 	public EntityFlyweightModel(){}
 	
@@ -18,12 +18,11 @@ public class EntityFlyweightModel {
 	 * @param textureName
 	 * @param name
 	 */
-	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, String name, float accelaration, float maxVelocity){
+	public EntityFlyweightModel(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, float accelaration, float maxVelocity){
 		setRangeOfCollision(rangeOfCollision);
 		setRangeOfVision(rangeOfVision);
 		setUpgrades(upgrades);
 		setTextureName(textureName);
-		setAtlasName(name);
 		setAcceleration(accelaration);
 		setMaxVelocity(maxVelocity);
 	}
@@ -58,14 +57,6 @@ public class EntityFlyweightModel {
 
 	public void setTextureName(String textureName) {
 		this.textureName = textureName;
-	}
-
-	public String getAtlasName() {
-		return atlasName;
-	}
-
-	public void setAtlasName(String name) {
-		this.atlasName = name;
 	}
 
 	public float getAcceleration() {

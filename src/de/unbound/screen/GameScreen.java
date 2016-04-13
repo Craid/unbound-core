@@ -1,9 +1,12 @@
 package de.unbound.screen;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 
 import de.unbound.game.World;
+import de.unbound.game.inputhandling.handler.PCInputHandler;
 import de.unbound.game.wave.LocaleEndlessWaveHandler;
 
 public class GameScreen extends AbstractGameScreen{
@@ -13,8 +16,16 @@ public class GameScreen extends AbstractGameScreen{
 	public GameScreen(Game game) {
 		super(game);
 		world = new World(LocaleEndlessWaveHandler.createLocaleEndlessWaveHandlerPreset());
+		initializeInputProcessor();
 	}
 
+	private void initializeInputProcessor(){
+		InputMultiplexer im = new InputMultiplexer();
+		InputProcessor ip = new PCInputHandler();
+		im.addProcessor(ip);
+		Gdx.input.setInputProcessor(im);
+	}
+	
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub

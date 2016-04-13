@@ -2,6 +2,7 @@ package de.unbound.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.collision.CollisionDetection;
@@ -17,6 +18,7 @@ public class World {
 	private CollisionDetection collisionDetection;
 	private BattleField battleField;
 	private SpriteBatch batch;
+	private OrthographicCamera camera;
 
 	public World(WaveHandler gameMode){
 		this.gameMode = gameMode;
@@ -29,10 +31,19 @@ public class World {
 		ownFactory = this.gameMode.getOwnFactory();
 		battleField = BattleField.getBattleField();
 		batch = new SpriteBatch();
+		//Initialize and Set Camera
+		InitializeAndConfigCamera();
 		
 		//Set basic defense units
 		ownFactory.createImmobileEntities(gameMode.getSeed());
-		//ownFactory.createPlayer();
+		ownFactory.createPlayer();
+	}
+	
+	public void InitializeAndConfigCamera() {
+		//camera.zoom = 0.4f;
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
 	}
 	
 	/**
@@ -40,7 +51,7 @@ public class World {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime) {
-		Gdx.gl.glClearColor( 1, 0, 0, 1 );
+		Gdx.gl.glClearColor( 0, 0, 0.11f, 1 );
 		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		
 		gameMode.update(deltaTime);
@@ -56,7 +67,17 @@ public class World {
 		
 	}
 
+	private void setCameraToPlayer(){
+		camera.position.x = battleField.getPlayer().getPosition().x;
+		camera.position.y = battleField.getPlayer().getPosition().y;
+		camera.zoom = 1.4f;
+		camera.update();
+		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
+		
+	}
+	
 	private void render() {
+		setCameraToPlayer();
 		batch.begin();
 
 		//DUMMY TEST CODE
