@@ -22,7 +22,7 @@ public class MoveStateWave extends AbstractMoveState{
 	public void update(double deltaTime) {
 
 		//Wave-Sinus Berechnung
-	    rotationCounter+=0.05f;
+	    rotationCounter+=deltaTime*2.8;
 		sinusRotation.rotate((float)Math.sin(rotationCounter));
 		
 		//Nun nimmt die Direction die Sinus-Ausrichtung an
@@ -30,8 +30,10 @@ public class MoveStateWave extends AbstractMoveState{
 		
 		//Bewegungsberechnung
 		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
-		e.setVelocity(e.getVelocity().cpy().add(sinusRotation.cpy().scl((float)(e.getModel().getAcceleration()*deltaTime))));
-		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl((float)(deltaTime*60));
+		float timeFractionOfASecond = (float)(deltaTime*60);
+		
+		e.setVelocity(e.getVelocity().cpy().add(sinusRotation.cpy().scl(acceleration)));
+		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
 		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
 
 	}
