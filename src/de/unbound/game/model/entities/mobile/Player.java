@@ -13,7 +13,8 @@ public abstract class Player extends MobileEntity {
 	}
 	
 	public void update(double deltaTime){
-		super.update(deltaTime);
+		getAttack().update(deltaTime);
+		getMove().update(deltaTime);
 		setMove(new MoveStateControlled(this)); // Maus überarbeitet werden in singleton 
 	}
 }

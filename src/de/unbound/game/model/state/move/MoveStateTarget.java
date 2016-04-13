@@ -34,7 +34,7 @@ public class MoveStateTarget extends AbstractMoveState {
 		float timeFractionOfASecond = (float)(deltaTime*60);
 		
 		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
-		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
+		//e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
 		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
 		
 	}

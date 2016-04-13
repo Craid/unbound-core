@@ -9,6 +9,7 @@ import de.unbound.game.model.state.move.MoveStateStraight;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 import de.unbound.game.model.state.move.MoveStateTarget;
 import de.unbound.game.model.state.move.MoveStateWave;
+import de.unbound.game.model.state.move.MoveStateWaveViolent;
 
 public abstract class MobileEntity extends Entity {
 
@@ -25,8 +26,9 @@ public abstract class MobileEntity extends Entity {
 	public void update(double deltaTime){
 		getAttack().update(deltaTime);
 		move.update(deltaTime);
-				
-		if (Math.random()>0.999) setMove(new MoveStateTarget(this));
+			
+		if (Math.random()>0.999) setMove(new MoveStateWaveViolent(this)); // experimental, limit rausgeholt
+		if (Math.random()>0.999) setMove(new MoveStateTarget(this)); //limit rausgeholt, tests
 		if (Math.random()>0.999) setMove(new MoveStateWave(this));
 		if (Math.random()>0.999) setMove(new MoveStateStraightSpinning(this));
 		if (Math.random()>0.999) setMove(new MoveStateStraight(this));
