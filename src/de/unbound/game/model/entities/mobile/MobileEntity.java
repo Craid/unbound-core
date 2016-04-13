@@ -5,7 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.attack.AttackStateStraight;
 import de.unbound.game.model.state.move.AbstractMoveState;
-import de.unbound.game.model.state.move.MoveStateControlled;
+import de.unbound.game.model.state.move.MoveStateStraight;
+import de.unbound.game.model.state.move.MoveStateStraightSpinning;
+import de.unbound.game.model.state.move.MoveStateTarget;
 import de.unbound.game.model.state.move.MoveStateWave;
 
 public abstract class MobileEntity extends Entity {
@@ -15,7 +17,7 @@ public abstract class MobileEntity extends Entity {
 	
 	public MobileEntity(){
 		setAttack(new AttackStateStraight(this));
-		move = new MoveStateControlled(this); // Maus überarbeitet werden in singleton 
+		move = new MoveStateTarget(this); // Maus überarbeitet werden in singleton 
 		velocity = new Vector2();
 	}
 	
@@ -23,6 +25,11 @@ public abstract class MobileEntity extends Entity {
 	public void update(double deltaTime){
 		getAttack().update(deltaTime);
 		move.update(deltaTime);
+				
+		if (Math.random()>0.999) setMove(new MoveStateTarget(this));
+		if (Math.random()>0.999) setMove(new MoveStateWave(this));
+		if (Math.random()>0.999) setMove(new MoveStateStraightSpinning(this));
+		if (Math.random()>0.999) setMove(new MoveStateStraight(this));
 	}
 	
 	public void updateMoveState(){
