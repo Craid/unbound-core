@@ -1,5 +1,7 @@
 package de.unbound.game.factories;
 
+import com.badlogic.gdx.math.Vector2;
+
 import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
@@ -22,7 +24,7 @@ import de.unbound.game.model.entities.mobile.ducks.DuckPawn;
 import de.unbound.game.model.entities.mobile.ducks.DuckPlayer;
 import de.unbound.game.model.entities.mobile.ducks.DuckProjectile;
 import de.unbound.game.model.entities.mobile.ducks.DuckScavenger;
-import de.unbound.game.model.state.move.MoveStateStraightSpinning;
+import de.unbound.utility.UnboundConstants;
 
 public class RaceDuckFactory extends AbstractRaceFactory {
 	
@@ -101,8 +103,11 @@ public class RaceDuckFactory extends AbstractRaceFactory {
 	}
 
 	@Override
-	protected Spawner createSpawner() {
+	public Spawner createSpawner() {
 		Spawner spawner = createEntitiy(DuckSpawner.class);
+		spawner.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT-2*UnboundConstants.SINGLEGRIDHEIGHT));
+		spawner.setDirection(new Vector2(0,-1));
+		spawner.setHostile(true);
 		battlefield.add(spawner);
 		return spawner;
 	}

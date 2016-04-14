@@ -41,7 +41,7 @@ public abstract class AbstractRaceFactory {
 	public void createImmobileEntities(double seed) {
 		
 		MainBase m = createMainBase();
-		m.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT*5));
+		m.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT/10));
 		
 		Tower tempTower = createTower();
 		tempTower.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT/3));
@@ -51,11 +51,10 @@ public abstract class AbstractRaceFactory {
 		
 		Random random = new Random((long)seed);
 		
-		int multiGrid20 = 20 * UnboundConstants.SINGLEGRIDWIDTH;
 		for(int i = 0; i < 6; i++){
 			Deposit tempDeposit = createDeposit();
-			float x = (float)(random.nextFloat()*multiGrid20+multiGrid20);
-			float y = (float)(random.nextFloat()*multiGrid20+multiGrid20 + (i/2)*UnboundConstants.WORLDHEIGHT/3);
+			float x = (float)(random.nextFloat()*UnboundConstants.SINGLEGRIDWIDTH*UnboundConstants.GRIDWIDTH+UnboundConstants.SINGLEGRIDWIDTH);
+			float y = (float)(random.nextFloat()*UnboundConstants.SINGLEGRIDHEIGHT*2 + (i/2)*UnboundConstants.WORLDHEIGHT/3);
 			tempDeposit.setPosition(new Vector2(x, y));
 		}
 		
@@ -78,7 +77,7 @@ public abstract class AbstractRaceFactory {
 			wave.add(createPawn());
 
 		for (MobileEntity e : wave){
-			Vector2 spawn = new Vector2(UnboundConstants.WORLDWIDTH/2, UnboundConstants.SINGLEGRIDHEIGHT*190);
+			Vector2 spawn = new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT-2*UnboundConstants.SINGLEGRIDHEIGHT);
 			e.setHostile(true);
 			e.setPosition(spawn);
 		}
@@ -116,6 +115,6 @@ public abstract class AbstractRaceFactory {
 
 	protected abstract Deposit createDeposit();
 
-	protected abstract Spawner createSpawner();
+	public abstract Spawner createSpawner();
 
 }

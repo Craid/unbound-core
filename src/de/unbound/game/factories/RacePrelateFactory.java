@@ -1,5 +1,7 @@
 package de.unbound.game.factories;
 
+import com.badlogic.gdx.math.Vector2;
+
 import de.unbound.game.model.entities.immobile.Deposit;
 import de.unbound.game.model.entities.immobile.MainBase;
 import de.unbound.game.model.entities.immobile.Spawner;
@@ -23,6 +25,7 @@ import de.unbound.game.model.entities.mobile.prelates.PrelatePlayer;
 import de.unbound.game.model.entities.mobile.prelates.PrelateProjectile;
 import de.unbound.game.model.entities.mobile.prelates.PrelateScavenger;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
+import de.unbound.utility.UnboundConstants;
 
 public class RacePrelateFactory extends AbstractRaceFactory {
 	
@@ -80,7 +83,7 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 	}
 
 	@Override
-	protected MainBase createMainBase() {
+	public MainBase createMainBase() {
 		MainBase mainBase = createEntitiy(PrelateMainBase.class);
 		battlefield.add(mainBase);
 		return mainBase;
@@ -101,8 +104,11 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 	}
 
 	@Override
-	protected Spawner createSpawner() {
+	public Spawner createSpawner() {
 		Spawner spawner = createEntitiy(PrelateSpawner.class);
+		spawner.setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT-2*UnboundConstants.SINGLEGRIDHEIGHT));
+		spawner.setDirection(new Vector2(0,-1));
+		spawner.setHostile(true);
 		battlefield.add(spawner);
 		return spawner;
 	}

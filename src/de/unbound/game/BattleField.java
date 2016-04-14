@@ -27,7 +27,9 @@ public class BattleField {
 			battleField = new BattleField();
 		return battleField;
 	}
+
 	
+		
 	private BattleField() {
 		init();
 	}
@@ -60,9 +62,9 @@ public class BattleField {
 	private <T extends Entity> void updateLists(ArrayList<T> currentList, ArrayList<T> forNextUpdateList){
 		currentList.addAll(forNextUpdateList);
 		forNextUpdateList.clear();
-		for(Entity e : currentList)
-			if(!e.getActive())
-				currentList.remove(e);
+		for(int i = 0; i < currentList.size(); i++)
+			if(!currentList.get(i).getActive())
+				currentList.remove(currentList.get(i));
 	}
 
 	// Add Commands
@@ -109,7 +111,7 @@ public class BattleField {
 	 * @param entity
 	 */
 	public void remove(Entity entity) {
-		
+	
 		throw new UnsupportedOperationException();
 	}
 

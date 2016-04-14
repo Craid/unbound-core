@@ -18,7 +18,7 @@ public class MoveStateStraightSpinning extends AbstractMoveState {
 
 		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
 		float timeFractionOfASecond = (float)(deltaTime*60);
-		e.getDirection().rotate((float)(deltaTime*2444.8));
+		e.getDirection().rotate((float)(deltaTime*244.8));
 		e.setVelocity(e.getVelocity().cpy().add(originalDirection.nor().scl(acceleration)));
 		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
 		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));

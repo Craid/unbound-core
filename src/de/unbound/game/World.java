@@ -36,6 +36,9 @@ public class World {
 		
 		//Set basic defense units
 		ownFactory.createImmobileEntities(gameMode.getSeed());
+		
+		enemyFactory.createSpawner();
+		
 		ownFactory.createPlayer();
 	}
 	
@@ -54,15 +57,20 @@ public class World {
 		Gdx.gl.glClearColor( 0, 0, 0.11f, 1 );
 		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		
+		
 		gameMode.update(deltaTime);
 		
 		createNextWaveIfReadyAndPushToBattlefield();
-		battleField.update(deltaTime);
+		battleField.update(deltaTime); // To be generated Objects in actual List
+		
+		collisionDetection.update(deltaTime);
 		
 		for(Entity e : battleField.getGameObjects()){
 			e.update(deltaTime);
 		}
 
+		System.out.println(battleField.getGameObjects().size());
+		
 		render();
 		
 	}
@@ -70,7 +78,7 @@ public class World {
 	private void setCameraToPlayer(){
 		camera.position.x = battleField.getPlayer().getPosition().x;
 		camera.position.y = battleField.getPlayer().getPosition().y;
-		camera.zoom = 1.4f;
+		camera.zoom = 2.4f;
 		camera.update();
 		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
 		

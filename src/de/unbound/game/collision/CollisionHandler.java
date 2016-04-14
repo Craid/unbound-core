@@ -11,4 +11,6 @@ public abstract class CollisionHandler<T extends Entity> {
 	 */
 	public abstract void handle(T subject, Entity object);
 
+	
+	
 }

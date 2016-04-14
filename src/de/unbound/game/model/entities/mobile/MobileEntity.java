@@ -18,7 +18,7 @@ public abstract class MobileEntity extends Entity {
 	
 	public MobileEntity(){
 		setAttack(new AttackStateStraight(this));
-		move = new MoveStateTarget(this); // Maus überarbeitet werden in singleton 
+		move = new MoveStateWave(this); // Maus überarbeitet werden in singleton 
 		velocity = new Vector2();
 	}
 	
@@ -27,11 +27,11 @@ public abstract class MobileEntity extends Entity {
 		getAttack().update(deltaTime);
 		move.update(deltaTime);
 			
-		if (Math.random()>0.999) setMove(new MoveStateWaveViolent(this)); // experimental, limit rausgeholt
-		if (Math.random()>0.999) setMove(new MoveStateTarget(this)); //limit rausgeholt, tests
-		if (Math.random()>0.999) setMove(new MoveStateWave(this));
-		if (Math.random()>0.999) setMove(new MoveStateStraightSpinning(this));
-		if (Math.random()>0.999) setMove(new MoveStateStraight(this));
+	//	if (Math.random()>0.999) setMove(new MoveStateWaveViolent(this)); // experimental, limit rausgeholt
+	//	if (Math.random()>0.9) setMove(new MoveStateTarget(this)); //limit rausgeholt, tests
+	//	if (Math.random()>0.999) setMove(new MoveStateWave(this));
+	//	if (Math.random()>0.999) setMove(new MoveStateStraightSpinning(this));
+	//	if (Math.random()>0.999) setMove(new MoveStateStraight(this));
 	}
 	
 	public void updateMoveState(){

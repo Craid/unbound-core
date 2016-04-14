@@ -2,7 +2,6 @@ package de.unbound.game.model.state.move;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 
@@ -18,15 +17,16 @@ public class MoveStateTarget extends AbstractMoveState {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MoveStateTarget(MobileEntity e) {
+	private MoveStateTarget(MobileEntity e) {
 		super(e);
 		// TODO Auto-generated constructor stub
-		this.target = BattleField.getBattleField().getPlayer();
+		//this.target = BattleField.getBattleField().getPlayer();
 	}
 
 	@Override
 	public void update(double deltaTime) {
 
+		if (target != null || !target.getActive()){
 		//targetDirection = new Vector2(e.getPosition().cpy().sub(target.getPosition()));
 		targetDirection = new Vector2(target.getPosition().cpy().sub(e.getPosition()));
 		e.setDirection(targetDirection);
@@ -36,7 +36,9 @@ public class MoveStateTarget extends AbstractMoveState {
 		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
 		//e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
 		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
-		
+		} else {
+			//tja, erstmal nichts, muss getestet werden
+		}
 	}
 
 }
