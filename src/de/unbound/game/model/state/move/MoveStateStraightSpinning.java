@@ -10,6 +10,7 @@ public class MoveStateStraightSpinning extends AbstractMoveState {
 	
 	public MoveStateStraightSpinning(MobileEntity e) {
 		super(e);
+		
 		originalDirection = e.getDirection().cpy();
 	}
 
