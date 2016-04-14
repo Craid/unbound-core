@@ -1,6 +1,6 @@
 package de.unbound.game.inputhandling.handler;
 
-import java.awt.Event;//TODO MARWIN....was f�r ein Event?! import bitte richtig einstellen!
+import java.awt.Event;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -12,8 +12,14 @@ public class InputHandler {
 
 	ActionSequencer sequencer;
 
+
+
 	public InputHandler() {
 		sequencer = new ActionSequencer();
+	}
+	
+	public void addCommandToSequencer(Command c){
+		sequencer.addCommandToSequence(c);
 	}
 
 	public Command createMoveUpCommand() {
@@ -41,6 +47,15 @@ public class InputHandler {
 		return null;
 	}
 
+	// GETTERS AND SETTERS
+	
+	public ActionSequencer getSequencer() {
+		return sequencer;
+	}
+
+	public void setSequencer(ActionSequencer sequencer) {
+		this.sequencer = sequencer;
+	}
 
 
 }

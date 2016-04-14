@@ -2,12 +2,17 @@ package de.unbound.game.inputhandling.handler;
 
 import com.badlogic.gdx.InputProcessor;
 
+import de.unbound.game.inputhandling.commands.Command;
+import de.unbound.game.inputhandling.commands.ToggleFireCommand;
+
 public class PCInputHandler extends InputHandler implements InputProcessor{
 
 	@Override
 	public boolean keyDown(int arg0) {
 		// TODO Auto-generated method stub
-		//System.out.println(arg0);
+		addCommandToSequencer(new ToggleFireCommand());
+		//addCommandToSequencer(c);
+		System.out.println(arg0);
 		return false;
 	}
 

@@ -54,7 +54,7 @@ public class World {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime) {
-		Gdx.gl.glClearColor( 0, 0, 0.11f, 1 );
+		Gdx.gl.glClearColor( 0, 0, 0.10f, 1 );
 		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		
 		
