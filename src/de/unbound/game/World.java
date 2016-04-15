@@ -46,7 +46,7 @@ public class World {
 		//camera.zoom = 0.4f;
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
+		
 	}
 	
 	/**
@@ -75,26 +75,21 @@ public class World {
 		
 	}
 
-	private void setCameraToPlayer(){
+	private void updateCameraPosition(){
 		camera.position.x = battleField.getPlayer().getPosition().x;
 		camera.position.y = battleField.getPlayer().getPosition().y;
 		camera.zoom = 2.4f;
 		camera.update();
-		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
-		
 	}
 	
 	private void render() {
-		setCameraToPlayer();
+		updateCameraPosition();
+		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
+		//Damit die batch weiß, welcher Bereich angezeigt werden soll
 		batch.begin();
-
-		//DUMMY TEST CODE
-//		AssetsManagingHelper.instance.getSprite("PrelateAttacker", "PrelateBoss").draw(batch);;
-
-		//REAL CODE
-				for(Entity e : battleField.getGameObjects()){
-					e.render(batch);
-				}
+		for(Entity e : battleField.getGameObjects()){
+			e.render(batch);
+		}
 		batch.end();
 	}
 

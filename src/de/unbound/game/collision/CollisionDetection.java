@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Projectile;

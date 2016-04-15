@@ -1,18 +1,13 @@
 package de.unbound.game.inputhandling.handler;
 
-import java.awt.Event;
-
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.InputAdapter;
 
 import de.unbound.game.inputhandling.ActionSequencer;
 import de.unbound.game.inputhandling.commands.Command;
 
-public class InputHandler {
+public abstract class InputHandler extends InputAdapter{
 
 	ActionSequencer sequencer;
-
-
 
 	public InputHandler() {
 		sequencer = new ActionSequencer();
@@ -22,30 +17,15 @@ public class InputHandler {
 		sequencer.addCommandToSequence(c);
 	}
 
-	public Command createMoveUpCommand() {
-		
-		return null;
-	}
+	public abstract Command createMoveUpCommand();
 
-	public Command createMoveDownCommand() {
+	public abstract Command createMoveDownCommand();
 
-		return null;
-	}
+	public abstract Command createMoveLeftCommand();
+	
+	public abstract Command createMoveRightCommand();
 
-	public Command createMoveLeftCommand() {
-
-		return null;
-	}
-
-	public Command createMoveRightCommand() {
-
-		return null;
-	}
-
-	public Command createMoveCommand(double xAxis, double yAxis) {
-
-		return null;
-	}
+	public abstract Command createMoveCommand(double xAxis, double yAxis);
 
 	// GETTERS AND SETTERS
 	

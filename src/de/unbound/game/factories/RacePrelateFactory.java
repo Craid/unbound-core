@@ -16,7 +16,7 @@ public class RacePrelateFactory extends AbstractRaceFactory {
 	
 	private static RacePrelateFactory instance;
 	
-	public static RacePrelateFactory getRacePrelateFactory(){
+	public static RacePrelateFactory getInstance(){
 		if(instance == null)
 			instance = new RacePrelateFactory();
 		return instance;

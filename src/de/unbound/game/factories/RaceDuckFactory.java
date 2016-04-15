@@ -16,7 +16,7 @@ public class RaceDuckFactory extends AbstractRaceFactory {
 	
 	private static RaceDuckFactory instance;
 	
-	public static RaceDuckFactory getRaceDuckFactory(){
+	public static RaceDuckFactory getInstance(){
 		if(instance == null)
 			instance = new RaceDuckFactory();
 		return instance;

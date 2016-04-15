@@ -14,6 +14,7 @@ public abstract class MobileEntity extends Entity {
 	private Vector2 velocity;
 	
 	public MobileEntity(){
+		super();
 		setAttack(new AttackStateStraight(this));
 		setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.WORLDHEIGHT-2*UnboundConstants.SINGLEGRIDHEIGHT));
 		move = new MoveStateWave(this); // Maus überarbeitet werden in singleton 

@@ -1,11 +1,9 @@
 package de.unbound.game.model.state.attack;
 
 import de.unbound.game.BattleField;
-import de.unbound.game.factories.RaceDuckFactory;
-import de.unbound.game.factories.RacePrelateFactory;
+import de.unbound.game.factories.ProjectileCreator;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.Projectile;
-import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
 public class AttackStateStraight extends AbstractAttackState {
 	
@@ -26,18 +24,7 @@ public class AttackStateStraight extends AbstractAttackState {
 	}
 	
 	private Projectile createBullet() {
-		Projectile p = null;
-		
-		switch(e.getClass().getSimpleName().substring(0, 3)){
-		case "Pre": p = RacePrelateFactory.getRacePrelateFactory().createProjectile() ; break;
-		case "Duc": p = RaceDuckFactory.getRaceDuckFactory().createProjectile(); break;
-		}
-		
-		p.setDirection(e.getDirection().cpy());
-		p.setPosition(e.getPosition().cpy());
-		p.setMove(new MoveStateStraightSpinning(p));
-		p.setHostile(e.isHostile());
-		return p;
+		return ProjectileCreator.getInstance().createProjectile(e);
 	}
 
 }

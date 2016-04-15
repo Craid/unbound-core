@@ -1,11 +1,10 @@
-package de.unbound.game.inputhandling.handler;
 
-import com.badlogic.gdx.InputProcessor;
+package de.unbound.game.inputhandling.handler;
 
 import de.unbound.game.inputhandling.commands.Command;
 import de.unbound.game.inputhandling.commands.ToggleFireCommand;
 
-public class PCInputHandler extends InputHandler implements InputProcessor{
+public class PCInputHandler extends InputHandler{
 
 	@Override
 	public boolean keyDown(int arg0) {
@@ -56,6 +55,36 @@ public class PCInputHandler extends InputHandler implements InputProcessor{
 	public boolean touchUp(int arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Command createMoveUpCommand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Command createMoveDownCommand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Command createMoveLeftCommand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Command createMoveRightCommand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Command createMoveCommand(double xAxis, double yAxis) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
