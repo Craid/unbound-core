@@ -32,8 +32,8 @@ public class World {
 		battleField = BattleField.getBattleField();
 		batch = new SpriteBatch();
 		//Initialize and Set Camera
-		InitializeAndConfigCamera();
-		
+		//InitializeAndConfigCamera();
+		camera = GameCamera.getGameCamera();
 		//Set basic defense units
 		ownFactory.createImmobileEntities(gameMode.getSeed());
 		
@@ -44,8 +44,8 @@ public class World {
 	
 	public void InitializeAndConfigCamera() {
 		//camera.zoom = 0.4f;
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		//camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 	}
 	
@@ -95,8 +95,8 @@ public class World {
 	private void createNextWaveIfReadyAndPushToBattlefield() {
 		if(gameMode.hasNewOrder()){
 			enemyFactory.createWave(gameMode.getCurrentOrder());
-//			System.out.println("Created Wave");
-//			System.out.println(battleField.getGameObjects().size());
+			System.out.println("Created Wave");
+			System.out.println(battleField.getGameObjects().size());
 		}
 	}
 

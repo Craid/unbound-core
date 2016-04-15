@@ -4,20 +4,20 @@ import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
-public class ProjectileCreator {
+public class ProjectileBuilder {
 	
-	private static ProjectileCreator instance;
+	private static ProjectileBuilder instance;
 	
 	private RaceDuckFactory duckFactory;
 	private RacePrelateFactory prelateFactory;
 	
-	public static ProjectileCreator getInstance(){
+	public static ProjectileBuilder getInstance(){
 		if(instance == null)
-			instance = new ProjectileCreator();
+			instance = new ProjectileBuilder();
 		return instance;
 	}
 	
-	private ProjectileCreator(){
+	private ProjectileBuilder(){
 		duckFactory = RaceDuckFactory.getInstance();
 		prelateFactory = RacePrelateFactory.getInstance();
 	}

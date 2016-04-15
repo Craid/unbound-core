@@ -1,7 +1,7 @@
 package de.unbound.game.model.state.attack;
 
 import de.unbound.game.BattleField;
-import de.unbound.game.factories.ProjectileCreator;
+import de.unbound.game.factories.ProjectileBuilder;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.Projectile;
 
@@ -24,7 +24,7 @@ public class AttackStateStraight extends AbstractAttackState {
 	}
 	
 	private Projectile createBullet() {
-		return ProjectileCreator.getInstance().createProjectile(e);
+		return ProjectileBuilder.getInstance().createProjectile(e);
 	}
 
 }

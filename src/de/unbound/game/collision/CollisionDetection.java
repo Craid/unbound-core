@@ -2,11 +2,16 @@ package de.unbound.game.collision;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Matrix3;
+import com.badlogic.gdx.math.Vector2;
+
 import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Projectile;
+import de.unbound.game.model.state.move.MoveStateRandom;
+import de.unbound.utility.UnboundConstants;
 
 public class CollisionDetection {
 
@@ -33,6 +38,7 @@ public class CollisionDetection {
 		updateOwn();
 	}
 
+
 	/**
 	 * @see updateEnemies()
 	 */
@@ -52,11 +58,13 @@ public class CollisionDetection {
 			checkVisionAndBodyCollision(me, battleField.getFriendlyProjectiles());
 			checkVisionAndBodyCollision(me, battleField.getImmobileEntities());
 			checkVisionAndBodyCollision(me, player);
+			limit(me);
 		}
 		for (Projectile projectile : battleField.getEnemyProjectiles()) {
 			checkBodyCollision(projectile, battleField.getCollectors());
 			checkBodyCollision(projectile, battleField.getImmobileEntities());
 			checkBodyCollision(projectile, player);
+			limit(projectile);
 		}
 	}
 
@@ -116,5 +124,38 @@ public class CollisionDetection {
 		}
 	}
 	
+	/**
+	 * This method prevents entities from leaving the map
+	 * 
+	 * @param e
+	 */
+	private void limit(MobileEntity e) {
+		boolean outOfWidth = outOfWith(e);
+		boolean outOfHeight = outOfHeight(e);
+		if(outOfHeight || outOfWidth){
+			Vector2 newDirection = e.getDirection().cpy();
+			Vector2 newVelocity = e.getVelocity().cpy();
+			if(outOfWidth){
+				newDirection.x = -newDirection.x;
+				newVelocity.x = -newVelocity.x;
+			}
+			if(outOfHeight){
+				newDirection.y = -newDirection.y;
+				newVelocity.y = -newVelocity.y;
+			}
+			e.setDirection(newDirection);
+			e.setVelocity(newVelocity);
+			e.setMove(new MoveStateRandom(e));
+		}
+			
+	}
+
+	private boolean outOfHeight(MobileEntity e) {
+		return e.getPosition().y < 0 || e.getPosition().y > UnboundConstants.WORLDHEIGHT;
+	}
+
+	private boolean outOfWith(MobileEntity e) {
+		return e.getPosition().x < 0 || e.getPosition().x > UnboundConstants.WORLDWIDTH;
+	}
 
 }
