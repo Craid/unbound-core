@@ -1,7 +1,5 @@
 package de.unbound.game.model.state.attack;
 
-import com.badlogic.gdx.math.Vector2;
-
 import de.unbound.game.BattleField;
 import de.unbound.game.factories.RaceDuckFactory;
 import de.unbound.game.factories.RacePrelateFactory;

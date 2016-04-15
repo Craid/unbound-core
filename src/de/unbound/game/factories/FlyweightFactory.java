@@ -9,7 +9,7 @@ import de.unbound.utility.EntitiyFlyweightModelJsonHelper;
 
 public class FlyweightFactory {
 
-	public static final FlyweightFactory instance = new FlyweightFactory();
+	private static FlyweightFactory instance;
 	private HashMap<String, EntityFlyweight> flyweights;
 	private HashMap<String, EntityFlyweightModel> flyweightTextModels;
 
@@ -18,6 +18,12 @@ public class FlyweightFactory {
 		flyweightTextModels = EntitiyFlyweightModelJsonHelper.instance.readDocument();
 	}
 
+	public static FlyweightFactory getInstance(){
+		if(instance == null)
+			instance = new FlyweightFactory();
+		return instance;
+	}
+	
 	/**
 	 * 
 	 * @param name

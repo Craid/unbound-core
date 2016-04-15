@@ -42,10 +42,10 @@ public class CollisionDetection {
 		ArrayList<Player> player = new ArrayList<Player>();
 		player.add(battleField.getPlayer());
 		for (MobileEntity me : battleField.getEnemies()) {
-			checkCollisionBoth(me, battleField.getCollectors());
-			checkCollisionBoth(me, battleField.getFriendlyProjectiles());
-			checkCollisionBoth(me, battleField.getImmobileEntities());
-			checkCollisionBoth(me, player);
+			checkMobileEntityCollision(me, battleField.getCollectors());
+			checkMobileEntityCollision(me, battleField.getFriendlyProjectiles());
+			checkMobileEntityCollision(me, battleField.getImmobileEntities());
+			checkMobileEntityCollision(me, player);
 		}
 		for (Projectile projectile : battleField.getEnemyProjectiles()) {
 			for (Entity e : gameObjects) {
@@ -63,7 +63,7 @@ public class CollisionDetection {
 		}
 	}
 
-	private <T extends Entity, K extends MobileEntity> void checkCollisionBoth(
+	private <T extends Entity, K extends MobileEntity> void checkMobileEntityCollision(
 			K mobileEntity, ArrayList<T> list) {
 		for (T entity : list) {
 			if (entity.isHostile() != mobileEntity.isHostile()) {
