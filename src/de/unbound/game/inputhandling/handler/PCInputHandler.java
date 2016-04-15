@@ -10,8 +10,7 @@ public class PCInputHandler extends InputHandler{
 	public boolean keyDown(int arg0) {
 		// TODO Auto-generated method stub
 		addCommandToSequencer(new ToggleFireCommand());
-		//addCommandToSequencer(c);
-		System.out.println(arg0);
+//		System.out.println(arg0);
 		return false;
 	}
 

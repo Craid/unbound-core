@@ -7,8 +7,8 @@ public class VisionCollisionHandler extends CollisionHandler<MobileEntity,Entity
 	
 	@Override
 	public void handle(MobileEntity subject, Entity object){
-		debugPrint(subject, object);
-		System.out.print("Unbekannte Vision Collision!");
+//		debugPrint(subject, object);
+//		System.out.print("Unbekannte Vision Collision!");
 	}
 
 }

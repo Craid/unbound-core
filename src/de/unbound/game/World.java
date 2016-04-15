@@ -95,8 +95,8 @@ public class World {
 	private void createNextWaveIfReadyAndPushToBattlefield() {
 		if(gameMode.hasNewOrder()){
 			enemyFactory.createWave(gameMode.getCurrentOrder());
-			System.out.println("Created Wave");
-			System.out.println(battleField.getGameObjects().size());
+//			System.out.println("Created Wave");
+//			System.out.println(battleField.getGameObjects().size());
 		}
 	}
 
