@@ -68,8 +68,7 @@ public class World {
 		for(Entity e : battleField.getGameObjects()){
 			e.update(deltaTime);
 		}
-
-		System.out.println(battleField.getGameObjects().size());
+		
 		
 		render();
 		
@@ -97,6 +96,7 @@ public class World {
 		if(gameMode.hasNewOrder()){
 			enemyFactory.createWave(gameMode.getCurrentOrder());
 			System.out.println("Created Wave");
+			System.out.println(battleField.getGameObjects().size());
 		}
 	}
 

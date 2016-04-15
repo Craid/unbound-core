@@ -24,7 +24,7 @@ public abstract class Entity {
 		direction = new Vector2(0,1);
 		active = true;
 		hostile = false;
-		setHp(0);
+		setHp(1);
 	}
 
 	/**
@@ -41,6 +41,14 @@ public abstract class Entity {
 		sprite.setRotation(direction.angle());
 		sprite.draw(batch);
 	}
+	
+	public void takeDamage(double hp) {
+		setHp(this.hp - hp);
+		if(getHp() <= 0)
+			setActive(false);
+	}
+	
+	//Getters and Setters
 
 	public Vector2 getPosition() {
 		return position;
@@ -63,7 +71,7 @@ public abstract class Entity {
 	}
 
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 

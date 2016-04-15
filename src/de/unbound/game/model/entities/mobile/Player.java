@@ -17,6 +17,14 @@ public abstract class Player extends MobileEntity {
 	public void update(double deltaTime){
 		getAttack().update(deltaTime);
 		getMove().update(deltaTime);
-		setMove(new MoveStateControlled(this)); // Maus überarbeitet werden in singleton 
+		if(!isActive())
+			respawn();
+	}
+
+	private void respawn() {
+		setActive(true);
+		setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT/10));
+		setVelocity(new Vector2());
+		setDirection(new Vector2(0,1));
 	}
 }

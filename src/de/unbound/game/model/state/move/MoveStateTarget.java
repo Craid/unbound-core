@@ -26,7 +26,7 @@ public class MoveStateTarget extends AbstractMoveState {
 	@Override
 	public void update(double deltaTime) {
 
-		if (target != null || !target.getActive()){
+		if (target != null || !target.isActive()){
 		//targetDirection = new Vector2(e.getPosition().cpy().sub(target.getPosition()));
 		targetDirection = new Vector2(target.getPosition().cpy().sub(e.getPosition()));
 		e.setDirection(targetDirection);

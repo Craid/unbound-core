@@ -63,7 +63,7 @@ public class BattleField {
 		currentList.addAll(forNextUpdateList);
 		forNextUpdateList.clear();
 		for(int i = 0; i < currentList.size(); i++)
-			if(!currentList.get(i).getActive())
+			if(!currentList.get(i).isActive())
 				currentList.remove(currentList.get(i));
 	}
 
