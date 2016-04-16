@@ -68,7 +68,7 @@ public class CollisionDetection {
 			checkBodyCollision(projectile, battleField.getCollectors());
 			checkBodyCollision(projectile, battleField.getImmobileEntities());
 			checkBodyCollision(projectile, player);
-			limit(projectile);
+//			limit(projectile);
 		}
 	}
 

@@ -108,7 +108,9 @@ public class World {
 		hudBatch.begin();
 		String temp = String.format("Punkte: %010d", battleField.getScore());
 		font.draw(hudBatch, temp, Gdx.graphics.getWidth()-140, Gdx.graphics.getHeight()-15);
-		temp = String.format("HP: %03d/500", (int)battleField.getPlayer().getHp());
+		temp = String.format("Player-HP: %03d/500", (int)battleField.getPlayer().getHp());
+		font.draw(hudBatch, temp, 10, Gdx.graphics.getHeight()-30);
+		temp = String.format("MainBase-HP: %03d/1500", (int)battleField.getMainBase().getHp());
 		font.draw(hudBatch, temp, 10, Gdx.graphics.getHeight()-15);
 		hudBatch.end();
 	}

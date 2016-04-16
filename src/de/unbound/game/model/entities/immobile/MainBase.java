@@ -9,5 +9,6 @@ public abstract class MainBase extends ImmobileEntity {
 	public MainBase(){
 		super();
 		setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT/10));
+		setHp(1500);
 	}
 }
