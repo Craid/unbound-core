@@ -10,6 +10,8 @@ import de.unbound.game.inputhandling.commands.CreateTowerCommand;
 import de.unbound.game.inputhandling.commands.ToggleFireCommand;
 
 public class PCInputHandler extends InputHandler{
+	
+	double lastTowerBuild = 0;
 
 	@Override
 	public boolean keyDown(int arg0) {
@@ -45,21 +47,29 @@ public class PCInputHandler extends InputHandler{
 
 	@Override
 	public boolean touchDown(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
 		
-		Vector3 touchPos = new Vector3();
-	    touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
-	    GameCamera.getGameCamera().unproject(touchPos);
-	    addCommandToSequencer(new CreateTowerCommand(touchPos.x, touchPos.y));
-	    //System.out.println(touchPos.x+" = X ///"+ touchPos.y + " = Y");
+		buildTower();
 		
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
+		
+		buildTower();
+	    //System.out.println(touchPos.x+" = X ///"+ touchPos.y + " = Y");
+		
 		return false;
+	}
+
+	private void buildTower() {
+		if(System.currentTimeMillis() - lastTowerBuild > 500){
+			Vector3 touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
+			GameCamera.getGameCamera().unproject(touchPos);
+			addCommandToSequencer(new CreateTowerCommand(touchPos.x, touchPos.y));
+			lastTowerBuild = System.currentTimeMillis();
+		}
 	}
 
 	@Override

@@ -9,5 +9,6 @@ public abstract class Collector extends MobileEntity {
 	public Collector(){
 		super();
 		setPosition(new Vector2(UnboundConstants.WORLDWIDTH/2,UnboundConstants.SINGLEGRIDHEIGHT/10));
+		setHp(100);
 	}
 }

@@ -9,35 +9,30 @@ public class MoveStateTarget extends AbstractMoveState {
 
 	Vector2 targetDirection;
 	Entity target;
-	
+
 	public MoveStateTarget(MobileEntity e, Entity target) {
 		this(e);
-
-		//this.target = target;
-		// TODO Auto-generated constructor stub
+		this.target = target;
 	}
-	
+
 	private MoveStateTarget(MobileEntity e) {
 		super(e);
-		// TODO Auto-generated constructor stub
-		//this.target = BattleField.getBattleField().getPlayer();
 	}
 
 	@Override
 	public void update(double deltaTime) {
 
-		if (target != null || !target.isActive()){
-		//targetDirection = new Vector2(e.getPosition().cpy().sub(target.getPosition()));
-		targetDirection = new Vector2(target.getPosition().cpy().sub(e.getPosition()));
-		e.setDirection(targetDirection);
-		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
-		float timeFractionOfASecond = (float)(deltaTime*60);
-		
-		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
-		//e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
-		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
+		if (target != null || !target.isActive()) {
+			targetDirection = new Vector2(target.getPosition().cpy().sub(e.getPosition()));
+			e.setDirection(targetDirection);
+			float acceleration = (float) (e.getModel().getAcceleration() * deltaTime);
+			float timeFractionOfASecond = (float) (deltaTime * 60);
+
+			e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
+			e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
+			e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
 		} else {
-			//tja, erstmal nichts, muss getestet werden
+			// tja, erstmal nichts, muss getestet werden
 		}
 	}
 

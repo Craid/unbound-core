@@ -10,5 +10,7 @@ public class UnboundConstants {
 	public static final int SINGLEGRIDHEIGHT = SINGLEGRIDWIDTH;
 	public static final int WORLDWIDTH = SINGLEGRIDWIDTH * GRIDWIDTH;
 	public static final int WORLDHEIGHT = SINGLEGRIDHEIGHT * GRIDHEIGHT;
+	
+	public static final int SHOTSPEED = 3;
 
 }

@@ -5,5 +5,6 @@ public abstract class Commander extends MobileEntity {
 	public Commander(){
 		super();
 		setHostile(true);
+		setHp(200);
 	}
 }

@@ -20,15 +20,14 @@ public class BattleField {
 	private ArrayList<Collector> collectors, collectorsForNextUpdate;
 	private ArrayList<ImmobileEntity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; ; // Alle Entitäten auf dem Battlefield!
-	public static BattleField battleField;
+	private static BattleField battleField;
+	private int score;
 	
 	public static BattleField getBattleField(){
 		if(battleField == null)
 			battleField = new BattleField();
 		return battleField;
 	}
-
-	
 		
 	private BattleField() {
 		init();
@@ -48,6 +47,8 @@ public class BattleField {
 
 		gameObjectsForNextUpdate = new ArrayList<Entity>();
 		gameObjects = new ArrayList<Entity>();
+		
+		score = 0;
 	}
 	
 	public void update(double deltaTime) {
@@ -65,6 +66,10 @@ public class BattleField {
 		for(int i = 0; i < currentList.size(); i++)
 			if(!currentList.get(i).isActive())
 				currentList.remove(currentList.get(i));
+	}
+	
+	public void addScore(int score){
+		this.score += score;
 	}
 
 	// Add Commands
@@ -102,56 +107,12 @@ public class BattleField {
 	 * 
 	 * @param mainBase
 	 */
-	public void setMainBase(MainBase mainBase) {
+	public void add(MainBase mainBase) {
 		this.mainBase = mainBase;
+		immobileEntitiesForNextUpdate.add(mainBase);
+		gameObjectsForNextUpdate.add(mainBase);
 	}
-
-	/**
-	 * 
-	 * @param entity
-	 */
-	public void remove(Entity entity) {
 	
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param projectile
-	 */
-	private void remove(Projectile projectile) {
-		
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param enemy
-	 */
-	private void remove(MobileEntity enemy) {
-		
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param collectors
-	 */
-	private void remove(Collector collectors) {
-		
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param immobileEntity
-	 */
-	private void remove(ImmobileEntity immobileEntity) {
-		
-		throw new UnsupportedOperationException();
-	}
-
-
 	public ArrayList<Projectile> getFriendlyProjectiles() {
 		return friendlyProjectiles;
 	}
@@ -186,6 +147,14 @@ public class BattleField {
 	
 	public ArrayList<Entity> getEntitiesForNextUpdate() {
 		return gameObjectsForNextUpdate;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.model.EntityFlyweight;
 import de.unbound.game.model.state.attack.AbstractAttackState;
 import de.unbound.game.model.state.attack.AttackStateNone;
@@ -44,8 +45,11 @@ public abstract class Entity {
 	
 	public void takeDamage(double hp) {
 		setHp(this.hp - hp);
-		if(getHp() <= 0)
+		if(getHp() <= 0){
 			setActive(false);
+			if(isHostile())
+				BattleField.getBattleField().addScore(100);
+		}
 	}
 	
 	//Getters and Setters

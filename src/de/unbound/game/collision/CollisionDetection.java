@@ -2,11 +2,12 @@ package de.unbound.game.collision;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
+import de.unbound.game.model.entities.immobile.ImmobileEntity;
+import de.unbound.game.model.entities.mobile.Collector;
 import de.unbound.game.model.entities.mobile.MobileEntity;
 import de.unbound.game.model.entities.mobile.Player;
 import de.unbound.game.model.entities.mobile.Projectile;
@@ -43,7 +44,10 @@ public class CollisionDetection {
 	 * @see updateEnemies()
 	 */
 	private void updateOwn() {
-
+		for(Collector c : battleField.getCollectors())
+			checkBodyCollision(c,battleField.getImmobileEntities());
+		for(ImmobileEntity im : battleField.getImmobileEntities())
+			checkVision(im, battleField.getEnemies());
 	}
 
 	/**
@@ -124,6 +128,37 @@ public class CollisionDetection {
 		}
 	}
 	
+
+
+	private <T extends Entity, E extends MobileEntity> void checkVision(T subject, ArrayList<E> list) {
+		double subjectRoV = subject.getModel().getRangeOfVision();
+		float subjectX = subject.getPosition().x;
+		float subjectY = subject.getPosition().y;
+		
+		boolean firstSight = true;
+		
+		for (E object : list) {
+			if(!subject.isActive())
+				return;
+			if (object.isHostile() != subject.isHostile() && object.isActive()) {
+				float xD = object.getPosition().x - subjectX;
+				float yD = object.getPosition().y - subjectY;
+				float sqDist = xD * xD + yD * yD;
+				
+				double objectRoV = object.getModel().getRangeofCollision();
+				
+				boolean visionCollision = sqDist <= (Math.pow(subjectRoV + objectRoV, 2));
+
+				if (visionCollision) {
+					if(firstSight){
+						visionHandler.handle(object, subject);
+						firstSight = false;
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * This method prevents entities from leaving the map
 	 * 
@@ -138,16 +173,23 @@ public class CollisionDetection {
 			if(outOfWidth){
 				newDirection.x = -newDirection.x;
 				newVelocity.x = -newVelocity.x;
+
+				e.setPosition(new Vector2(clamp(e.getPosition().x, 0, UnboundConstants.WORLDWIDTH),e.getPosition().y));
 			}
 			if(outOfHeight){
 				newDirection.y = -newDirection.y;
 				newVelocity.y = -newVelocity.y;
+				e.setPosition(new Vector2(e.getPosition().x,clamp(e.getPosition().y, 0, UnboundConstants.WORLDHEIGHT)));
 			}
 			e.setDirection(newDirection);
 			e.setVelocity(newVelocity);
 			e.setMove(new MoveStateRandom(e));
 		}
 			
+	}
+	
+	private float clamp(float pos, float start, float end){
+		return Math.min(end, Math.max(pos, start));
 	}
 
 	private boolean outOfHeight(MobileEntity e) {

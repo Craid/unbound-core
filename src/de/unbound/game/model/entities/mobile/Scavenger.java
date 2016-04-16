@@ -5,5 +5,6 @@ public abstract class Scavenger extends MobileEntity {
 	public Scavenger(){
 		super();
 		setHostile(true);
+		setHp(150);
 	}
 }

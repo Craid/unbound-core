@@ -40,7 +40,6 @@ public class BodyCollisionHandler extends CollisionHandler<MobileEntity,Entity>{
 
 	@Override
 	public void handle(MobileEntity subject, Entity object){
-		
 		if(subject instanceof Projectile)
 			handle((Projectile)subject,object);
 		else if(object instanceof Projectile)

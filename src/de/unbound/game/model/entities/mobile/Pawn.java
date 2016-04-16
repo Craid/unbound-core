@@ -5,5 +5,6 @@ public abstract class Pawn extends MobileEntity {
 	public Pawn(){
 		super();
 		setHostile(true);
+		setHp(100);
 	}
 }
