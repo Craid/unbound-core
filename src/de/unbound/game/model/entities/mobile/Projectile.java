@@ -1,5 +1,6 @@
 package de.unbound.game.model.entities.mobile;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.model.state.attack.AttackStateNone;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
 
@@ -13,6 +14,14 @@ public abstract class Projectile extends MobileEntity {
 		setMove(new MoveStateStraightSpinning(this));
 		damage = 100;
 		setHp(8);
+	}
+	
+	@Override
+	public void takeDamage(double hp) {
+		setHp(getHp() - hp);
+		if(getHp() <= 0){
+			setActive(false);
+		}
 	}
 	
 	public void update(double deltaTime){
