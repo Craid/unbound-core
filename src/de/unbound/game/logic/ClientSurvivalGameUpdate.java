@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.unbound.game.GameCamera;
 import de.unbound.game.model.entities.Entity;
 
-public class ClientGameUpdate extends AbstractGameUpdate {
+public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	private SpriteBatch hudBatch;
 
-	public ClientGameUpdate() {
+	public ClientSurvivalGameUpdate() {
 		initAbstract();
 		init();
 	}
@@ -29,29 +29,30 @@ public class ClientGameUpdate extends AbstractGameUpdate {
 	}
 
 	@Override
-	public void update(double deltaTime) {
-		Gdx.gl.glClearColor(0, 0, 0.10f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		
-		if (battleField.getMainBase().isActive()) {
-
-			world.getWaveHandler().update(deltaTime);
-
-			createNextWaveIfReadyAndPushToBattlefield();
-			battleField.update(deltaTime); // To be generated Objects in actual
-											// List
-
-			collisionDetection.update(deltaTime);
-
-			for (Entity e : battleField.getGameObjects()) {
-				e.update(deltaTime);
-			}
-
-			render();
-		} else {
-			renderGameOver();
-		}
+	public boolean isGameOver() {
+		return battleField.getMainBase().isActive();
+	}	
+	
+	@Override
+	public void doBeforeUpdate() {
+		//Do nothing
 	}
+
+	@Override
+	public void onCollisionHandling(double deltaTime) {
+		collisionDetection.update(deltaTime);
+	}
+
+	@Override
+	public void doAfterUpdate() {
+		render();
+	}
+
+	@Override
+	public void onGameEnd() {
+		renderGameOver();
+	}
+
 
 	public void render() {
 		updateCameraPosition();

@@ -2,7 +2,7 @@ package de.unbound.game;
 
 import de.unbound.game.factories.AbstractRaceFactory;
 import de.unbound.game.logic.AbstractGameUpdate;
-import de.unbound.game.logic.ClientGameUpdate;
+import de.unbound.game.logic.ClientSurvivalGameUpdate;
 import de.unbound.game.wave.WaveHandler;
 
 public class World {
@@ -28,7 +28,7 @@ public class World {
 		
 		ownFactory.createPlayer();
 		
-		gameUpdate = new ClientGameUpdate();
+		gameUpdate = new ClientSurvivalGameUpdate();
 		gameUpdate.setWorld(this);
 	}
 	
