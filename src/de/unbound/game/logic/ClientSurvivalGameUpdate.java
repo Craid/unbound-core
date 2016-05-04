@@ -55,6 +55,8 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
 
 	public void render() {
+		Gdx.gl.glClearColor( 0, 0, 0.10f, 1 );
+		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		updateCameraPosition();
 		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
 		//Damit die batch weiß, welcher Bereich angezeigt werden soll

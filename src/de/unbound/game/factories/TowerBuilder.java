@@ -40,7 +40,7 @@ public class TowerBuilder {
 		case "Pre": tower = prelateFactory.createTower(); break;
 		case "Duc": tower = duckFactory.createTower(); break;
 		}
-		tower.setHostile(entity.isHostile());
+		tower.setHostile(false);
 		tower.setDirection(new Vector2(0, 1));
 		tower.setPosition(new Vector2(x,y));
 		tower.setAttack(new AttackStateNone(tower));

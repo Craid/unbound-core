@@ -3,8 +3,10 @@ package de.unbound.game.model.entities;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import de.unbound.game.BattleField;
+import de.unbound.game.GameCamera;
 import de.unbound.game.model.EntityFlyweight;
 import de.unbound.game.model.state.attack.AbstractAttackState;
 import de.unbound.game.model.state.attack.AttackStateNone;
@@ -40,7 +42,8 @@ public abstract class Entity {
 		Sprite sprite = model.getGraphic();
 		sprite.setPosition(position.x-(sprite.getWidth()/2), position.y-(sprite.getHeight()/2));
 		sprite.setRotation(direction.angle());
-		sprite.draw(batch);
+		if(GameCamera.getGameCamera().frustum.sphereInFrustum(new Vector3(position.x, position.y, 0), (float)model.getRangeofCollision() ) )
+			sprite.draw(batch);
 	}
 	
 	public void takeDamage(double hp) {
