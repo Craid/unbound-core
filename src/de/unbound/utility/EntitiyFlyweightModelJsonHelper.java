@@ -17,7 +17,7 @@ public class EntitiyFlyweightModelJsonHelper {
 
 		//TODO uncomment to update flyweightmodel.json
 		//needs to be moved from desktop/<root> to android/assests/model/
-		initDocument();
+		//initDocument();
 	}
 
 	public HashMap<String, EntityFlyweightModel> readDocument() {
