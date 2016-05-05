@@ -2,20 +2,20 @@ package de.unbound.game.wave;
 
 import java.util.ArrayList;
 
-import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.factories.EntityFactory;
 
 public abstract class WaveHandler {
 
 	private ArrayList<WaveOrder> orders;
 	private WaveOrder currentOrder;
 	private WaveReport ownWaveReport;
-	private AbstractRaceFactory ownFactory;
-	private AbstractRaceFactory enemyFactory;
+	private EntityFactory ownFactory;
+	private EntityFactory enemyFactory;
 	private boolean newOrder;
 	protected int level;
 	private float seed;
 	
-	public WaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
+	public WaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		setOwnFactory(ownFactory);
 		setEnemyFactory(enemyFactory);
 		orders = new ArrayList<WaveOrder>();
@@ -24,19 +24,19 @@ public abstract class WaveHandler {
 		seed = (float) Math.random();
 	}
 
-	public AbstractRaceFactory getOwnFactory() {
+	public EntityFactory getOwnFactory() {
 		return ownFactory;
 	}
 
-	protected void setOwnFactory(AbstractRaceFactory ownFactory) {
+	protected void setOwnFactory(EntityFactory ownFactory) {
 		this.ownFactory = ownFactory;
 	}
 
-	public AbstractRaceFactory getEnemyFactory() {
+	public EntityFactory getEnemyFactory() {
 		return enemyFactory;
 	}
 
-	protected void setEnemyFactory(AbstractRaceFactory enemyFactory) {
+	protected void setEnemyFactory(EntityFactory enemyFactory) {
 		this.enemyFactory = enemyFactory;
 	}
 

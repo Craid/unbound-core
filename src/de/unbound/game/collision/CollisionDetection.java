@@ -6,11 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
-import de.unbound.game.model.entities.mobile.Collector;
-import de.unbound.game.model.entities.mobile.MobileEntity;
-import de.unbound.game.model.entities.mobile.Player;
-import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.state.move.MoveStateRandom;
 import de.unbound.utility.UnboundConstants;
 
@@ -44,9 +39,9 @@ public class CollisionDetection {
 	 * @see updateEnemies()
 	 */
 	private void updateOwn() {
-		for(Collector c : battleField.getCollectors())
+		for(Entity c : battleField.getCollectors())
 			checkBodyCollision(c,battleField.getImmobileEntities());
-		for(ImmobileEntity im : battleField.getImmobileEntities())
+		for(Entity im : battleField.getImmobileEntities())
 			checkVision(im, battleField.getEnemies());
 	}
 
@@ -55,32 +50,33 @@ public class CollisionDetection {
 	 * That's why they are missing in updateOwn()
 	 */
 	private void updateEnemies() {
-		ArrayList<Player> player = new ArrayList<Player>();
+		ArrayList<Entity> player = new ArrayList<Entity>();
 		player.add(battleField.getPlayer());
-		for (MobileEntity me : battleField.getEnemies()) {
+		for (Entity me : battleField.getEnemies()) {
 			checkVisionAndBodyCollision(me, battleField.getCollectors());
 			checkVisionAndBodyCollision(me, battleField.getFriendlyProjectiles());
 			checkVisionAndBodyCollision(me, battleField.getImmobileEntities());
 			checkVisionAndBodyCollision(me, player);
 			limit(me);
 		}
-		for (Projectile projectile : battleField.getEnemyProjectiles()) {
+		for (Entity projectile : battleField.getEnemyProjectiles()) {
+			if(outOfHeight(projectile) || outOfWidth(projectile))
+				projectile.setActive(false);
 			checkBodyCollision(projectile, battleField.getCollectors());
 			checkBodyCollision(projectile, battleField.getImmobileEntities());
 			checkBodyCollision(projectile, player);
-//			limit(projectile);
 		}
 	}
 
-	private <T extends MobileEntity, E extends Entity> void checkVisionAndBodyCollision(T subject, ArrayList<E> list) {
+	private void checkVisionAndBodyCollision(Entity subject, ArrayList<Entity> list) {
 		double subjectRoV = subject.getModel().getRangeOfVision();
-		double subjectRoC = subject.getModel().getRangeofCollision();
+		double subjectRoC = subject.getModel().getRangeOfCollision();
 		float subjectX = subject.getPosition().x;
 		float subjectY = subject.getPosition().y;
 		
 		boolean firstSight = true;
 		
-		for (E object : list) {
+		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
 			if (object.isHostile() != subject.isHostile() && object.isActive()) {
@@ -88,7 +84,7 @@ public class CollisionDetection {
 				float yD = object.getPosition().y - subjectY;
 				float sqDist = xD * xD + yD * yD;
 				
-				double objectRoV = object.getModel().getRangeofCollision();
+				double objectRoV = object.getModel().getRangeOfCollision();
 				
 				boolean visionCollision = sqDist <= (Math.pow(subjectRoV + objectRoV, 2));
 
@@ -106,12 +102,12 @@ public class CollisionDetection {
 		}
 	}
 	
-	private <T extends MobileEntity, E extends Entity> void checkBodyCollision(T subject, ArrayList<E> list) {
-		double subjectRoC = subject.getModel().getRangeofCollision();
+	private void checkBodyCollision(Entity subject, ArrayList<Entity> list) {
+		double subjectRoC = subject.getModel().getRangeOfCollision();
 		float subjectX = subject.getPosition().x;
 		float subjectY = subject.getPosition().y;
 		
-		for (E object : list) {
+		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
 			if (object.isHostile() != subject.isHostile() && object.isActive()) {
@@ -119,7 +115,7 @@ public class CollisionDetection {
 				float yD = object.getPosition().y - subjectY;
 				float sqDist = xD * xD + yD * yD;
 				
-				double objectRoC = object.getModel().getRangeofCollision();
+				double objectRoC = object.getModel().getRangeOfCollision();
 				boolean bodyCollision = sqDist <= (Math.pow(subjectRoC + objectRoC, 2));
 
 				if (bodyCollision)
@@ -130,14 +126,12 @@ public class CollisionDetection {
 	
 
 
-	private <T extends Entity, E extends MobileEntity> void checkVision(T subject, ArrayList<E> list) {
+	private void checkVision(Entity subject, ArrayList<Entity> list) {
 		double subjectRoV = subject.getModel().getRangeOfVision();
 		float subjectX = subject.getPosition().x;
 		float subjectY = subject.getPosition().y;
 		
-		boolean firstSight = true;
-		
-		for (E object : list) {
+		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
 			if (object.isHostile() != subject.isHostile() && object.isActive()) {
@@ -145,15 +139,13 @@ public class CollisionDetection {
 				float yD = object.getPosition().y - subjectY;
 				float sqDist = xD * xD + yD * yD;
 				
-				double objectRoV = object.getModel().getRangeofCollision();
+				double objectRoV = object.getModel().getRangeOfCollision();
 				
 				boolean visionCollision = sqDist <= (Math.pow(subjectRoV + objectRoV, 2));
 
 				if (visionCollision) {
-					if(firstSight){
-						visionHandler.handle(object, subject);
-						firstSight = false;
-					}
+					visionHandler.handle(object, subject);
+					return;
 				}
 			}
 		}
@@ -164,12 +156,12 @@ public class CollisionDetection {
 	 * 
 	 * @param e
 	 */
-	private void limit(MobileEntity e) {
-		boolean outOfWidth = outOfWith(e);
+	private void limit(Entity e) {
+		boolean outOfWidth = outOfWidth(e);
 		boolean outOfHeight = outOfHeight(e);
 		if(outOfHeight || outOfWidth){
 			Vector2 newDirection = e.getDirection().cpy();
-			Vector2 newVelocity = e.getVelocity().cpy();
+			Vector2 newVelocity = e.getUpdateState().getMove().getVelocity().cpy();
 			if(outOfWidth){
 				newDirection.x = -newDirection.x;
 				newVelocity.x = -newVelocity.x;
@@ -182,8 +174,8 @@ public class CollisionDetection {
 				e.setPosition(new Vector2(e.getPosition().x,clamp(e.getPosition().y, 0, UnboundConstants.WORLDHEIGHT)));
 			}
 			e.setDirection(newDirection);
-			e.setVelocity(newVelocity);
-			e.setMove(new MoveStateRandom(e));
+			e.getUpdateState().getMove().setVelocity(newVelocity);
+			e.getUpdateState().setMove(new MoveStateRandom(e));
 		}
 			
 	}
@@ -192,11 +184,11 @@ public class CollisionDetection {
 		return Math.min(end, Math.max(pos, start));
 	}
 
-	private boolean outOfHeight(MobileEntity e) {
+	private boolean outOfHeight(Entity e) {
 		return e.getPosition().y < 0 || e.getPosition().y > UnboundConstants.WORLDHEIGHT;
 	}
 
-	private boolean outOfWith(MobileEntity e) {
+	private boolean outOfWidth(Entity e) {
 		return e.getPosition().x < 0 || e.getPosition().x > UnboundConstants.WORLDWIDTH;
 	}
 

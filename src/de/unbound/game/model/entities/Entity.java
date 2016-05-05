@@ -4,14 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-import de.unbound.game.BattleField;
-import de.unbound.game.model.EntityFlyweight;
-import de.unbound.game.model.state.attack.AbstractAttackState;
-import de.unbound.game.model.state.attack.AttackStateNone;
+import de.unbound.game.model.state.update.AbstractUpdateState;
 
-public abstract class Entity {
+public class Entity{
 
-	private AbstractAttackState attack;
+	private AbstractUpdateState updateState;
 	private Vector2 position;
 	private Vector2 direction;
 	private boolean active;
@@ -20,7 +17,6 @@ public abstract class Entity {
 	private double hp;
 
 	public Entity(){
-		attack = new AttackStateNone(this);
 		position = new Vector2();
 		direction = new Vector2(0,1);
 		active = true;
@@ -33,7 +29,7 @@ public abstract class Entity {
 	 * @param deltaTime
 	 */
 	public void update(double deltaTime){
-		attack.update(deltaTime);
+		updateState.update(deltaTime);
 	}
 
 	public void render(SpriteBatch batch){
@@ -41,15 +37,6 @@ public abstract class Entity {
 		sprite.setPosition(position.x-(sprite.getWidth()/2), position.y-(sprite.getHeight()/2));
 		sprite.setRotation(direction.angle());
 		sprite.draw(batch);
-	}
-	
-	public void takeDamage(double hp) {
-		setHp(this.hp - hp);
-		if(getHp() <= 0){
-			setActive(false);
-			if(isHostile())
-				BattleField.getBattleField().addScore(100);
-		}
 	}
 	
 	//Getters and Setters
@@ -87,14 +74,6 @@ public abstract class Entity {
 		this.active = active;
 	}
 
-	public AbstractAttackState getAttack() {
-		return attack;
-	}
-
-	public void setAttack(AbstractAttackState attack) {
-		this.attack = attack;
-	}
-
 	public EntityFlyweight getModel() {
 		return model;
 	}
@@ -118,5 +97,17 @@ public abstract class Entity {
 	public void setHp(double hp) {
 		this.hp = hp;
 	}
+
+	public AbstractUpdateState getUpdateState() {
+		return updateState;
+	}
+
+	public void setUpdateState(AbstractUpdateState updateState) {
+		this.updateState = updateState;
+	}
 	
+	public boolean isImmobile(){
+		String temp = model.getTextureName();
+		return temp.contains("Tower") || temp.contains("Deposit") || temp.contains("MainBase") || temp.contains("Spawner");
+	}
 }

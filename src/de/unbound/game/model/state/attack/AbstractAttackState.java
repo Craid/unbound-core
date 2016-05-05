@@ -2,7 +2,6 @@ package de.unbound.game.model.state.attack;
 
 import de.unbound.game.factories.ProjectileBuilder;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.game.model.state.State;
 
 public abstract class AbstractAttackState implements State{
@@ -15,7 +14,7 @@ public abstract class AbstractAttackState implements State{
 		lastTimeSinceEntityShot = 0;
 	}
 	
-	protected Projectile createBullet() {
+	protected Entity createBullet() {
 		return ProjectileBuilder.getInstance().createProjectile(e);
 	}
 

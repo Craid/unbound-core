@@ -1,11 +1,14 @@
 package de.unbound.game.model.state.move;
 
-import de.unbound.game.model.entities.mobile.MobileEntity;
+import com.badlogic.gdx.math.Vector2;
+
+import de.unbound.game.model.entities.Entity;
 
 public class MoveStateNone extends AbstractMoveState {
 
-	public MoveStateNone(MobileEntity e) {
+	public MoveStateNone(Entity e) {
 		super(e);
+		velocity = new Vector2(0,0);
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 package de.unbound.game.wave;
 
-import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.multiplayer.client.VersusConnection;
 
 
 public class ExternalVersusWaveHandler extends WaveHandler {
 
-	public ExternalVersusWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
+	public ExternalVersusWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
 	}
 

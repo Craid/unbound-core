@@ -2,11 +2,11 @@ package de.unbound.game.model.state.move;
 
 import com.badlogic.gdx.math.Vector2;
 
-import de.unbound.game.model.entities.mobile.MobileEntity;
+import de.unbound.game.model.entities.Entity;
 
 public class MoveStateRandom extends AbstractMoveState {
 	
-	public MoveStateRandom(MobileEntity e) {
+	public MoveStateRandom(Entity e) {
 		super(e);
 	}
 
@@ -16,9 +16,9 @@ public class MoveStateRandom extends AbstractMoveState {
 		
 		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
 		
-		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().cpy().nor().scl(acceleration)));
-		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl((float)(deltaTime*60));
-		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
+		velocity = velocity.cpy().add(e.getDirection().cpy().nor().scl(acceleration));
+		velocity = velocity.limit(e.getModel().getMaxVelocity()).scl((float)(deltaTime*60));
+		e.setPosition(e.getPosition().cpy().add(velocity));
 		
 //		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
 //		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(acceleration);

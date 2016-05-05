@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.collision.CollisionDetection;
-import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.wave.WaveHandler;
 
 public class World {
 
-	private AbstractRaceFactory enemyFactory;
-	private AbstractRaceFactory ownFactory;
+	private EntityFactory enemyFactory;
+	private EntityFactory ownFactory;
 	private WaveHandler gameMode;
 	private CollisionDetection collisionDetection;
 	private BattleField battleField;
@@ -39,11 +39,10 @@ public class World {
 		//InitializeAndConfigCamera();
 		camera = GameCamera.getGameCamera();
 		//Set basic defense units
-		ownFactory.createImmobileEntities(gameMode.getSeed());
+		ownFactory.createMap(gameMode.getSeed());
 		
-		enemyFactory.createSpawner();
+		enemyFactory.createEntity("Spawner");
 		
-		ownFactory.createPlayer();
 		font = new BitmapFont();
 	}
 	

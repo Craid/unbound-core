@@ -3,7 +3,7 @@ package de.unbound.game.model.state.move;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-import de.unbound.game.model.entities.mobile.MobileEntity;
+import de.unbound.game.model.entities.Entity;
 
 public class MoveStateControlled extends AbstractMoveState {
 
@@ -11,7 +11,7 @@ public class MoveStateControlled extends AbstractMoveState {
 	public boolean standingStill;
 	public boolean up, down, left, right;
 
-	public MoveStateControlled(MobileEntity e) {
+	public MoveStateControlled(Entity e) {
 		super(e);
 		standingStill = false;
 	}
@@ -36,15 +36,14 @@ public class MoveStateControlled extends AbstractMoveState {
 			float acceleration = (float) (e.getModel().getAcceleration() * deltaTime);
 			float timeFractionOfASecond = (float) (deltaTime * 60);
 
-			e.setVelocity(e.getVelocity().cpy()
-					.add(e.getDirection().nor().scl(acceleration)));
-			e.getVelocity().limit(e.getModel().getMaxVelocity())
+			velocity = velocity.cpy().add(e.getDirection().nor().scl(acceleration));
+			velocity = velocity.limit(e.getModel().getMaxVelocity())
 					.scl(timeFractionOfASecond);
 		} else {
-			e.getVelocity().scl(0.98f);
+			velocity = velocity.scl(0.98f);
 			e.getDirection().scl(0.98f);
 		}
-		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
+		e.setPosition(e.getPosition().cpy().add(velocity));
 	}
 
 	private boolean isRightCommandActivated() {

@@ -1,8 +1,6 @@
 package de.unbound.game.wave;
 
-import de.unbound.game.factories.AbstractRaceFactory;
-import de.unbound.game.factories.RaceDuckFactory;
-import de.unbound.game.factories.RacePrelateFactory;
+import de.unbound.game.factories.EntityFactory;
 
 public class LocaleEndlessWaveHandler extends WaveHandler {
 	
@@ -12,14 +10,14 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	private static final int WAVETIMEOUTS = 5;
 	private double cummulativeTime;
 
-	public LocaleEndlessWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
+	public LocaleEndlessWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
 		cummulativeTime = 2; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS
 		level = 1;
 	}
 	
 	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
-		return new LocaleEndlessWaveHandler(RacePrelateFactory.getInstance(),RaceDuckFactory.getInstance());
+		return new LocaleEndlessWaveHandler(new EntityFactory("Prelate"),new EntityFactory("Duck"));
 	}
 	
 	@Override

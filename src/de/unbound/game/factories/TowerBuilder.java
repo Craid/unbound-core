@@ -3,16 +3,15 @@ package de.unbound.game.factories;
 import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.BattleField;
-import de.unbound.game.model.entities.immobile.Tower;
-import de.unbound.game.model.entities.mobile.Player;
+import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.attack.AttackStateNone;
 
 public class TowerBuilder {
 	
 	private static TowerBuilder instance;
 	
-	private RaceDuckFactory duckFactory;
-	private RacePrelateFactory prelateFactory;
+	private EntityFactory duckFactory;
+	private EntityFactory prelateFactory;
 	
 	public static TowerBuilder getInstance(){
 		if(instance == null)
@@ -21,8 +20,8 @@ public class TowerBuilder {
 	}
 	
 	private TowerBuilder(){
-		duckFactory = RaceDuckFactory.getInstance();
-		prelateFactory = RacePrelateFactory.getInstance();
+		duckFactory = new EntityFactory("Duck");
+		prelateFactory = new EntityFactory("Prelate");
 	}
 	
 	/**
@@ -33,17 +32,16 @@ public class TowerBuilder {
 	 * @param entity - A specific EntityObject
 	 * @return a specific Projectile according to race
 	 */
-	public Tower createTower(float x, float y){
-		Tower tower = null;
-		Player entity = BattleField.getBattleField().getPlayer();
-		switch(entity.getClass().getSimpleName().substring(0, 3)){
-		case "Pre": tower = prelateFactory.createTower(); break;
-		case "Duc": tower = duckFactory.createTower(); break;
+	public Entity createTower(float x, float y){
+		Entity tower = null;
+		Entity entity = BattleField.getBattleField().getPlayer();
+		switch(entity.getModel().getTextureName().substring(0, 3)){
+		case "Pre": tower = prelateFactory.createEntity("Tower"); break;
+		case "Duc": tower = duckFactory.createEntity("Tower"); break;
 		}
-		tower.setHostile(entity.isHostile());
 		tower.setDirection(new Vector2(0, 1));
 		tower.setPosition(new Vector2(x,y));
-		tower.setAttack(new AttackStateNone(tower));
+		tower.getUpdateState().setAttack(new AttackStateNone(tower));
 		return tower;
 	}
 

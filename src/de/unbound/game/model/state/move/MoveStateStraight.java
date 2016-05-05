@@ -1,10 +1,10 @@
 package de.unbound.game.model.state.move;
 
-import de.unbound.game.model.entities.mobile.MobileEntity;
+import de.unbound.game.model.entities.Entity;
 
 public class MoveStateStraight extends AbstractMoveState {
 	
-	public MoveStateStraight(MobileEntity e) {
+	public MoveStateStraight(Entity e) {
 		super(e);
 	}
 
@@ -14,8 +14,8 @@ public class MoveStateStraight extends AbstractMoveState {
 		float acceleration = (float)(e.getModel().getAcceleration()*deltaTime);
 		float timeFractionOfASecond = (float)(deltaTime*60);
 		
-		e.setVelocity(e.getVelocity().cpy().add(e.getDirection().nor().scl(acceleration)));
-		e.getVelocity().limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
-		e.setPosition(e.getPosition().cpy().add(e.getVelocity()));
+		velocity = velocity.cpy().add(e.getDirection().nor().scl(acceleration));
+		velocity = velocity.limit(e.getModel().getMaxVelocity()).scl(timeFractionOfASecond);
+		e.setPosition(e.getPosition().cpy().add(velocity));
 	}
 }

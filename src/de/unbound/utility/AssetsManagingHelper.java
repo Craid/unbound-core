@@ -1,7 +1,5 @@
 package de.unbound.utility;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;

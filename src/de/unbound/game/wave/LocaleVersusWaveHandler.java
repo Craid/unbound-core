@@ -1,11 +1,11 @@
 package de.unbound.game.wave;
 
-import de.unbound.game.factories.AbstractRaceFactory;
+import de.unbound.game.factories.EntityFactory;
 
 
 public class LocaleVersusWaveHandler extends WaveHandler {
 	
-	public LocaleVersusWaveHandler(AbstractRaceFactory ownFactory, AbstractRaceFactory enemyFactory) {
+	public LocaleVersusWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
 	}
 	

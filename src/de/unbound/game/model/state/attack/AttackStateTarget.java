@@ -1,8 +1,6 @@
 package de.unbound.game.model.state.attack;
 
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.prelates.PrelateTower;
-import de.unbound.game.model.entities.mobile.Projectile;
 import de.unbound.utility.UnboundConstants;
 
 public class AttackStateTarget extends AbstractAttackState {
@@ -20,13 +18,14 @@ public class AttackStateTarget extends AbstractAttackState {
 			e.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 			lastTimeSinceEntityShot += deltaTime;
 			if (lastTimeSinceEntityShot > UnboundConstants.SHOTSPEED) {
-				Projectile p = createBullet();
+				Entity p = createBullet();
+				p.setHostile(e.isHostile());
 				p.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
-				p.setVelocity(p.getDirection().cpy().limit(p.getModel().getMaxVelocity()));
+				p.getUpdateState().getMove().setVelocity(p.getDirection().cpy().limit(p.getModel().getMeta().getMaxVelocity()));
 				lastTimeSinceEntityShot = 0;
 			}
 		}else {
-			e.setAttack(new AttackStateStraight(e));
+			e.getUpdateState().setAttack(new AttackStateStraight(e));
 		}
 	}
 }

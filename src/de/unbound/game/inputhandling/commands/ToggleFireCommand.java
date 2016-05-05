@@ -2,7 +2,7 @@ package de.unbound.game.inputhandling.commands;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.factories.ProjectileBuilder;
-import de.unbound.game.model.entities.mobile.Player;
+import de.unbound.game.model.entities.Entity;
 
 public class ToggleFireCommand extends Command {
 	
@@ -11,7 +11,7 @@ public class ToggleFireCommand extends Command {
 	}
 	
 	public void execute(){
-		Player player = BattleField.getBattleField().getPlayer();
+		Entity player = BattleField.getBattleField().getPlayer();
 		ProjectileBuilder.getInstance().createProjectile(player);
 	}
 	

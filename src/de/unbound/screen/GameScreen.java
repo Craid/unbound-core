@@ -7,7 +7,6 @@ import com.badlogic.gdx.InputProcessor;
 
 import de.unbound.game.World;
 import de.unbound.game.inputhandling.ActionSequencer;
-import de.unbound.game.inputhandling.handler.InputHandler;
 import de.unbound.game.inputhandling.handler.PCInputHandler;
 import de.unbound.game.wave.LocaleEndlessWaveHandler;
 

@@ -3,22 +3,15 @@ package de.unbound.game;
 import java.util.ArrayList;
 
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
-import de.unbound.game.model.entities.immobile.MainBase;
-import de.unbound.game.model.entities.mobile.Collector;
-import de.unbound.game.model.entities.mobile.MobileEntity;
-import de.unbound.game.model.entities.mobile.Player;
-import de.unbound.game.model.entities.mobile.Projectile;
 
 public class BattleField {
 
-	private Player player;
-	private MainBase mainBase;
-	private ArrayList<Projectile> enemyProjectiles, enemyProjectilesForNextUpdate;
-	private ArrayList<Projectile> friendlyProjectiles, friendlyProjectilesForNextUpdate;
-	private ArrayList<MobileEntity> enemies, enemiesForNextUpdate;
-	private ArrayList<Collector> collectors, collectorsForNextUpdate;
-	private ArrayList<ImmobileEntity> immobileEntities, immobileEntitiesForNextUpdate;
+	private Entity player, mainBase;
+	private ArrayList<Entity> enemyProjectiles, projectilesForNextUpdate;
+	private ArrayList<Entity> friendlyProjectiles;
+	private ArrayList<Entity> enemies, enemiesForNextUpdate;
+	private ArrayList<Entity> collectors, collectorsForNextUpdate;
+	private ArrayList<Entity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; ; // Alle Entitäten auf dem Battlefield!
 	private static BattleField battleField;
 	private int score;
@@ -34,16 +27,15 @@ public class BattleField {
 	}
 	
 	public void init() {
-		enemyProjectiles = new ArrayList<Projectile>();
-		enemyProjectilesForNextUpdate = new ArrayList<Projectile>();
-		friendlyProjectiles = new ArrayList<Projectile>();
-		friendlyProjectilesForNextUpdate = new ArrayList<Projectile>();
-		enemies = new ArrayList<MobileEntity>();
-		enemiesForNextUpdate = new ArrayList<MobileEntity>();
-		collectors = new ArrayList<Collector>();
-		collectorsForNextUpdate = new ArrayList<Collector>();
-		immobileEntities = new ArrayList<ImmobileEntity>();
-		immobileEntitiesForNextUpdate = new ArrayList<ImmobileEntity>();
+		enemyProjectiles = new ArrayList<Entity>();
+		projectilesForNextUpdate = new ArrayList<Entity>();
+		friendlyProjectiles = new ArrayList<Entity>();
+		enemies = new ArrayList<Entity>();
+		enemiesForNextUpdate = new ArrayList<Entity>();
+		collectors = new ArrayList<Entity>();
+		collectorsForNextUpdate = new ArrayList<Entity>();
+		immobileEntities = new ArrayList<Entity>();
+		immobileEntitiesForNextUpdate = new ArrayList<Entity>();
 
 		gameObjectsForNextUpdate = new ArrayList<Entity>();
 		gameObjects = new ArrayList<Entity>();
@@ -53,16 +45,31 @@ public class BattleField {
 	
 	public void update(double deltaTime) {
 		updateLists(gameObjects, gameObjectsForNextUpdate);
-		updateLists(enemyProjectiles, enemyProjectilesForNextUpdate);
-		updateLists(friendlyProjectiles, friendlyProjectilesForNextUpdate);
+		updateProjectilesList();
 		updateLists(enemies, enemiesForNextUpdate);
 		updateLists(collectors, collectorsForNextUpdate);
 		updateLists(immobileEntities, immobileEntitiesForNextUpdate);
 	}
 	
-	private <T extends Entity> void updateLists(ArrayList<T> currentList, ArrayList<T> forNextUpdateList){
+	private void updateLists(ArrayList<Entity> currentList, ArrayList<Entity> forNextUpdateList){
 		currentList.addAll(forNextUpdateList);
 		forNextUpdateList.clear();
+		clearInactiveEntities(currentList);
+	}
+	
+	private void updateProjectilesList(){
+		for(Entity projectile : projectilesForNextUpdate){
+			if(projectile.isHostile())
+				enemyProjectiles.add(projectile);
+			else
+				friendlyProjectiles.add(projectile);
+		}
+		projectilesForNextUpdate.clear();
+		clearInactiveEntities(enemyProjectiles);
+		clearInactiveEntities(friendlyProjectiles);
+	}
+
+	private void clearInactiveEntities(ArrayList<Entity> currentList) {
 		for(int i = 0; i < currentList.size(); i++)
 			if(!currentList.get(i).isActive())
 				currentList.remove(currentList.get(i));
@@ -73,59 +80,40 @@ public class BattleField {
 	}
 
 	// Add Commands
-	public void add(Projectile projectile) {  
-		if (projectile.isHostile()) enemyProjectilesForNextUpdate.add(projectile); //Wenn feindlich...
-		else friendlyProjectilesForNextUpdate.add(projectile); // wenn freundlich...
-		gameObjectsForNextUpdate.add(projectile); // 
+	public void add(Entity e) {
+		String temp = e.getModel().getTextureName();
+		
+		if(temp.contains("Projectile"))
+			projectilesForNextUpdate.add(e);
+		else if(temp.contains("Collectors"))
+			collectorsForNextUpdate.add(e);
+		else if(temp.contains("Player"))
+			player = e;
+		else if(temp.contains("MainBase"))
+			mainBase = e;
+		else if(temp.contains("Spawner"))
+			; //do nothing
+		else if(e.isImmobile())
+			immobileEntitiesForNextUpdate.add(e);
+		else if(!e.isImmobile())
+			enemiesForNextUpdate.add(e);
+			
+		gameObjectsForNextUpdate.add(e);
 	}
 	
-	public void add(MobileEntity mobileEntity) {
-		enemiesForNextUpdate.add(mobileEntity); 
-		gameObjectsForNextUpdate.add(mobileEntity);
-	}
-	
-	public void add(Collector collector) {
-		collectorsForNextUpdate.add(collector); 
-		gameObjectsForNextUpdate.add(collector);
-	}
-	
-	public void add(ImmobileEntity immobileEntity) {
-		immobileEntitiesForNextUpdate.add(immobileEntity); 
-		gameObjectsForNextUpdate.add(immobileEntity);
-	}	
-	
-	/**
-	 * 
-	 * @param player
-	 */
-	public void add(Player player) {
-		this.player = player;
-		gameObjectsForNextUpdate.add(player);
-	}
-
-	/**
-	 * 
-	 * @param mainBase
-	 */
-	public void add(MainBase mainBase) {
-		this.mainBase = mainBase;
-		immobileEntitiesForNextUpdate.add(mainBase);
-		gameObjectsForNextUpdate.add(mainBase);
-	}
-	
-	public ArrayList<Projectile> getFriendlyProjectiles() {
+	public ArrayList<Entity> getFriendlyProjectiles() {
 		return friendlyProjectiles;
 	}
 
-	public ArrayList<MobileEntity> getEnemies() {
+	public ArrayList<Entity> getEnemies() {
 		return enemies;
 	}
 
-	public ArrayList<Collector> getCollectors() {
+	public ArrayList<Entity> getCollectors() {
 		return collectors;
 	}
 
-	public ArrayList<ImmobileEntity> getImmobileEntities() {
+	public ArrayList<Entity> getImmobileEntities() {
 		return immobileEntities;
 	}
 
@@ -133,22 +121,18 @@ public class BattleField {
 		return gameObjects;
 	}
 
-	public Player getPlayer() {
+	public Entity getPlayer() {
 		return player;
 	}
 
-	public MainBase getMainBase() {
+	public Entity getMainBase() {
 		return mainBase;
 	}
 	
-	public ArrayList<Projectile> getEnemyProjectiles() {
+	public ArrayList<Entity> getEnemyProjectiles() {
 		return enemyProjectiles;
 	}
 	
-	public ArrayList<Entity> getEntitiesForNextUpdate() {
-		return gameObjectsForNextUpdate;
-	}
-
 	public int getScore() {
 		return score;
 	}

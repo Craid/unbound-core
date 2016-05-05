@@ -1,53 +1,46 @@
 package de.unbound.game.collision;
 
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.immobile.ImmobileEntity;
-import de.unbound.game.model.entities.mobile.MobileEntity;
-import de.unbound.game.model.entities.mobile.Projectile;
 
-public class BodyCollisionHandler extends CollisionHandler<MobileEntity,Entity>{
+public class BodyCollisionHandler extends CollisionHandler{
 	
-	private void projectileHit(Projectile p, Entity hitted){
+	private void projectileHit(Entity p, Entity hitted){
 		p.setActive(false);
-		hitted.takeDamage(p.getDamage());
+		hitted.getUpdateState().takeDamage(p.getModel().getDamageOnContact());
 	}
 	
-	private void changeDirection(MobileEntity me){
+	private void changeDirection(Entity me){
 		me.setDirection(me.getDirection().scl(-1f));
-		me.setVelocity(me.getVelocity().scl(-1f));
+		me.getUpdateState().getMove().setVelocity(me.getUpdateState().getMove().getVelocity().scl(-1f));
 	}
 	
-	public void handle(MobileEntity subject, Projectile object) {
-		projectileHit(object, subject);
-	}
-
-	public void handle(MobileEntity subject, MobileEntity object) {
+	private void handleMobileMobile(Entity subject, Entity object) {
 		changeDirection(subject);
 		changeDirection(object);
-		subject.takeDamage(50);
-		object.takeDamage(50);
+		subject.getUpdateState().takeDamage(object.getModel().getDamageOnContact());
+		object.getUpdateState().takeDamage(subject.getModel().getDamageOnContact());
 	}
 
-	public void handle(MobileEntity subject, ImmobileEntity object) {
+	private void handleMobileImmobile(Entity subject, Entity object) {
 		changeDirection(subject);
-		subject.takeDamage(50);
-		object.takeDamage(50);
+		subject.getUpdateState().takeDamage(object.getModel().getDamageOnContact());
+		object.getUpdateState().takeDamage(subject.getModel().getDamageOnContact());
 	}
 	
-	public void handle(Projectile subject, Entity object) {
+	private void handleProjectileMobile(Entity subject, Entity object) {
 		projectileHit(subject, object);
 	}
 
 	@Override
-	public void handle(MobileEntity subject, Entity object){
-		if(subject instanceof Projectile)
-			handle((Projectile)subject,object);
-		else if(object instanceof Projectile)
-			handle(subject,(Projectile)object);
-		else if(object instanceof MobileEntity)
-			handle(subject,(MobileEntity)object);
-		else if(object instanceof ImmobileEntity)
-			handle(subject,(ImmobileEntity)object);
+	public void handle(Entity subject, Entity object){
+		if(subject.getModel().getTextureName().contains("Projectile"))
+			handleProjectileMobile(subject,object);
+		else if(object.getModel().getTextureName().contains("Projectile"))
+			handleProjectileMobile(object,subject);
+		else if(!object.isImmobile())
+			handleMobileMobile(subject,object);
+		else if(object.isImmobile())
+			handleMobileImmobile(subject,object);
 		else{			
 			debugPrint(subject, object);
 			System.out.print("Unbekannte Collision!");
