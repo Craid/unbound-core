@@ -29,10 +29,6 @@ public class EntityFactory {
 		this.race = race;
 	}
 
-	/**
-	 * 
-	 * @param seed
-	 */
 	public void createMap(double seed) {
 
 		Entity mainBase = createEntity("MainBase");

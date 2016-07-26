@@ -25,24 +25,9 @@ public class CollisionDetection {
 		bodyHandler = new BodyCollisionHandler();
 	}
 
-	/**
-	 * 
-	 * @param deltaTime
-	 */
 	public void update(double deltaTime) {
 		updateEnemies();
 		updateOwn();
-	}
-
-
-	/**
-	 * @see updateEnemies()
-	 */
-	private void updateOwn() {
-		for(Entity c : battleField.getCollectors())
-			checkBodyCollision(c,battleField.getImmobileEntities());
-		for(Entity im : battleField.getImmobileEntities())
-			checkVision(im, battleField.getEnemies());
 	}
 
 	/**
@@ -68,34 +53,30 @@ public class CollisionDetection {
 		}
 	}
 
+	/**
+	 * @see updateEnemies()
+	 */
+	private void updateOwn() {
+		for(Entity c : battleField.getCollectors())
+			checkBodyCollision(c,battleField.getImmobileEntities());
+		for(Entity im : battleField.getImmobileEntities())
+			checkVision(im, battleField.getEnemies());
+	}
+
 	private void checkVisionAndBodyCollision(Entity subject, ArrayList<Entity> list) {
-		double subjectRoV = subject.getModel().getRangeOfVision();
-		double subjectRoC = subject.getModel().getRangeOfCollision();
-		float subjectX = subject.getPosition().x;
-		float subjectY = subject.getPosition().y;
-		
 		boolean firstSight = true;
 		
 		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
 			if (object.isHostile() != subject.isHostile() && object.isActive()) {
-				float xD = object.getPosition().x - subjectX;
-				float yD = object.getPosition().y - subjectY;
-				float sqDist = xD * xD + yD * yD;
-				
-				double objectRoV = object.getModel().getRangeOfCollision();
-				
-				boolean visionCollision = sqDist <= (Math.pow(subjectRoV + objectRoV, 2));
-
-				if (visionCollision) {
+				if (canBeSeen(subject, object)) {
 					if(firstSight){
 						visionHandler.handle(subject, object);
 						firstSight = false;
 					}
 				
-					boolean bodyCollision = sqDist <= (Math.pow(subjectRoC + objectRoV, 2));
-					if (bodyCollision)
+					if (areTouching(subject, object))
 						bodyHandler.handle(subject, object);
 				}
 			}
@@ -103,52 +84,50 @@ public class CollisionDetection {
 	}
 	
 	private void checkBodyCollision(Entity subject, ArrayList<Entity> list) {
-		double subjectRoC = subject.getModel().getRangeOfCollision();
-		float subjectX = subject.getPosition().x;
-		float subjectY = subject.getPosition().y;
-		
 		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
 			if (object.isHostile() != subject.isHostile() && object.isActive()) {
-				float xD = object.getPosition().x - subjectX;
-				float yD = object.getPosition().y - subjectY;
-				float sqDist = xD * xD + yD * yD;
-				
-				double objectRoC = object.getModel().getRangeOfCollision();
-				boolean bodyCollision = sqDist <= (Math.pow(subjectRoC + objectRoC, 2));
-
-				if (bodyCollision)
+				if (areTouching(subject, object))
 					bodyHandler.handle(subject, object);
 			}
 		}
 	}
-	
-
 
 	private void checkVision(Entity subject, ArrayList<Entity> list) {
-		double subjectRoV = subject.getModel().getRangeOfVision();
-		float subjectX = subject.getPosition().x;
-		float subjectY = subject.getPosition().y;
-		
 		for (Entity object : list) {
 			if(!subject.isActive())
 				return;
-			if (object.isHostile() != subject.isHostile() && object.isActive()) {
-				float xD = object.getPosition().x - subjectX;
-				float yD = object.getPosition().y - subjectY;
-				float sqDist = xD * xD + yD * yD;
-				
-				double objectRoV = object.getModel().getRangeOfCollision();
-				
-				boolean visionCollision = sqDist <= (Math.pow(subjectRoV + objectRoV, 2));
-
-				if (visionCollision) {
+			if (object.isHostile() != subject.isHostile() && object.isActive())
+				if (canBeSeen(subject, object)) {
 					visionHandler.handle(object, subject);
 					return;
 				}
-			}
 		}
+	}
+
+	private boolean areTouching(Entity subject, Entity object) {
+		double subjectRange = subject.getModel().getRangeOfCollision();
+		double objectRange = object.getModel().getRangeOfCollision();
+		
+		return isInRange(subject, object, subjectRange, objectRange);
+	}
+
+	private boolean canBeSeen(Entity subject, Entity object) {
+		double subjectRange = subject.getModel().getRangeOfVision();
+		double objectRange = object.getModel().getRangeOfCollision();
+
+		return isInRange(subject, object, subjectRange, objectRange);
+	}	
+	
+	private boolean isInRange(Entity subject, Entity object, double subjectRange, double objectRange) {
+		return calcSqDist(subject, object) <= (Math.pow(subjectRange + objectRange, 2));
+	}
+
+	private float calcSqDist(Entity subject, Entity object) {
+		float xD = object.getPosition().x - subject.getPosition().x;
+		float yD = object.getPosition().y - subject.getPosition().y;
+		return xD * xD + yD * yD;
 	}
 	
 	/**
@@ -165,7 +144,6 @@ public class CollisionDetection {
 			if(outOfWidth){
 				newDirection.x = -newDirection.x;
 				newVelocity.x = -newVelocity.x;
-
 				e.setPosition(new Vector2(clamp(e.getPosition().x, 0, UnboundConstants.WORLDWIDTH),e.getPosition().y));
 			}
 			if(outOfHeight){

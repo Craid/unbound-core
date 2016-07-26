@@ -48,7 +48,7 @@ public abstract class AbstractGameUpdate {
 	private void updateWaveHandlerAndBattleField(double deltaTime) {
 		world.getWaveHandler().update(deltaTime);
 		if(world.getWaveHandler().hasNewOrder()){
-			world.getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
+			world.getWaveHandler().getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
 		}
 		// To be generated Objects in actual List
 		battleField.update(deltaTime);

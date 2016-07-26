@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.unbound.game.GameCamera;
 import de.unbound.game.model.entities.Entity;
 
-public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
+public class LocalGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	private SpriteBatch hudBatch;
 
-	public ClientSurvivalGameUpdate() {
+	public LocalGameUpdate() {
 		initAbstract();
 		init();
 	}

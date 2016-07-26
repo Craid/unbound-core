@@ -8,13 +8,12 @@ public abstract class WaveHandler {
 
 	private ArrayList<WaveOrder> orders;
 	private WaveOrder currentOrder;
-	private WaveReport ownWaveReport;
 	private EntityFactory ownFactory;
 	private EntityFactory enemyFactory;
 	private boolean newOrder;
 	protected int level;
 	private float seed;
-	
+
 	public WaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		setOwnFactory(ownFactory);
 		setEnemyFactory(enemyFactory);
@@ -22,6 +21,9 @@ public abstract class WaveHandler {
 		newOrder = false;
 		level = -1;
 		seed = (float) Math.random();
+
+		ownFactory.createMap(this.getSeed());
+		enemyFactory.createEntity("Spawner");
 	}
 
 	public EntityFactory getOwnFactory() {
@@ -51,47 +53,34 @@ public abstract class WaveHandler {
 	 * @param n
 	 */
 	public WaveOrder getCurrentOrder() {
-		if(newOrder){
+		if (newOrder) {
 			orders.add(currentOrder);
 			newOrder = false;
 			return currentOrder;
-		}else{
+		} else {
 			return WaveOrder.NullOrder();
 		}
 	}
-	
+
 	protected void setCurrentOrder(WaveOrder wo) {
 		newOrder = true;
 		currentOrder = wo;
 	}
 
-	public WaveReport getOwnWaveReport() {
-		return this.ownWaveReport;
-	}
-
-	/**
-	 * 
-	 * @param newWaveOrder
-	 */
-	public void setWaveReport(de.unbound.game.wave.WaveReport newWaveOrder) {
-		// TODO - implement WaveHandler.setWaveReport
-		throw new UnsupportedOperationException();
-	}
-	
-	public boolean hasNewOrder(){
+	public boolean hasNewOrder() {
 		return newOrder;
 	}
-	
-	public int getLevel(){
+
+	public int getLevel() {
 		return level;
 	}
-	
-	public float getSeed(){
+
+	public float getSeed() {
 		return seed;
 	}
-	
-	protected void setSeed(float newSeed){
+
+	protected void setSeed(float newSeed) {
 		seed = newSeed;
 	}
-	
+
 }
