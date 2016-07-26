@@ -17,7 +17,7 @@ public class EntitiyFlyweightModelJsonHelper {
 
 		//TODO uncomment to update flyweightmodel.json
 		//needs to be moved from desktop/<root> to android/assests/model/
-		//initDocument();
+		initDocument();
 	}
 
 	public HashMap<String, EntityFlyweightMeta> readDocument() {
@@ -38,7 +38,6 @@ public class EntitiyFlyweightModelJsonHelper {
 		ArrayList<EntityFlyweightMeta> efml = new ArrayList<EntityFlyweightMeta>();
 
 		int temp = UnboundConstants.SINGLEGRIDHEIGHT/2;
-		
 		//rangeofSight,rangeOfCollision,upgrades,ClassName,accekeration, maxVelocity
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateBoss", 50,3,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateCollector", 90,5,50));
@@ -52,6 +51,7 @@ public class EntitiyFlyweightModelJsonHelper {
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateSpawner", 0,0,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateTower", 0,0,50));
 
+
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckBoss", 50,3,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckCommander", 80,6.2f,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckPawn", 70,6,50));
@@ -63,10 +63,12 @@ public class EntitiyFlyweightModelJsonHelper {
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckDeposit", 0,0,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckMainBase", 0,0,50));
 		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckTower", 0,0,50));
-
+		
 		Json json = new Json();
 		FileHandle file = Gdx.files.local("flyweightentitymodel.json");
 		file.writeString(json.toJson(efml), false);
+		
+		System.out.println("Generated JSON");
 	}
 
 }
