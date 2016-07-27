@@ -1,6 +1,6 @@
 package de.unbound.game.inputhandling.commands;
 
-import de.unbound.game.factories.TowerBuilder;
+import de.unbound.game.World;
 
 public class CreateTowerCommand extends Command {
 	
@@ -12,6 +12,6 @@ public class CreateTowerCommand extends Command {
 	}
 	
 	public void execute(){
-		TowerBuilder.getInstance().createTower(posX, posY);
+		World.getInstance().createTower(posX, posY);
 	} 
 }

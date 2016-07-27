@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 
-import de.unbound.game.GameCamera;
+import de.unbound.game.World;
 import de.unbound.game.inputhandling.ActionSequencer;
 import de.unbound.game.inputhandling.commands.Command;
 import de.unbound.game.inputhandling.commands.CreateTowerCommand;
@@ -37,7 +37,7 @@ public abstract class InputHandler extends InputAdapter{
 		if(System.currentTimeMillis() - lastTowerBuild > 500){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
-			GameCamera.getInstance().unproject(touchPos);
+			World.getInstance().getGameUpdate().getCamera().unproject(touchPos);
 			addCommandToSequencer(new CreateTowerCommand(touchPos.x, touchPos.y));
 			lastTowerBuild = System.currentTimeMillis();
 		}

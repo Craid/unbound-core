@@ -18,8 +18,7 @@ public class AttackStateTarget extends AbstractAttackState {
 			e.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 			lastTimeSinceEntityShot += deltaTime;
 			if (lastTimeSinceEntityShot > UnboundConstants.SHOTSPEED) {
-				Entity p = createBullet();
-				p.setHostile(e.isHostile());
+				Entity p = createProjectile();
 				p.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 				p.getUpdateState().getMove().setVelocity(p.getDirection().cpy().limit(p.getModel().getMeta().getMaxVelocity()));
 				lastTimeSinceEntityShot = 0;

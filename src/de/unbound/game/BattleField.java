@@ -13,16 +13,9 @@ public class BattleField {
 	private ArrayList<Entity> collectors, collectorsForNextUpdate;
 	private ArrayList<Entity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; ; // Alle Entitäten auf dem Battlefield!
-	private static BattleField battleField;
 	private int score;
 	
-	public static BattleField getInstance(){
-		if(battleField == null)
-			battleField = new BattleField();
-		return battleField;
-	}
-		
-	private BattleField() {
+	public BattleField() {
 		init();
 	}
 	
@@ -71,8 +64,11 @@ public class BattleField {
 
 	private void clearInactiveEntities(ArrayList<Entity> currentList) {
 		for(int i = 0; i < currentList.size(); i++)
-			if(!currentList.get(i).isActive())
+			if(!currentList.get(i).isActive()){
+				if(currentList.get(i).isHostile() && !currentList.get(i).getTextureName().contains("Projectile"))
+					addScore(100);
 				currentList.remove(currentList.get(i));
+			}
 	}
 	
 	public void addScore(int score){

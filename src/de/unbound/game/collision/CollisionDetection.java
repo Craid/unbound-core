@@ -15,12 +15,8 @@ public class CollisionDetection {
 	private VisionCollisionHandler visionHandler;
 	private BodyCollisionHandler bodyHandler;
 
-	public CollisionDetection() {
-		init();
-	}
-
-	public void init() {
-		this.battleField = BattleField.getInstance();
+	public CollisionDetection(BattleField battleField) {
+		this.battleField = battleField;
 		visionHandler = new VisionCollisionHandler();
 		bodyHandler = new BodyCollisionHandler();
 	}

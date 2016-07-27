@@ -14,19 +14,17 @@ public abstract class AbstractGameScreen implements Screen {
 
 	public abstract void render (float deltaTime);
 
-	public abstract void resize (int width, int height);
+	public void resize (int width, int height){}
 
-	public abstract void show ();
+	public void show(){}
 
-	public abstract void hide ();
+	public void hide(){}
 
-	public abstract void pause ();
+	public void pause(){}
 
-	public abstract InputProcessor getInputProcessor ();
+	public InputProcessor getInputProcessor(){ return null;}
 
-	public void resume () {
-	}
+	public void resume(){}
 
-	public void dispose () {
-	}
+	public void dispose(){}
 }

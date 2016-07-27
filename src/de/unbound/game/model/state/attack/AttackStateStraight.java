@@ -14,7 +14,7 @@ public class AttackStateStraight extends AbstractAttackState {
 	public void update(double deltaTime) {
 		lastTimeSinceEntityShot += deltaTime;
 		if(lastTimeSinceEntityShot > UnboundConstants.SHOTSPEED){
-			createBullet();
+			createProjectile();
 			lastTimeSinceEntityShot = 0;
 		}
 	}

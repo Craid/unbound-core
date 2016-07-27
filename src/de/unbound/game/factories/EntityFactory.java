@@ -17,7 +17,8 @@ import de.unbound.utility.UnboundConstants;
 public class EntityFactory {
 
 	protected FlyweightFactory flyweightFactory;
-	protected BattleField battlefield;
+	private BattleField battlefield;
+
 	private String race;
 	private boolean hostile;
 	
@@ -26,7 +27,6 @@ public class EntityFactory {
 
 	public EntityFactory(String race, boolean hostile) {
 		flyweightFactory = FlyweightFactory.getInstance();
-		battlefield = BattleField.getInstance();
 		this.race = race;
 		this.hostile = hostile;
 	}
@@ -108,4 +108,17 @@ public class EntityFactory {
 	private void updatePlayer(Entity e) {
 		e.setUpdateState(new UpdateStatePlayer(e));
 	}
+	
+	public void setBattlefield(BattleField battlefield) {
+		this.battlefield = battlefield;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public boolean isHostile() {
+		return hostile;
+	}
+	
 }

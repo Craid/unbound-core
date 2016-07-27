@@ -2,7 +2,6 @@ package de.unbound.game.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,7 +12,6 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
-	private OrthographicCamera camera;
 	private SpriteBatch hudBatch;
 
 	public LocalGameUpdate() {
@@ -24,7 +22,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 	protected void init() {
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		camera = GameCamera.getInstance();
+		camera = new GameCamera();
 		font = new BitmapFont();
 	}
 

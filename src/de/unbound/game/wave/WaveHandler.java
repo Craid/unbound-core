@@ -2,6 +2,7 @@ package de.unbound.game.wave;
 
 import java.util.ArrayList;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.factories.EntityFactory;
 
 public abstract class WaveHandler {
@@ -21,6 +22,11 @@ public abstract class WaveHandler {
 		newOrder = false;
 		level = -1;
 		seed = (float) Math.random();
+	}
+	
+	public void setBattleFieldForFactories(BattleField battleField){
+		ownFactory.setBattlefield(battleField);
+		enemyFactory.setBattlefield(battleField);
 
 		ownFactory.createMap(this.getSeed());
 		enemyFactory.createEntity("Spawner");
