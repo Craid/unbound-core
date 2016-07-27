@@ -19,14 +19,16 @@ public class EntityFactory {
 	protected FlyweightFactory flyweightFactory;
 	protected BattleField battlefield;
 	private String race;
+	private boolean hostile;
 	
 	private static Vector2 SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
 			UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
 
-	public EntityFactory(String race) {
+	public EntityFactory(String race, boolean hostile) {
 		flyweightFactory = FlyweightFactory.getInstance();
-		battlefield = BattleField.getBattleField();
+		battlefield = BattleField.getInstance();
 		this.race = race;
+		this.hostile = hostile;
 	}
 
 	public void createMap(double seed) {
@@ -75,15 +77,13 @@ public class EntityFactory {
 		for (int i = 0; i < order.getPawnNumber(); i++)
 			wave.add(createEntity("Pawn"));
 		
-		for(Entity e : wave)
-			e.setHostile(true);
-		
 	}
 
 	public Entity createEntity(String type) {
 		Entity e = new Entity();
 		e.setModel(flyweightFactory.getFlyweight(race + type));
 		e.setPosition(SPAWNPOINT.cpy());
+		e.setHostile(hostile);
 		updateTypeAttributes(e,type);
 		battlefield.add(e);
 		return e;

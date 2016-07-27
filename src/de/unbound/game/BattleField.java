@@ -16,7 +16,7 @@ public class BattleField {
 	private static BattleField battleField;
 	private int score;
 	
-	public static BattleField getBattleField(){
+	public static BattleField getInstance(){
 		if(battleField == null)
 			battleField = new BattleField();
 		return battleField;

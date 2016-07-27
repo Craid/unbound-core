@@ -11,7 +11,7 @@ public class ToggleFireCommand extends Command {
 	}
 	
 	public void execute(){
-		Entity player = BattleField.getBattleField().getPlayer();
+		Entity player = BattleField.getInstance().getPlayer();
 		ProjectileBuilder.getInstance().createProjectile(player);
 	}
 	

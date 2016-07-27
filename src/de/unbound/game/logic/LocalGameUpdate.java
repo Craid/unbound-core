@@ -24,7 +24,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 	protected void init() {
 		batch = new SpriteBatch();
 		hudBatch = new SpriteBatch();
-		camera = GameCamera.getGameCamera();
+		camera = GameCamera.getInstance();
 		font = new BitmapFont();
 	}
 
@@ -90,6 +90,13 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		camera.position.y = battleField.getPlayer().getPosition().y;
 		camera.zoom = 2.4f;
 		camera.update();
+	}
+
+	@Override
+	public void updateWaveHandler(double deltaTime) {
+		world.getWaveHandler().update(deltaTime);
+		if(world.getWaveHandler().hasNewOrder())
+			world.getWaveHandler().getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
 	}
 
 }

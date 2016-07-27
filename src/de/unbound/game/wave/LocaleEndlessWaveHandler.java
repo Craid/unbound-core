@@ -17,7 +17,7 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	}
 	
 	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
-		return new LocaleEndlessWaveHandler(new EntityFactory("Prelate"),new EntityFactory("Duck"));
+		return new LocaleEndlessWaveHandler(new EntityFactory("Prelate", false),new EntityFactory("Duck", true));
 	}
 	
 	@Override

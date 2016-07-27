@@ -18,8 +18,10 @@ public class Entity{
 	private EntityFlyweight model;
 	private boolean hostile;
 	private double hp;
+	private int id;
 
 	public Entity(){
+		id = -1;
 		position = new Vector2();
 		direction = new Vector2(0,1);
 		active = true;
@@ -39,7 +41,7 @@ public class Entity{
 		Sprite sprite = model.getGraphic();
 		sprite.setPosition(position.x-(sprite.getWidth()/2), position.y-(sprite.getHeight()/2));
 		sprite.setRotation(direction.angle());
-		if(GameCamera.getGameCamera().frustum.sphereInFrustum(new Vector3(position.x, position.y, 0), (float)model.getRangeOfCollision() ) )
+		if(GameCamera.getInstance().frustum.sphereInFrustum(new Vector3(position.x, position.y, 0), (float)model.getRangeOfCollision() ) )
 			sprite.draw(batch);
 	}
 	
@@ -48,7 +50,7 @@ public class Entity{
 		if(getHp() <= 0){
 			setActive(false);
 			if(isHostile())
-				BattleField.getBattleField().addScore(100);
+				BattleField.getInstance().addScore(100);
 		}
 	}
 	
@@ -119,8 +121,17 @@ public class Entity{
 		this.updateState = updateState;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public boolean isImmobile(){
 		String temp = model.getTextureName();
 		return temp.contains("Tower") || temp.contains("Deposit") || temp.contains("MainBase") || temp.contains("Spawner");
 	}
+	
 }

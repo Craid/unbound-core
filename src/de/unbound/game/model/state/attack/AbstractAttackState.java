@@ -1,5 +1,6 @@
 package de.unbound.game.model.state.attack;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.factories.ProjectileBuilder;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.State;
@@ -15,7 +16,9 @@ public abstract class AbstractAttackState implements State{
 	}
 	
 	protected Entity createBullet() {
-		return ProjectileBuilder.getInstance().createProjectile(e);
+		Entity p = ProjectileBuilder.getInstance().createProjectile(e);
+		BattleField.getInstance().add(p);
+		return p;
 	}
 
 }

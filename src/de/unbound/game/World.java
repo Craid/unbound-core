@@ -1,7 +1,6 @@
 package de.unbound.game;
 
 import de.unbound.game.logic.AbstractGameUpdate;
-import de.unbound.game.logic.LocalGameUpdate;
 import de.unbound.game.wave.WaveHandler;
 
 public class World {
@@ -12,6 +11,7 @@ public class World {
 	public World(WaveHandler waveHandler, AbstractGameUpdate gameUpdate){
 		this.waveHandler = waveHandler;
 		this.gameUpdate = gameUpdate;
+		this.gameUpdate.setWorld(this);
 	}
 
 	/**
@@ -26,8 +26,4 @@ public class World {
 		return waveHandler;
 	}
 
-	public void setWaveHandler(WaveHandler waveHandler) {
-		this.waveHandler = waveHandler;
-	}
-	
 }

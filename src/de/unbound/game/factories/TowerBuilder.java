@@ -20,8 +20,8 @@ public class TowerBuilder {
 	}
 	
 	private TowerBuilder(){
-		duckFactory = new EntityFactory("Duck");
-		prelateFactory = new EntityFactory("Prelate");
+		duckFactory = new EntityFactory("Duck",true);
+		prelateFactory = new EntityFactory("Prelate",true);
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class TowerBuilder {
 	 */
 	public Entity createTower(float x, float y){
 		Entity tower = null;
-		Entity entity = BattleField.getBattleField().getPlayer();
+		Entity entity = BattleField.getInstance().getPlayer();
 		switch(entity.getModel().getTextureName().substring(0, 3)){
 		case "Pre": tower = prelateFactory.createEntity("Tower"); break;
 		case "Duc": tower = duckFactory.createEntity("Tower"); break;

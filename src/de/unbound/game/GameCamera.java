@@ -7,7 +7,7 @@ public class GameCamera extends OrthographicCamera{
 	
 	public static GameCamera camera;
 	
-	public static GameCamera getGameCamera(){
+	public static GameCamera getInstance(){
 		if(camera == null)
 			camera = new GameCamera();
 		return camera;
@@ -19,10 +19,7 @@ public class GameCamera extends OrthographicCamera{
 	}
 	
 	private void initialize(){
-		//Initialisiere Kamera
 		//camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 	}
-	
-	
 	
 }

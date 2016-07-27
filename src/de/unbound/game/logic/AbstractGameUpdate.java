@@ -13,14 +13,15 @@ public abstract class AbstractGameUpdate {
 	
 	protected void initAbstract(){
 		collisionDetection = new CollisionDetection();
-		battleField = BattleField.getBattleField();
+		battleField = BattleField.getInstance();
 	}
 
 	public void update(double deltaTime){
 		if (isGameOver()) {
 			doBeforeUpdate();
 			
-			updateWaveHandlerAndBattleField(deltaTime);
+			updateWaveHandler(deltaTime);
+			updateBattleField(deltaTime);
 			
 			onCollisionHandling(deltaTime);
 
@@ -34,25 +35,22 @@ public abstract class AbstractGameUpdate {
 		}
 		
 	}
-	
+
 	public abstract boolean isGameOver();
 
 	public abstract void doBeforeUpdate();
+	
+	private void updateBattleField(double deltaTime){
+		battleField.update(deltaTime);
+	}
+
+	public abstract void updateWaveHandler(double deltaTime);
 	
 	public abstract void onCollisionHandling(double deltaTime);
 	
 	public abstract void doAfterUpdate();
 	
 	public abstract void onGameEnd();
-	
-	private void updateWaveHandlerAndBattleField(double deltaTime) {
-		world.getWaveHandler().update(deltaTime);
-		if(world.getWaveHandler().hasNewOrder()){
-			world.getWaveHandler().getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
-		}
-		// To be generated Objects in actual List
-		battleField.update(deltaTime);
-	}
 	
 	public World getWorld() {
 		return world;

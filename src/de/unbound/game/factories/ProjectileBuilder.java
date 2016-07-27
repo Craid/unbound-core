@@ -17,8 +17,8 @@ public class ProjectileBuilder {
 	}
 	
 	private ProjectileBuilder(){
-		duckFactory = new EntityFactory("Duck");
-		prelateFactory = new EntityFactory("Prelate");
+		duckFactory = new EntityFactory("Duck",true);
+		prelateFactory = new EntityFactory("Prelate",true);
 	}
 	
 	/**

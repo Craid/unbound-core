@@ -9,8 +9,6 @@ import de.unbound.game.World;
 import de.unbound.game.inputhandling.ActionSequencer;
 import de.unbound.game.inputhandling.handler.PCInputHandler;
 import de.unbound.game.logic.AbstractGameUpdate;
-import de.unbound.game.logic.LocalGameUpdate;
-import de.unbound.game.wave.LocaleEndlessWaveHandler;
 import de.unbound.game.wave.WaveHandler;
 
 public class GameScreen extends AbstractGameScreen{
@@ -55,7 +53,6 @@ public class GameScreen extends AbstractGameScreen{
 	public void render(float deltaTime) {
 		world.update(deltaTime);
 		sequence.update();
-		
 	}
 
 	@Override
