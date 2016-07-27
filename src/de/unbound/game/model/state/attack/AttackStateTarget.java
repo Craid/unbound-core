@@ -14,12 +14,12 @@ public class AttackStateTarget extends AbstractAttackState {
 
 	@Override
 	public void update(double deltaTime) {
+		
 		if (target != null && target.isActive()) {
 			e.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 			lastTimeSinceEntityShot += deltaTime;
 			if (lastTimeSinceEntityShot > UnboundConstants.SHOTSPEED) {
-				Entity p = createBullet();
-				p.setHostile(e.isHostile());
+				Entity p = createProjectile();
 				p.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 				p.getUpdateState().getMove().setVelocity(p.getDirection().cpy().limit(p.getModel().getMeta().getMaxVelocity()));
 				lastTimeSinceEntityShot = 0;
@@ -28,4 +28,13 @@ public class AttackStateTarget extends AbstractAttackState {
 			e.getUpdateState().setAttack(new AttackStateStraight(e));
 		}
 	}
+
+	public boolean isTargetActive() {
+		return target.isActive();
+	}
+
+	public void setTarget(Entity object) {
+		target = object;
+	}
+	
 }

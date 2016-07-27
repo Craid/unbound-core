@@ -1,6 +1,7 @@
 package de.unbound.game.collision;
 
 import de.unbound.game.model.entities.Entity;
+import de.unbound.game.model.state.attack.AbstractAttackState;
 import de.unbound.game.model.state.attack.AttackStateTarget;
 import de.unbound.game.model.state.move.MoveStateTarget;
 
@@ -8,9 +9,9 @@ public class VisionCollisionHandler extends CollisionHandler {
 
 	@Override
 	public void handle(Entity subject, Entity object) {
-		if (object.getModel().getTextureName().contains("Player"))
+		if (object.getTextureName().contains("Player"))
 			handleMobilePlayer(subject, object);
-		else if (object.getModel().getTextureName().contains("Deposit"))
+		else if (object.getTextureName().contains("Deposit"))
 			handleMobileDeposit(subject, object);
 		else if (object.isImmobile())
 			handleMobileImmobile(subject, object);
@@ -43,11 +44,15 @@ public class VisionCollisionHandler extends CollisionHandler {
 	}
 	
 	private void setTargetAttackState(Entity subject, Entity object){
-		if(!(subject.getUpdateState().getAttack() instanceof AttackStateTarget)){
+		AbstractAttackState attack = subject.getUpdateState().getAttack();
+		if(!(attack instanceof AttackStateTarget)){
 			subject.getUpdateState().setAttack(new AttackStateTarget(subject, object));
+		}else if(!((AttackStateTarget)attack).isTargetActive()){
+			((AttackStateTarget)attack).setTarget(object);
 		}
+		
+		
+		
 	}
-	
-	
 
 }

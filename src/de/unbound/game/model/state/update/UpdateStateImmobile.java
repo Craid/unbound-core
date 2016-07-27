@@ -15,7 +15,7 @@ public class UpdateStateImmobile extends AbstractUpdateState{
 	
 	@Override
 	public void update(double deltaTime) {
-		move.update(deltaTime);
+		attack.update(deltaTime);
 	}
 
 }

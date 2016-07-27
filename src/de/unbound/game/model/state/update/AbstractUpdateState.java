@@ -24,8 +24,6 @@ public abstract class AbstractUpdateState implements State{
 		e.setHp(e.getHp() - hp);
 		if(e.getHp() <= 0){
 			e.setActive(false);
-//			if(e.isHostile())
-//				BattleField.getBattleField().addScore(100);
 		}
 	}
 

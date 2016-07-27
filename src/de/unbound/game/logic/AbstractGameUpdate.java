@@ -1,5 +1,8 @@
 package de.unbound.game.logic;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import de.unbound.game.BattleField;
 import de.unbound.game.World;
 import de.unbound.game.collision.CollisionDetection;
@@ -10,10 +13,11 @@ public abstract class AbstractGameUpdate {
 	protected World world;
 	protected CollisionDetection collisionDetection;
 	protected BattleField battleField;
+	protected OrthographicCamera camera;
 	
 	protected void initAbstract(){
-		collisionDetection = new CollisionDetection();
-		battleField = BattleField.getInstance();
+		battleField = new BattleField();
+		collisionDetection = new CollisionDetection(battleField);
 	}
 
 	public void update(double deltaTime){
@@ -52,12 +56,22 @@ public abstract class AbstractGameUpdate {
 	
 	public abstract void onGameEnd();
 	
+	public abstract void renderEntity(Entity e);
+	
 	public World getWorld() {
 		return world;
 	}
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+
+	public BattleField getBattleField() {
+		return battleField;
+	}
+	
+	public Camera getCamera(){
+		return camera;
 	}
 	
 }

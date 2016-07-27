@@ -2,7 +2,11 @@ package de.unbound.game.wave;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
+
+import de.unbound.game.BattleField;
 import de.unbound.game.factories.EntityFactory;
+import de.unbound.game.model.entities.Entity;
 
 public abstract class WaveHandler {
 
@@ -21,9 +25,16 @@ public abstract class WaveHandler {
 		newOrder = false;
 		level = -1;
 		seed = (float) Math.random();
-
+	}
+	
+	public void setBattleFieldForFactories(BattleField battleField){
+		ownFactory.setBattlefield(battleField);
+		enemyFactory.setBattlefield(battleField);
+		
+		Entity spawner = enemyFactory.createEntity("Spawner");
+		spawner.setDirection(new Vector2(0,-1));
 		ownFactory.createMap(this.getSeed());
-		enemyFactory.createEntity("Spawner");
+		
 	}
 
 	public EntityFactory getOwnFactory() {

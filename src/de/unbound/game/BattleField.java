@@ -3,6 +3,7 @@ package de.unbound.game;
 import java.util.ArrayList;
 
 import de.unbound.game.model.entities.Entity;
+import de.unbound.utility.UnboundConstants;
 
 public class BattleField {
 
@@ -13,16 +14,9 @@ public class BattleField {
 	private ArrayList<Entity> collectors, collectorsForNextUpdate;
 	private ArrayList<Entity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; ; // Alle Entitäten auf dem Battlefield!
-	private static BattleField battleField;
 	private int score;
 	
-	public static BattleField getInstance(){
-		if(battleField == null)
-			battleField = new BattleField();
-		return battleField;
-	}
-		
-	private BattleField() {
+	public BattleField() {
 		init();
 	}
 	
@@ -71,8 +65,15 @@ public class BattleField {
 
 	private void clearInactiveEntities(ArrayList<Entity> currentList) {
 		for(int i = 0; i < currentList.size(); i++)
-			if(!currentList.get(i).isActive())
+			if(!currentList.get(i).isActive()){
+				if(isEnemyAndNoprojectile(currentList.get(i)))
+					addScore(100);
 				currentList.remove(currentList.get(i));
+			}
+	}
+	
+	private boolean isEnemyAndNoprojectile(Entity e){
+		return e.isHostile() && !e.getTextureName().contains(UnboundConstants.MobileEntity.Projectile.name());
 	}
 	
 	public void addScore(int score){
@@ -81,7 +82,7 @@ public class BattleField {
 
 	// Add Commands
 	public void add(Entity e) {
-		String temp = e.getModel().getTextureName();
+		String temp = e.getTextureName();
 		
 		if(temp.contains("Projectile"))
 			projectilesForNextUpdate.add(e);
@@ -98,6 +99,7 @@ public class BattleField {
 		else if(!e.isImmobile())
 			enemiesForNextUpdate.add(e);
 			
+
 		gameObjectsForNextUpdate.add(e);
 	}
 	

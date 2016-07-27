@@ -81,27 +81,26 @@ public class EntityFlyweight {
 		meta.damageOnContact = damageOnContact;
 	}
 	
+	public int getInitialHP() {
+		return meta.initialHP;
+	}
+
+	public void setInitialHP(int initialHP) {
+		meta.initialHP = initialHP;
+	}
+	
 	public static class EntityFlyweightMeta implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 		
 		private double rangeOfVision, rangeOfCollision, damageOnContact;
 		private float acceleration, maxVelocity;
-		private int upgrades;
+		private int upgrades, initialHP;
 		private String textureName;
 		
 		public EntityFlyweightMeta(){}
 		
-		/**
-		 * Constructor to set all values in one go
-		 * 
-		 * @param rangeOfVision
-		 * @param rangeOfCollision
-		 * @param upgrades
-		 * @param textureName
-		 * @param name
-		 */
-		public EntityFlyweightMeta(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, float accelaration, float maxVelocity, double damage){
+		public EntityFlyweightMeta(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, float accelaration, float maxVelocity, double damage, int initialHP){
 			setRangeOfCollision(rangeOfCollision);
 			setRangeOfVision(rangeOfVision);
 			setUpgrades(upgrades);
@@ -109,6 +108,7 @@ public class EntityFlyweight {
 			setAcceleration(accelaration);
 			setMaxVelocity(maxVelocity);
 			setDamageOnContact(damage);
+			setInitialHP(initialHP);
 		}
 
 		public double getRangeOfVision() {
@@ -165,6 +165,14 @@ public class EntityFlyweight {
 
 		public void setDamageOnContact(double damageOnContact) {
 			this.damageOnContact = damageOnContact;
+		}
+
+		public int getInitialHP() {
+			return initialHP;
+		}
+
+		public void setInitialHP(int initialHP) {
+			this.initialHP = initialHP;
 		}
 	}
 	

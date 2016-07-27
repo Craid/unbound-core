@@ -8,7 +8,7 @@ import de.unbound.screen.SplashScreen;
 
 public class UnboundGame extends Game {
 	
-	private AbstractGameScreen screen;
+	protected AbstractGameScreen screen;
 	
 	@Override
 	public void create () {
@@ -19,5 +19,10 @@ public class UnboundGame extends Game {
 	@Override
 	public void render () {
 		screen.render(Gdx.graphics.getDeltaTime());
+	}
+	
+	public void setScreen(AbstractGameScreen screen){
+		System.out.println("Set new screen");
+		this.screen = screen;
 	}
 }

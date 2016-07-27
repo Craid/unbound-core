@@ -3,10 +3,8 @@ package de.unbound.game.model.entities;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
-import de.unbound.game.BattleField;
-import de.unbound.game.GameCamera;
+import de.unbound.game.World;
 import de.unbound.game.model.state.update.AbstractUpdateState;
 
 public class Entity{
@@ -38,19 +36,13 @@ public class Entity{
 	}
 
 	public void render(SpriteBatch batch){
-		Sprite sprite = model.getGraphic();
-		sprite.setPosition(position.x-(sprite.getWidth()/2), position.y-(sprite.getHeight()/2));
-		sprite.setRotation(direction.angle());
-		if(GameCamera.getInstance().frustum.sphereInFrustum(new Vector3(position.x, position.y, 0), (float)model.getRangeOfCollision() ) )
-			sprite.draw(batch);
+		World.getInstance().getGameUpdate().renderEntity(this);
 	}
 	
 	public void takeDamage(double hp) {
 		setHp(this.hp - hp);
 		if(getHp() <= 0){
 			setActive(false);
-			if(isHostile())
-				BattleField.getInstance().addScore(100);
 		}
 	}
 	
@@ -132,6 +124,10 @@ public class Entity{
 	public boolean isImmobile(){
 		String temp = model.getTextureName();
 		return temp.contains("Tower") || temp.contains("Deposit") || temp.contains("MainBase") || temp.contains("Spawner");
+	}
+	
+	public String getTextureName(){
+		return getModel().getTextureName();
 	}
 	
 }
