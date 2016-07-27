@@ -34,7 +34,7 @@ public abstract class InputHandler extends InputAdapter{
 	public abstract Command createMoveCommand(double xAxis, double yAxis);
 
 	protected void buildTower() {
-		if(System.currentTimeMillis() - lastTowerBuild > 2){
+		if(System.currentTimeMillis() - lastTowerBuild > 500){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(),0);
 			World.getInstance().getGameUpdate().getCamera().unproject(touchPos);
