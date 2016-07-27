@@ -38,37 +38,31 @@ public class EntitiyFlyweightModelJsonHelper {
 		ArrayList<EntityFlyweightMeta> efml = new ArrayList<EntityFlyweightMeta>();
 
 		int temp = UnboundConstants.SINGLEGRIDHEIGHT/2;
-		//rangeofSight,rangeOfCollision,upgrades,ClassName,accekeration, maxVelocity
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateBoss", 50,3,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateCollector", 90,5,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateCommander", 80,6.2f,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateDeposit", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateMainBase", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelatePawn", 70,6,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelatePlayer", 80,7,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp/9, 0, "PrelateProjectile", 50,8,100));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateScavenger", 50,3,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateSpawner", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "PrelateTower", 0,0,50));
+		//double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, 
+		//	.. float accelaration, float maxVelocity, double damage
+		addList(efml, temp,UnboundConstants.Race.Duck.name());
 
-
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckBoss", 50,3,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckCommander", 80,6.2f,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckPawn", 70,6,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp/9, 0, "DuckProjectile", 50,8,100));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckScavenger", 50,3,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckSpawner", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckPlayer", 80,7,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckCollector", 90,5,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckDeposit", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckMainBase", 0,0,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, "DuckTower", 0,0,50));
+		addList(efml, temp,UnboundConstants.Race.Prelate.name());
 		
 		Json json = new Json();
 		FileHandle file = Gdx.files.local("flyweightentitymodel.json");
 		file.writeString(json.toJson(efml), false);
 		
 		System.out.println("Generated JSON");
+	}
+
+	private void addList(ArrayList<EntityFlyweightMeta> efml, int temp, String race) {
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Boss", 50,3,50,200));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Collector", 90,5,50,20));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Commander", 80,6.2f,50,100));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Deposit", 0,0,50,500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp*2, 0, race+"MainBase", 0,0,50,1500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Pawn", 70,6,50,50));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Player", 80,7,50,500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp/9, 0, race+"Projectile", 50,8,100,8));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Scavenger", 50,3,50,30));
+		efml.add(new EntityFlyweightMeta(6*temp, temp*2, 0, race+"Spawner", 0,0,50,99999999));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Tower", 0,0,50,200));
 	}
 
 }

@@ -1,12 +1,11 @@
 package de.unbound;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
 import de.unbound.screen.AbstractGameScreen;
 import de.unbound.screen.StartScreen;
 
-public class TestMenuGame extends Game {
+public class TestMenuGame extends UnboundGame {
 	
 	private AbstractGameScreen screen;
 	

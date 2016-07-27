@@ -1,9 +1,9 @@
 package de.unbound.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
+import de.unbound.UnboundGame;
 import de.unbound.game.World;
 import de.unbound.game.inputhandling.ActionSequencer;
 import de.unbound.game.inputhandling.handler.PCInputHandler;
@@ -15,7 +15,7 @@ public class GameScreen extends AbstractGameScreen {
 	private World world;
 	private ActionSequencer sequence;
 
-	public GameScreen(Game game, WaveHandler waveHandler,
+	public GameScreen(UnboundGame game, WaveHandler waveHandler,
 			AbstractGameUpdate gameMode) {
 		super(game);
 		world = World.getInstance();

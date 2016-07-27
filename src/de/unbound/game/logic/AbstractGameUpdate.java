@@ -56,6 +56,8 @@ public abstract class AbstractGameUpdate {
 	
 	public abstract void onGameEnd();
 	
+	public abstract void renderEntity(Entity e);
+	
 	public World getWorld() {
 		return world;
 	}

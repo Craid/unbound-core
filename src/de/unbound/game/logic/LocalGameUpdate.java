@@ -3,9 +3,11 @@ package de.unbound.game.logic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.GameCamera;
+import de.unbound.game.World;
 import de.unbound.game.model.entities.Entity;
 
 public class LocalGameUpdate extends AbstractGameUpdate {
@@ -60,6 +62,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		//Damit die batch weiß, welcher Bereich angezeigt werden soll
 		batch.begin();
 		
+		System.out.println(battleField.getGameObjects().size());
 		for(Entity e : battleField.getGameObjects()){
 			e.render(batch);
 		}
@@ -95,6 +98,15 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		world.getWaveHandler().update(deltaTime);
 		if(world.getWaveHandler().hasNewOrder())
 			world.getWaveHandler().getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
+	}
+
+	@Override
+	public void renderEntity(Entity e) {
+		Sprite sprite = e.getModel().getGraphic();
+		sprite.setPosition(e.getPosition().x-(sprite.getWidth()/2), e.getPosition().y-(sprite.getHeight()/2));
+		sprite.setRotation(e.getDirection().angle());
+		if(World.getInstance().isOnScreen(e))
+			sprite.draw(batch);
 	}
 
 }

@@ -33,22 +33,22 @@ public class EntityFactory {
 
 	public void createMap(double seed) {
 
-		Entity mainBase = createEntity("MainBase");
+		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
 		mainBase.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
 				UnboundConstants.SINGLEGRIDHEIGHT*2));
 		
-		Entity tempEntity = createEntity("Tower");
+		Entity tempEntity = createEntity(UnboundConstants.ImmobileEntity.Tower.name());
 		tempEntity.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
 				UnboundConstants.WORLDHEIGHT / 3));
 
-		tempEntity = createEntity("Tower");
+		tempEntity = createEntity(UnboundConstants.ImmobileEntity.Tower.name());
 		tempEntity.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
 				UnboundConstants.WORLDHEIGHT * 2 / 3));
 
 		Random random = new Random((long) seed);
 
 		for (int i = 0; i < 6; i++) {
-			Entity tempDeposit = createEntity("Deposit");
+			Entity tempDeposit = createEntity(UnboundConstants.ImmobileEntity.Deposit.name());
 			float x = (float) ((int) (random.nextFloat()
 					* UnboundConstants.SINGLEGRIDWIDTH * UnboundConstants.GRIDWIDTH) + UnboundConstants.SINGLEGRIDWIDTH);
 			float y = (float) ((int) (random.nextFloat()
@@ -57,7 +57,7 @@ public class EntityFactory {
 			tempDeposit.setPosition(new Vector2(x, y));
 		}
 		
-		Entity player = createEntity("Player");
+		Entity player = createEntity(UnboundConstants.MobileEntity.Player.name());
 		player.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
 				UnboundConstants.SINGLEGRIDHEIGHT*2));
 	}
@@ -69,13 +69,13 @@ public class EntityFactory {
 	public void createWave(WaveOrder order) {
 		ArrayList<Entity> wave = new ArrayList<>();
 		for (int i = 0; i < order.getBossNumber(); i++)
-			wave.add(createEntity("Boss"));
+			wave.add(createEntity(UnboundConstants.MobileEntity.Boss.name()));
 		for (int i = 0; i < order.getCommanderNumber(); i++)
-			wave.add(createEntity("Commander"));
+			wave.add(createEntity(UnboundConstants.MobileEntity.Commander.name()));
 		for (int i = 0; i < order.getScavengerNumber(); i++)
-			wave.add(createEntity("Scavenger"));
+			wave.add(createEntity(UnboundConstants.MobileEntity.Scavenger.name()));
 		for (int i = 0; i < order.getPawnNumber(); i++)
-			wave.add(createEntity("Pawn"));
+			wave.add(createEntity(UnboundConstants.MobileEntity.Pawn.name()));
 		
 	}
 
@@ -85,30 +85,22 @@ public class EntityFactory {
 		e.setPosition(SPAWNPOINT.cpy());
 		e.setHostile(hostile);
 		updateTypeAttributes(e,type);
+		e.setHp(e.getModel().getInitialHP());
 		battlefield.add(e);
 		return e;
 	}
 
 	private void updateTypeAttributes(Entity e,String type) {
-		if(type.contains("Player"))
-			updatePlayer(e);
-		else if(type.contains("Projectile"))
-			updateProjectile(e);
+		if(type.contains(UnboundConstants.MobileEntity.Player.name()))
+			e.setUpdateState(new UpdateStatePlayer(e));
+		else if(type.contains(UnboundConstants.MobileEntity.Projectile.name()))
+			e.setUpdateState(new UpdateStateProjectile(e));
 		else if(!e.isImmobile())
 			e.setUpdateState(new UpdateStateMobile(e));
 		else
 			e.setUpdateState(new UpdateStateImmobile(e));
 	}
 
-	private void updateProjectile(Entity e) {
-		e.setUpdateState(new UpdateStateProjectile(e));
-		e.setHp(8);
-	}
-
-	private void updatePlayer(Entity e) {
-		e.setUpdateState(new UpdateStatePlayer(e));
-	}
-	
 	public void setBattlefield(BattleField battlefield) {
 		this.battlefield = battlefield;
 	}

@@ -14,6 +14,7 @@ public class AttackStateTarget extends AbstractAttackState {
 
 	@Override
 	public void update(double deltaTime) {
+		
 		if (target != null && target.isActive()) {
 			e.setDirection(target.getPosition().cpy().add(e.getPosition().cpy().scl(-1)));
 			lastTimeSinceEntityShot += deltaTime;
@@ -27,4 +28,13 @@ public class AttackStateTarget extends AbstractAttackState {
 			e.getUpdateState().setAttack(new AttackStateStraight(e));
 		}
 	}
+
+	public boolean isTargetActive() {
+		return target.isActive();
+	}
+
+	public void setTarget(Entity object) {
+		target = object;
+	}
+	
 }

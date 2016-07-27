@@ -1,14 +1,15 @@
 package de.unbound.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
+import de.unbound.UnboundGame;
+
 public abstract class AbstractGameScreen implements Screen {
 	
-	protected Game game;
+	protected UnboundGame game;
 
-	public AbstractGameScreen (Game game) {
+	public AbstractGameScreen (UnboundGame game) {
 		this.game = game;
 	}
 
