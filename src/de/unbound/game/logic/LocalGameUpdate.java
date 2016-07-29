@@ -62,7 +62,6 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		//Damit die batch weiß, welcher Bereich angezeigt werden soll
 		batch.begin();
 		
-		System.out.println(battleField.getGameObjects().size());
 		for(Entity e : battleField.getGameObjects()){
 			e.render(batch);
 		}

@@ -50,7 +50,7 @@ public class CollisionDetection {
 	}
 
 	/**
-	 * @see updateEnemies()
+	 * see updateEnemies()
 	 */
 	private void updateOwn() {
 		for(Entity c : battleField.getCollectors())
