@@ -76,8 +76,6 @@ public class World {
 		Entity p = null;
 		p = getMatchingFactory(e.getTextureName()).createEntity(UnboundConstants.MobileEntity.Projectile.name());
 
-		System.out.println("Entity is " + (e.isHostile()?"":"not ") + "hostile");
-		System.out.println("Projectile is " + (p.isHostile()?"":"not ") + "hostile");
 		p.setDirection(e.getDirection().cpy());
 		p.setPosition(e.getPosition().cpy());
 		p.getUpdateState().setMove(new MoveStateStraightSpinning(p));

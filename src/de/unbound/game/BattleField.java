@@ -7,7 +7,8 @@ import de.unbound.utility.UnboundConstants;
 
 public class BattleField {
 
-	private Entity player, mainBase;
+	private Entity mainBase;
+	private ArrayList<Entity> players, playersForNextUpdate;
 	private ArrayList<Entity> enemyProjectiles, projectilesForNextUpdate;
 	private ArrayList<Entity> friendlyProjectiles;
 	private ArrayList<Entity> enemies, enemiesForNextUpdate;
@@ -30,6 +31,9 @@ public class BattleField {
 		collectorsForNextUpdate = new ArrayList<Entity>();
 		immobileEntities = new ArrayList<Entity>();
 		immobileEntitiesForNextUpdate = new ArrayList<Entity>();
+		
+		players = new ArrayList<Entity>();
+		playersForNextUpdate = new ArrayList<Entity>();
 
 		gameObjectsForNextUpdate = new ArrayList<Entity>();
 		gameObjects = new ArrayList<Entity>();
@@ -38,6 +42,7 @@ public class BattleField {
 	}
 	
 	public void update(double deltaTime) {
+		updateLists(players, playersForNextUpdate);
 		updateLists(gameObjects, gameObjectsForNextUpdate);
 		updateProjectilesList();
 		updateLists(enemies, enemiesForNextUpdate);
@@ -89,7 +94,7 @@ public class BattleField {
 		else if(temp.contains("Collectors"))
 			collectorsForNextUpdate.add(e);
 		else if(temp.contains("Player"))
-			player = e;
+			playersForNextUpdate.add(e);
 		else if(temp.contains("MainBase"))
 			mainBase = e;
 		else if(temp.contains("Spawner"))
@@ -123,8 +128,8 @@ public class BattleField {
 		return gameObjects;
 	}
 
-	public Entity getPlayer() {
-		return player;
+	public ArrayList<Entity> getPlayers() {
+		return players;
 	}
 
 	public Entity getMainBase() {

@@ -19,9 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import de.unbound.UnboundGame;
-import de.unbound.game.logic.LocalGameUpdate;
+import de.unbound.game.mode.ClientEndlessGameMode;
 import de.unbound.game.mode.LocalEndlessGameMode;
-import de.unbound.game.wave.LocalEndlessWaveHandler;
 
 public class StartScreen extends AbstractGameScreen{
 
@@ -122,7 +121,6 @@ public class StartScreen extends AbstractGameScreen{
 				
 				
 				ButtonMultiPlayer.setText("Starting new game");
-				//g.setScreen( new GameScreen());
 			}
 
 		});
@@ -143,7 +141,7 @@ public class StartScreen extends AbstractGameScreen{
         //font.draw(batch, "(Vorerst) Klicke mit der Maus/Touchpad 1x um das Spiel zu starten", 100, 100);
         batch.end();
         // moment
-        if (startMultiplayer) game.setScreen(new GameScreen(game,new LocalEndlessGameMode()));
+        if (startMultiplayer) game.setScreen(new GameScreen(game,new ClientEndlessGameMode()));
 		 
 
     }

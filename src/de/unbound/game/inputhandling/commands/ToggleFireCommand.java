@@ -9,7 +9,7 @@ public class ToggleFireCommand extends Command {
 	}
 	
 	public void execute(){
-		World.getInstance().createProjectile(World.getInstance().getBattleField().getPlayer());
+		World.getInstance().createProjectile(World.getInstance().getBattleField().getPlayers().get(0));
 	}
 	
 }

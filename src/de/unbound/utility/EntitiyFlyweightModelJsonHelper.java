@@ -23,6 +23,7 @@ public class EntitiyFlyweightModelJsonHelper {
 	public HashMap<String, EntityFlyweightMeta> readDocument() {
 		HashMap<String, EntityFlyweightMeta> flyweightMeta = new HashMap<String, EntityFlyweightMeta>();
 		Json json = new Json();
+		@SuppressWarnings("unchecked")
 		ArrayList<EntityFlyweightMeta> list = json.fromJson(ArrayList.class, Gdx.files.internal("model/flyweightentitymodel.json"));
 		for (EntityFlyweightMeta v : list) 
 			flyweightMeta.put(v.getTextureName(), v);

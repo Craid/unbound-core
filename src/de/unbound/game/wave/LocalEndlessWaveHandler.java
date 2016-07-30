@@ -1,6 +1,7 @@
 package de.unbound.game.wave;
 
 import de.unbound.game.factories.EntityFactory;
+import de.unbound.game.factories.LocalEndlessEntityFactory;
 
 public class LocalEndlessWaveHandler extends WaveHandler {
 	
@@ -17,7 +18,9 @@ public class LocalEndlessWaveHandler extends WaveHandler {
 	}
 	
 	public static LocalEndlessWaveHandler createLocalEndlessWaveHandlerPreset() {
-		return new LocalEndlessWaveHandler(new EntityFactory("Prelate", false),new EntityFactory("Duck", true));
+		EntityFactory ownFactory = new LocalEndlessEntityFactory("Prelate", false);
+		EntityFactory enemyFactory = new LocalEndlessEntityFactory("Duck", true);
+		return new LocalEndlessWaveHandler(ownFactory,enemyFactory);
 	}
 	
 	@Override

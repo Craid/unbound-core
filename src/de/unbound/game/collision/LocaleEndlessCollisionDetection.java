@@ -2,7 +2,6 @@ package de.unbound.game.collision;
 
 import java.util.ArrayList;
 
-import de.unbound.game.BattleField;
 import de.unbound.game.collision.handler.BodyCollisionHandler;
 import de.unbound.game.collision.handler.VisionCollisionHandler;
 import de.unbound.game.model.entities.Entity;
@@ -24,7 +23,7 @@ public class LocaleEndlessCollisionDetection extends CollisionDetection {
 	 */
 	private void updateEnemies() {
 		ArrayList<Entity> player = new ArrayList<Entity>();
-		player.add(battleField.getPlayer());
+		player.add(battleField.getPlayers().get(0));
 		for (Entity me : battleField.getEnemies()) {
 			checkVisionAndBodyCollision(me, battleField.getCollectors());
 			checkVisionAndBodyCollision(me, battleField.getFriendlyProjectiles());

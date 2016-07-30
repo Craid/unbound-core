@@ -8,17 +8,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
-import de.unbound.game.collision.LocaleEndlessCollisionDetection;
+import de.unbound.game.collision.ClientEndlessCollisionDetection;
 import de.unbound.game.model.entities.Entity;
 
-public class LocalGameUpdate extends AbstractGameUpdate {
+public class ClientGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
 
-	public LocalGameUpdate() {
-		initAbstract(new LocaleEndlessCollisionDetection());
+	public ClientGameUpdate() {
+		initAbstract(new ClientEndlessCollisionDetection());
 		init();
 	}
 
@@ -36,7 +36,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 	
 	@Override
 	public void doBeforeUpdate() {
-		//Do nothing
+		//TODO Michel - Update entities via updatedata from server!
 	}
 
 	@Override
@@ -59,8 +59,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		Gdx.gl.glClearColor( 0, 0, 0.10f, 1 );
 		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		updateCameraPosition();
-		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
-		//Damit die batch weiß, welcher Bereich angezeigt werden soll
+		batch.setProjectionMatrix(camera.combined); 
 		batch.begin();
 		
 		for(Entity e : battleField.getGameObjects()){
@@ -72,6 +71,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		hudBatch.begin();
 		String temp = String.format("Punkte: %010d", battleField.getScore());
 		font.draw(hudBatch, temp, Gdx.graphics.getWidth()-140, Gdx.graphics.getHeight()-15);
+		//TODO Michel receive player id from server, get that specific player!
 		temp = String.format("Player-HP: %03d/500", (int)battleField.getPlayers().get(0).getHp());
 		font.draw(hudBatch, temp, 10, Gdx.graphics.getHeight()-30);
 		temp = String.format("MainBase-HP: %03d/1500", (int)battleField.getMainBase().getHp());
@@ -88,6 +88,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateCameraPosition(){
+		//TODO Michel receive player id from server, get that specific player!
 		camera.position.x = battleField.getPlayers().get(0).getPosition().x;
 		camera.position.y = battleField.getPlayers().get(0).getPosition().y;
 		camera.zoom = 2.4f;
@@ -96,9 +97,6 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 
 	@Override
 	public void updateWaveHandler(double deltaTime) {
-		world.getWaveHandler().update(deltaTime);
-		if(world.getWaveHandler().hasNewOrder())
-			world.getWaveHandler().getEnemyFactory().createWave(world.getWaveHandler().getCurrentOrder());
 	}
 
 	@Override

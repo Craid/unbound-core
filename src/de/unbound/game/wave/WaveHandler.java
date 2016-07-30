@@ -17,6 +17,8 @@ public abstract class WaveHandler {
 	private boolean newOrder;
 	protected int level;
 	private float seed;
+	protected static final int WAVETIMEOUTS = 5;
+	protected double cummulativeTime;
 
 	public WaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		setOwnFactory(ownFactory);
@@ -25,6 +27,7 @@ public abstract class WaveHandler {
 		newOrder = false;
 		level = -1;
 		seed = (float) Math.random();
+		cummulativeTime = 0;
 	}
 	
 	public void setBattleFieldForFactories(BattleField battleField){
