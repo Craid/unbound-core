@@ -1,12 +1,12 @@
-package de.unbound.game.collision;
+package de.unbound.game.mode;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.BattleField;
-import de.unbound.game.collision.handler.BodyCollisionHandler;
-import de.unbound.game.collision.handler.VisionCollisionHandler;
+import de.unbound.game.collisionhandler.BodyCollisionHandler;
+import de.unbound.game.collisionhandler.VisionCollisionHandler;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.move.MoveStateRandom;
 import de.unbound.utility.UnboundConstants;

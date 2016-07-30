@@ -1,9 +1,10 @@
-package de.unbound.game.factories;
+package de.unbound.game.mode.local;
 
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 
+import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.update.UpdateStateImmobile;
 import de.unbound.game.model.state.update.UpdateStateMobile;

@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.wave.WaveOrder;
+import de.unbound.game.model.entities.WaveOrder;
 import de.unbound.utility.UnboundConstants;
 
 public abstract class EntityFactory {

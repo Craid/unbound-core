@@ -53,17 +53,17 @@ public class EntitiyFlyweightModelJsonHelper {
 	}
 
 	private void addList(ArrayList<EntityFlyweightMeta> efml, int temp, String race) {
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Boss", 50,3,50,200));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Collector", 90,5,50,20));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Commander", 80,6.2f,50,100));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Deposit", 0,0,50,500));
-		efml.add(new EntityFlyweightMeta(6*temp, temp*2, 0, race+"MainBase", 0,0,50,1500));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Pawn", 70,6,50,50));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Player", 80,7,50,500));
-		efml.add(new EntityFlyweightMeta(6*temp, temp/9, 0, race+"Projectile", 50,8,100,8));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Scavenger", 50,3,50,30));
-		efml.add(new EntityFlyweightMeta(6*temp, temp*2, 0, race+"Spawner", 0,0,50,99999999));
-		efml.add(new EntityFlyweightMeta(6*temp, temp, 0, race+"Tower", 0,0,50,200));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Boss", 50,3,50,200));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Collector", 90,5,50,20));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Commander", 80,6.2f,50,100));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Deposit", 0,0,50,500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp*2, race+"MainBase", 0,0,50,1500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Pawn", 70,6,50,50));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Player", 80,7,50,500));
+		efml.add(new EntityFlyweightMeta(6*temp, temp/9, race+"Projectile", 50,8,100,8));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Scavenger", 50,3,50,30));
+		efml.add(new EntityFlyweightMeta(6*temp, temp*2, race+"Spawner", 0,0,50,99999999));
+		efml.add(new EntityFlyweightMeta(6*temp, temp, race+"Tower", 0,0,50,200));
 	}
 
 }

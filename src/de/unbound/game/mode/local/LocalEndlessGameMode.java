@@ -1,7 +1,6 @@
-package de.unbound.game.mode;
+package de.unbound.game.mode.local;
 
-import de.unbound.game.logic.LocalGameUpdate;
-import de.unbound.game.wave.LocalEndlessWaveHandler;
+import de.unbound.game.mode.GameMode;
 
 public class LocalEndlessGameMode extends GameMode{
 	public LocalEndlessGameMode(){

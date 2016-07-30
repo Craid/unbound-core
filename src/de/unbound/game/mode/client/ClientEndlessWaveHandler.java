@@ -1,12 +1,11 @@
-package de.unbound.game.wave;
+package de.unbound.game.mode.client;
 
 import de.unbound.game.factories.EntityFactory;
-import de.unbound.game.factories.LocalEndlessEntityFactory;
+import de.unbound.game.mode.WaveHandler;
+import de.unbound.game.mode.local.LocalEndlessEntityFactory;
 
 public class ClientEndlessWaveHandler extends WaveHandler {
 	
-
-
 	public ClientEndlessWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
 		cummulativeTime = 2; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS

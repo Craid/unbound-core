@@ -1,7 +1,5 @@
 package de.unbound.game.mode;
 
-import de.unbound.game.logic.AbstractGameUpdate;
-import de.unbound.game.wave.WaveHandler;
 
 public abstract class GameMode {
 	

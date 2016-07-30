@@ -1,4 +1,4 @@
-package de.unbound.game.logic;
+package de.unbound.game.mode.client;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
-import de.unbound.game.collision.ClientEndlessCollisionDetection;
+import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
 
 public class ClientGameUpdate extends AbstractGameUpdate {

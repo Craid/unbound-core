@@ -41,14 +41,6 @@ public class EntityFlyweight {
 		meta.rangeOfCollision = rangeOfCollision;
 	}
 
-	public int getUpgrades() {
-		return meta.upgrades;
-	}
-
-	public void setUpgrades(int upgrades) {
-		meta.upgrades = upgrades;
-	}
-
 	public String getTextureName() {
 		return meta.textureName;
 	}
@@ -95,15 +87,14 @@ public class EntityFlyweight {
 		
 		private double rangeOfVision, rangeOfCollision, damageOnContact;
 		private float acceleration, maxVelocity;
-		private int upgrades, initialHP;
+		private int initialHP;
 		private String textureName;
 		
 		public EntityFlyweightMeta(){}
 		
-		public EntityFlyweightMeta(double rangeOfVision, double rangeOfCollision, int upgrades, String textureName, float accelaration, float maxVelocity, double damage, int initialHP){
+		public EntityFlyweightMeta(double rangeOfVision, double rangeOfCollision, String textureName, float accelaration, float maxVelocity, double damage, int initialHP){
 			setRangeOfCollision(rangeOfCollision);
 			setRangeOfVision(rangeOfVision);
-			setUpgrades(upgrades);
 			setTextureName(textureName);
 			setAcceleration(accelaration);
 			setMaxVelocity(maxVelocity);
@@ -125,14 +116,6 @@ public class EntityFlyweight {
 
 		public void setRangeOfCollision(double rangeOfCollision) {
 			this.rangeOfCollision = rangeOfCollision;
-		}
-
-		public int getUpgrades() {
-			return upgrades;
-		}
-
-		public void setUpgrades(int upgrades) {
-			this.upgrades = upgrades;
 		}
 
 		public String getTextureName() {

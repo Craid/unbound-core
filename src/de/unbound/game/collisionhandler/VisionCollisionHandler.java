@@ -1,4 +1,4 @@
-package de.unbound.game.collision.handler;
+package de.unbound.game.collisionhandler;
 
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.attack.AbstractAttackState;

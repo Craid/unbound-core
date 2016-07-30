@@ -1,11 +1,10 @@
-package de.unbound.game.logic;
+package de.unbound.game.mode;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.World;
-import de.unbound.game.collision.CollisionDetection;
 import de.unbound.game.model.entities.Entity;
 
 public abstract class AbstractGameUpdate {

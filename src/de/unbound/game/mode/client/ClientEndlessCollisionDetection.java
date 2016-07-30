@@ -1,5 +1,6 @@
-package de.unbound.game.collision;
+package de.unbound.game.mode.client;
 
+import de.unbound.game.mode.CollisionDetection;
 import de.unbound.game.model.entities.Entity;
 
 public class ClientEndlessCollisionDetection extends CollisionDetection {

@@ -1,9 +1,10 @@
-package de.unbound.game.collision;
+package de.unbound.game.mode.local;
 
 import java.util.ArrayList;
 
-import de.unbound.game.collision.handler.BodyCollisionHandler;
-import de.unbound.game.collision.handler.VisionCollisionHandler;
+import de.unbound.game.collisionhandler.BodyCollisionHandler;
+import de.unbound.game.collisionhandler.VisionCollisionHandler;
+import de.unbound.game.mode.CollisionDetection;
 import de.unbound.game.model.entities.Entity;
 
 public class LocaleEndlessCollisionDetection extends CollisionDetection {

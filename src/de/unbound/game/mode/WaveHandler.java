@@ -1,4 +1,4 @@
-package de.unbound.game.wave;
+package de.unbound.game.mode;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.unbound.game.BattleField;
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.model.entities.Entity;
+import de.unbound.game.model.entities.WaveOrder;
 
 public abstract class WaveHandler {
 
@@ -72,7 +73,7 @@ public abstract class WaveHandler {
 			newOrder = false;
 			return currentOrder;
 		} else {
-			return WaveOrder.NullOrder();
+			return WaveOrder.getNullOrder();
 		}
 	}
 

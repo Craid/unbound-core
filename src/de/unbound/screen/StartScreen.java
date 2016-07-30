@@ -19,8 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import de.unbound.UnboundGame;
-import de.unbound.game.mode.ClientEndlessGameMode;
-import de.unbound.game.mode.LocalEndlessGameMode;
+import de.unbound.game.mode.client.ClientEndlessGameMode;
+import de.unbound.game.mode.local.LocalEndlessGameMode;
 
 public class StartScreen extends AbstractGameScreen{
 

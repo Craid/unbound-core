@@ -1,9 +1,7 @@
-package de.unbound.game.mode;
+package de.unbound.game.mode.client;
 
-import de.unbound.game.factories.ClientEndlessEntityFactory;
 import de.unbound.game.factories.EntityFactory;
-import de.unbound.game.logic.ClientGameUpdate;
-import de.unbound.game.wave.ClientEndlessWaveHandler;
+import de.unbound.game.mode.GameMode;
 import de.unbound.utility.UnboundConstants;
 
 public class ClientEndlessGameMode extends GameMode{

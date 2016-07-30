@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import de.unbound.game.factories.EntityFactory;
-import de.unbound.game.logic.AbstractGameUpdate;
+import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.mode.GameMode;
+import de.unbound.game.mode.WaveHandler;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.attack.AttackStateNone;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
-import de.unbound.game.wave.WaveHandler;
 import de.unbound.utility.UnboundConstants;
 import de.unbound.utility.UnboundConstants.Race;
 

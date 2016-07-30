@@ -1,7 +1,8 @@
-package de.unbound.game.wave;
+package de.unbound.game.mode.local;
 
 import de.unbound.game.factories.EntityFactory;
-import de.unbound.game.factories.LocalEndlessEntityFactory;
+import de.unbound.game.mode.WaveHandler;
+import de.unbound.game.model.entities.WaveOrder;
 
 public class LocalEndlessWaveHandler extends WaveHandler {
 	
@@ -38,7 +39,7 @@ public class LocalEndlessWaveHandler extends WaveHandler {
 		int commander = level/5;
 		int scavenger = level%5;
 		int pawn = (level%5) * 3;
-		return new WaveOrder(boss, pawn, scavenger, commander, 0, 0, 0, 0);
+		return new WaveOrder(boss, pawn, scavenger, commander);
 	}
 	
 }
