@@ -7,19 +7,17 @@ import de.unbound.UnboundGame;
 import de.unbound.game.World;
 import de.unbound.game.inputhandling.ActionSequencer;
 import de.unbound.game.inputhandling.handler.PCInputHandler;
-import de.unbound.game.logic.AbstractGameUpdate;
-import de.unbound.game.wave.WaveHandler;
+import de.unbound.game.mode.GameMode;
 
 public class GameScreen extends AbstractGameScreen {
 
 	private World world;
 	private ActionSequencer sequence;
 
-	public GameScreen(UnboundGame game, WaveHandler waveHandler,
-			AbstractGameUpdate gameMode) {
+	public GameScreen(UnboundGame game, GameMode gameMode) {
 		super(game);
 		world = World.getInstance();
-		world.setGameRules(waveHandler, gameMode);
+		world.setGameMode(gameMode);
 		initializeInputProcessor();
 	}
 

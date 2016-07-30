@@ -2,7 +2,7 @@ package de.unbound.game.wave;
 
 import de.unbound.game.factories.EntityFactory;
 
-public class LocaleEndlessWaveHandler extends WaveHandler {
+public class LocalEndlessWaveHandler extends WaveHandler {
 	
 	/**
 	 * Timeout in seconds
@@ -10,14 +10,14 @@ public class LocaleEndlessWaveHandler extends WaveHandler {
 	private static final int WAVETIMEOUTS = 5;
 	private double cummulativeTime;
 
-	public LocaleEndlessWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
+	public LocalEndlessWaveHandler(EntityFactory ownFactory, EntityFactory enemyFactory) {
 		super(ownFactory, enemyFactory);
 		cummulativeTime = 2; //First Wave in 3 Seconds, next in steps of WAVETIMEOUTS
 		level = 1;
 	}
 	
-	public static LocaleEndlessWaveHandler createLocaleEndlessWaveHandlerPreset() {
-		return new LocaleEndlessWaveHandler(new EntityFactory("Prelate", false),new EntityFactory("Duck", true));
+	public static LocalEndlessWaveHandler createLocalEndlessWaveHandlerPreset() {
+		return new LocalEndlessWaveHandler(new EntityFactory("Prelate", false),new EntityFactory("Duck", true));
 	}
 	
 	@Override

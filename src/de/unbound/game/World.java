@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.logic.AbstractGameUpdate;
+import de.unbound.game.mode.GameMode;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.attack.AttackStateNone;
 import de.unbound.game.model.state.move.MoveStateStraightSpinning;
@@ -16,7 +17,6 @@ import de.unbound.utility.UnboundConstants.Race;
 public class World {
 	
 	private static World instance;
-
 
 	private WaveHandler waveHandler;
 	private AbstractGameUpdate gameUpdate;
@@ -37,10 +37,10 @@ public class World {
 		return instance;
 	}
 	
-	public void setGameRules(WaveHandler waveHandler, AbstractGameUpdate gameUpdate){
-		instance.gameUpdate = gameUpdate;
+	public void setGameMode(GameMode gameMode){
+		instance.gameUpdate = gameMode.getGameUpdate();
 		instance.gameUpdate.setWorld(instance);
-		instance.waveHandler = waveHandler;
+		instance.waveHandler = gameMode.getWaveHandler();
 		instance.waveHandler.setBattleFieldForFactories(instance.getBattleField());
 	}
 

@@ -16,13 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import de.unbound.UnboundGame;
 import de.unbound.game.logic.LocalGameUpdate;
-import de.unbound.game.wave.LocaleEndlessWaveHandler;
+import de.unbound.game.mode.LocalEndlessGameMode;
+import de.unbound.game.wave.LocalEndlessWaveHandler;
 
 public class StartScreen extends AbstractGameScreen{
 
@@ -44,28 +43,7 @@ public class StartScreen extends AbstractGameScreen{
 		font = new BitmapFont();
 		create();
 	}
-/*
-Exception in thread "LWJGL Application" com.badlogic.gdx.utils.GdxRuntimeException: java.lang.ExceptionInInitializerError
-	at com.badlogic.gdx.backends.lwjgl.LwjglApplication$1.run(LwjglApplication.java:127)
-Caused by: java.lang.ExceptionInInitializerError
-	at de.unbound.game.factories.FlyweightFactory.createEntityFlywight(FlyweightFactory.java:48)
-	at de.unbound.game.factories.FlyweightFactory.getFlyweight(FlyweightFactory.java:33)
-	at de.unbound.game.factories.EntityFactory.createEntity(EntityFactory.java:84)
-	at de.unbound.game.factories.EntityFactory.createMap(EntityFactory.java:36)
-	at de.unbound.game.wave.WaveHandler.setBattleFieldForFactories(WaveHandler.java:31)
-	at de.unbound.game.World.setGameRules(World.java:44)
-	at de.unbound.screen.GameScreen.<init>(GameScreen.java:22)
-	at de.unbound.screen.StartScreen.render(StartScreen.java:61)
-	at de.unbound.TestGame.render(TestGame.java:18)
-	*/ 
-	//er wirft immernoch fehler X.X Json ist neu reingekommen. Glaub sogar von dir. 
-	// ok, moment ich mache skype an
-	
-	//yup hab es gerade nochmal aktualisiert
-	//kurz skype video übertragung? hab aber kein mikro :(
-	//egal muss ja nur kurz sehen, was da abgeht
-	
-	//s0
+
 	public void create(){
 		batch = new SpriteBatch();
 		stage = new Stage();
@@ -113,9 +91,8 @@ Caused by: java.lang.ExceptionInInitializerError
 				//System.out.println("Clicked! Is checked: " + button.isChecked());
 				ButtonSinglePlayer.setText("Starting new game");
 				//g.setScreen( new GameScreen());
-				game.setScreen(new GameScreen(game,LocaleEndlessWaveHandler.createLocaleEndlessWaveHandlerPreset(),new LocalGameUpdate()));
+				game.setScreen(new GameScreen(game,new LocalEndlessGameMode()));
 			}
-
 		});
 		final TextButton ButtonMultiPlayer=new TextButton("Play Multiplayer",textButtonStyle);
 		ButtonMultiPlayer.setPosition(200, 200);
@@ -166,7 +143,7 @@ Caused by: java.lang.ExceptionInInitializerError
         //font.draw(batch, "(Vorerst) Klicke mit der Maus/Touchpad 1x um das Spiel zu starten", 100, 100);
         batch.end();
         // moment
-        if (startMultiplayer) game.setScreen(new GameScreen(game,LocaleEndlessWaveHandler.createLocaleEndlessWaveHandlerPreset(),new LocalGameUpdate()));
+        if (startMultiplayer) game.setScreen(new GameScreen(game,new LocalEndlessGameMode()));
 		 
 
     }

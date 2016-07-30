@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
+import de.unbound.game.collision.LocaleEndlessCollisionDetection;
 import de.unbound.game.model.entities.Entity;
 
 public class LocalGameUpdate extends AbstractGameUpdate {
@@ -17,7 +18,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 	private SpriteBatch hudBatch;
 
 	public LocalGameUpdate() {
-		initAbstract();
+		initAbstract(new LocaleEndlessCollisionDetection());
 		init();
 	}
 
@@ -65,6 +66,7 @@ public class LocalGameUpdate extends AbstractGameUpdate {
 		for(Entity e : battleField.getGameObjects()){
 			e.render(batch);
 		}
+		renderEntity(battleField.getPlayer());
 		
 		batch.end();
 		hudBatch.begin();

@@ -15,9 +15,10 @@ public abstract class AbstractGameUpdate {
 	protected BattleField battleField;
 	protected OrthographicCamera camera;
 	
-	protected void initAbstract(){
+	protected void initAbstract(CollisionDetection collisionDetection){
 		battleField = new BattleField();
-		collisionDetection = new CollisionDetection(battleField);
+		this.collisionDetection = collisionDetection;
+		this.collisionDetection.setBattleField(battleField);
 	}
 
 	public void update(double deltaTime){
