@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import de.unbound.UnboundGame;
-import de.unbound.game.mode.client.ClientEndlessGameMode;
+import de.unbound.game.mode.client.ClientSurvivalGameMode;
 import de.unbound.game.mode.local.LocalEndlessGameMode;
 
 public class StartScreen extends AbstractGameScreen{
@@ -141,7 +141,7 @@ public class StartScreen extends AbstractGameScreen{
         //font.draw(batch, "(Vorerst) Klicke mit der Maus/Touchpad 1x um das Spiel zu starten", 100, 100);
         batch.end();
         // moment
-        if (startMultiplayer) game.setScreen(new GameScreen(game,new ClientEndlessGameMode()));
+        if (startMultiplayer) game.setScreen(new GameScreen(game,new ClientSurvivalGameMode()));
 		 
 
     }

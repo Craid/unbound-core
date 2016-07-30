@@ -6,6 +6,7 @@ import de.unbound.game.collisionhandler.BodyCollisionHandler;
 import de.unbound.game.collisionhandler.VisionCollisionHandler;
 import de.unbound.game.mode.CollisionDetection;
 import de.unbound.game.model.entities.Entity;
+import de.unbound.utility.UnboundConstants;
 
 public class LocaleEndlessCollisionDetection extends CollisionDetection {
 
@@ -33,7 +34,7 @@ public class LocaleEndlessCollisionDetection extends CollisionDetection {
 			limit(me);
 		}
 		for (Entity projectile : battleField.getEnemyProjectiles()) {
-			if(outOfHeight(projectile) || outOfWidth(projectile))
+			if(outOfRange(projectile.getPosition().y, UnboundConstants.WORLDHEIGHT) || outOfRange(projectile.getPosition().x, UnboundConstants.WORLDWIDTH))
 				projectile.setActive(false);
 			checkBodyCollision(projectile, battleField.getCollectors());
 			checkBodyCollision(projectile, battleField.getImmobileEntities());

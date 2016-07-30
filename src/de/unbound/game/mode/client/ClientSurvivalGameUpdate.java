@@ -11,14 +11,14 @@ import de.unbound.game.World;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
 
-public class ClientGameUpdate extends AbstractGameUpdate {
+public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
 
-	public ClientGameUpdate() {
-		initAbstract(new ClientEndlessCollisionDetection());
+	public ClientSurvivalGameUpdate() {
+		initAbstract(new ClientSurvivalCollisionDetection());
 		init();
 	}
 

@@ -25,19 +25,19 @@ public class EntityFlyweight {
 		return graphic;
 	}
 	
-	public double getRangeOfVision() {
+	public float getRangeOfVision() {
 		return meta.rangeOfVision;
 	}
 
-	public void setRangeOfVision(double rangeOfVision) {
+	public void setRangeOfVision(float rangeOfVision) {
 		meta.rangeOfVision = rangeOfVision;
 	}
 
-	public double getRangeOfCollision() {
+	public float getRangeOfCollision() {
 		return meta.rangeOfCollision;
 	}
 
-	public void setRangeOfCollision(double rangeOfCollision) {
+	public void setRangeOfCollision(float rangeOfCollision) {
 		meta.rangeOfCollision = rangeOfCollision;
 	}
 
@@ -65,11 +65,11 @@ public class EntityFlyweight {
 		meta.maxVelocity = maxVelocity;
 	}
 
-	public double getDamageOnContact() {
+	public float getDamageOnContact() {
 		return meta.damageOnContact;
 	}
 
-	public void setDamageOnContact(double damageOnContact) {
+	public void setDamageOnContact(float damageOnContact) {
 		meta.damageOnContact = damageOnContact;
 	}
 	
@@ -85,14 +85,14 @@ public class EntityFlyweight {
 		
 		private static final long serialVersionUID = 1L;
 		
-		private double rangeOfVision, rangeOfCollision, damageOnContact;
+		private float rangeOfVision, rangeOfCollision, damageOnContact;
 		private float acceleration, maxVelocity;
 		private int initialHP;
 		private String textureName;
 		
 		public EntityFlyweightMeta(){}
 		
-		public EntityFlyweightMeta(double rangeOfVision, double rangeOfCollision, String textureName, float accelaration, float maxVelocity, double damage, int initialHP){
+		public EntityFlyweightMeta(float rangeOfVision, float rangeOfCollision, String textureName, float accelaration, float maxVelocity, float damage, int initialHP){
 			setRangeOfCollision(rangeOfCollision);
 			setRangeOfVision(rangeOfVision);
 			setTextureName(textureName);
@@ -102,19 +102,19 @@ public class EntityFlyweight {
 			setInitialHP(initialHP);
 		}
 
-		public double getRangeOfVision() {
+		public float getRangeOfVision() {
 			return rangeOfVision;
 		}
 
-		public void setRangeOfVision(double rangeOfVision) {
+		public void setRangeOfVision(float rangeOfVision) {
 			this.rangeOfVision = rangeOfVision;
 		}
 
-		public double getRangeOfCollision() {
+		public float getRangeOfCollision() {
 			return rangeOfCollision;
 		}
 
-		public void setRangeOfCollision(double rangeOfCollision) {
+		public void setRangeOfCollision(float rangeOfCollision) {
 			this.rangeOfCollision = rangeOfCollision;
 		}
 
@@ -142,11 +142,11 @@ public class EntityFlyweight {
 			this.maxVelocity = maxVelocity;
 		}
 
-		public double getDamageOnContact() {
+		public float getDamageOnContact() {
 			return damageOnContact;
 		}
 
-		public void setDamageOnContact(double damageOnContact) {
+		public void setDamageOnContact(float damageOnContact) {
 			this.damageOnContact = damageOnContact;
 		}
 

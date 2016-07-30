@@ -8,9 +8,9 @@ import de.unbound.game.model.state.update.UpdateStatePlayer;
 import de.unbound.game.model.state.update.UpdateStateProjectile;
 import de.unbound.utility.UnboundConstants;
 
-public class ClientEndlessEntityFactory extends EntityFactory {
+public class ClientSurvivalEntityFactory extends EntityFactory {
 	
-	public ClientEndlessEntityFactory(String race, boolean hostile) {
+	public ClientSurvivalEntityFactory(String race, boolean hostile) {
 		super(race, hostile);
 	}
 
