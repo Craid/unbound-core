@@ -17,38 +17,43 @@ public class TCPThreadReceiver extends Thread {
 
 	@Override
 	public void run() {
+		running = true;
+		System.out.println("TCP Receive Thread Started");
+		try {
+			DataInputStream dIn = new DataInputStream(skt.getInputStream());
+			while (running) {
+				int length = dIn.readInt(); // read length of incoming message
+				System.out.println("got sum");
+				
+				if (length > 0) {
+					System.out.println(length);
+					byte[] message = new byte[8];
+					dIn.readFully(message, 0, message.length); // read the
+																// message
+					System.out.println(dIn.read());
+
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("exception");
+		}
+		
+		
+		
+		
 		
 		/*
-		try{
-				DataInputStream dIn = new DataInputStream(skt.getInputStream());
-
-				int length = dIn.readInt();                    // read length of incoming message
-				if(length>0) {
-				    byte[] message = new byte[length];
-				    dIn.readFully(message, 0, message.length); // read the message
-				    
-				}
-		
-		}catch(Exception e){}
-		
-		*/
-		
-		
-		
-		
 		
 		System.out.println("Receive Thread Started");
 		BufferedReader sktReceive;
 		try {
 			sktReceive = new BufferedReader(new InputStreamReader(
 					skt.getInputStream()));
-			String input = "";
+			String input = "aaaa";
 			while (running) {
 				System.out.println("trying to read");
 				input = sktReceive.readLine();
-				System.out.println("I just read");
-				if (input != null)
-					System.out.println(input);
+				System.out.println(input+" <---I just read");
 			}
 			sktReceive.close();
 			skt.close();
@@ -57,5 +62,6 @@ public class TCPThreadReceiver extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 }

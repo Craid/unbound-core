@@ -2,6 +2,7 @@ package de.unbound.game.network;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -16,23 +17,43 @@ public class TCPThreadSender extends Thread {
 		this.skt = skt;
 	}
 
-	@Override
+	
+	public void sendInitialMessage(){
+		BufferedWriter sktSend;
+		try {
+			//Thread.sleep(500);
+			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
+			String input = "Generic Player\n";
+			sktSend.write(input);
+			sktSend.flush();
+			
+			input = "New Player\n";
+			sktSend.write(input);
+			sktSend.flush();
+			System.out.println("okkkkkk");
+			Thread.sleep(500);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void run() {
 		System.out.println("TCP Send Thread Started");
 		BufferedWriter sktSend;
 		//BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 		try {
+			
 			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
 			//System.out.println("Bitte Benutzernamen eingeben: ");
 			//String input = console.readLine() + "\n";
-			String input = "New Player";
-			sktSend.write(input);
-			sktSend.flush();
+			String input = "New Player\n";
+			//sktSend.write(input);
+			//sktSend.flush();
 			do {
+				Thread.sleep(250);
+				//System.out.println("ok");
 				//input = console.readLine() + "\n";
 				sktSend.write(input);
 				sktSend.flush();
-				System.out.println("jo");
 			} while (!input.equalsIgnoreCase("EXIT\n"));
 			System.out.println("You are now signed off.");
 			running = false;

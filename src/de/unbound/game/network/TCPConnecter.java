@@ -33,6 +33,7 @@ public class TCPConnecter extends Thread{
 			receiver = new TCPThreadReceiver(clientSocket);
 			sender  = new TCPThreadSender(clientSocket);
 			receiver.start();
+			sender.sendInitialMessage();
 			sender.start();
 			
 	}
