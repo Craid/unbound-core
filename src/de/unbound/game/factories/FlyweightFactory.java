@@ -24,15 +24,18 @@ public class FlyweightFactory {
 		return instance;
 	}
 	
-	/**
-	 * 
-	 * @param name
-	 */
 	public EntityFlyweight getFlyweight(String name) {
 		if (flyweights.get(name) == null){
 			flyweights.put(name, createEntityFlywight(name));
 		}
 		return flyweights.get(name);
+	}
+	
+	public EntityFlyweight getFlyweight(byte id) {
+		for(EntityFlyweightMeta f : meta.values())
+			if(f.getId() == id)
+				return getFlyweight(f.getTextureName());
+		return null;
 	}
 
 	/**

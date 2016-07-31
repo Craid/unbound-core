@@ -84,7 +84,7 @@ public class World {
 		return p;
 	}
 
-	private EntityFactory getMatchingFactory(String entityName) {
+	public EntityFactory getMatchingFactory(String entityName) {
 		String race = "";
 		for(Race r : UnboundConstants.Race.values())
 			if(entityName.contains(r.name()))

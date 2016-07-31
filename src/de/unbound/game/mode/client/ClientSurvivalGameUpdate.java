@@ -5,12 +5,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
+import de.unbound.game.factories.EntityFactory;
+import de.unbound.game.factories.FlyweightFactory;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.network.serialization.ByteBuilderHelper;
+import de.unbound.game.model.entities.EntityFlyweight;
+import de.unbound.game.network.serialization.PacketDeserializer;
+import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
+import de.unbound.game.network.serialization.PacketSerializer;
+import de.unbound.utility.UnboundConstants;
 
 public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
@@ -18,13 +25,17 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
 	private double timeStamp;
-	private ByteBuilderHelper packageBuilder;
+	private PacketDeserializer packetDeserializer;
+	private PacketSerializer packetSerializer;
+	private byte[] clientData;
 
 	public ClientSurvivalGameUpdate() {
 		initAbstract(new ClientSurvivalCollisionDetection());
 		init();
 		timeStamp = 0;
-		packageBuilder = new ByteBuilderHelper();
+		packetDeserializer = new PacketDeserializer();
+		packetSerializer = new PacketSerializer();
+		clientData = new byte[8+29]; //timestamp + entity data for player
 	}
 
 	protected void init() {
@@ -43,13 +54,49 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	public void doBeforeUpdate() {
 		byte[] data = null;
 		//TODO Michel - Update entities via updatedata from server!
-		double tempTimeStamp = packageBuilder.getTimeStampFromByteArray(data);
+		double tempTimeStamp = packetDeserializer.getTimeStampFromByteArray(data);
 		if(tempTimeStamp > timeStamp){
 			timeStamp = tempTimeStamp;
-			
+			updateEntities(data);
 		}else{
 			//ignore packet!
 		}
+	}
+
+	private void updateEntities(byte[] data) {
+		for(DeserializedEntity e : packetDeserializer.getDeserializedEntityFromByteArray(data)){
+			Entity entity = battleField.getEntitybyId(e.id);
+			updateOrCreateEntity(e, entity);
+		}
+	}
+
+	private void updateOrCreateEntity(DeserializedEntity e, Entity entity) {
+		if(entity != null){
+			updateEntity(e, entity);
+		}else{
+			createEntity(e);
+		}
+	}
+
+	private void createEntity(DeserializedEntity e) {
+		EntityFlyweight f  = FlyweightFactory.getInstance().getFlyweight(e.type);
+		if(f != null){
+			EntityFactory factory = World.getInstance().getMatchingFactory(f.getTextureName());
+			String type = removeRace(f.getTextureName());
+			factory.createEntity(type);
+		}
+	}
+
+	private String removeRace(String raceAndType) {
+		for(UnboundConstants.Race r : UnboundConstants.Race.values())
+			raceAndType = raceAndType.replace(r.name(), "");
+		return raceAndType;
+	}
+
+	private void updateEntity(DeserializedEntity e, Entity entity) {
+		entity.setPosition(new Vector2(e.posX,e.posY));
+		entity.setDirection(new Vector2(e.dirX, e.dirY));
+		entity.getUpdateState().getMove().setVelocity(new Vector2(e.velX,e.velY));
 	}
 
 	@Override
@@ -60,6 +107,18 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	@Override
 	public void doAfterUpdate() {
 		render();
+		sendPlayerToServer();
+	}
+
+	private void sendPlayerToServer() {
+		//clientData wird aktualisiert
+		int index = 0;
+		for(byte b : packetSerializer.getTimeStampAsByteArray())
+			clientData[index++] = b;
+		for(byte b : packetSerializer.getPlayerAsByteArray())
+			clientData[index++] = b;
+		
+		//TODO sende clientData an server udpsender
 	}
 
 	@Override
@@ -84,7 +143,6 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		hudBatch.begin();
 		String temp = String.format("Punkte: %010d", battleField.getScore());
 		font.draw(hudBatch, temp, Gdx.graphics.getWidth()-140, Gdx.graphics.getHeight()-15);
-		//TODO Michel receive player id from server, get that specific player!
 		temp = String.format("Player-HP: %03d/500", (int)battleField.getPlayers().get(0).getHp());
 		font.draw(hudBatch, temp, 10, Gdx.graphics.getHeight()-30);
 		temp = String.format("MainBase-HP: %03d/1500", (int)battleField.getMainBase().getHp());
@@ -101,7 +159,6 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateCameraPosition(){
-		//TODO Michel receive player id from server, get that specific player!
 		camera.position.x = battleField.getPlayers().get(0).getPosition().x;
 		camera.position.y = battleField.getPlayers().get(0).getPosition().y;
 		camera.zoom = 2.4f;
@@ -110,6 +167,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
 	@Override
 	public void updateWaveHandler(double deltaTime) {
+		
 	}
 
 	@Override

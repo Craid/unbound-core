@@ -21,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import de.unbound.UnboundGame;
 import de.unbound.game.mode.client.ClientSurvivalGameMode;
 import de.unbound.game.mode.local.LocalEndlessGameMode;
+import de.unbound.game.model.entities.Entity;
+import de.unbound.game.network.ConnectionHandler;
 
 public class StartScreen extends AbstractGameScreen{
 
@@ -30,7 +32,7 @@ public class StartScreen extends AbstractGameScreen{
 	BitmapFont font;
 	Skin skin;
 	Stage stage;
-	String userInputIP;
+	String userInputIP = "localhost";
 	boolean startMultiplayer = false;
 	
 	public StartScreen(UnboundGame game) { 
@@ -110,9 +112,11 @@ public class StartScreen extends AbstractGameScreen{
 					   @Override
 					   public void input (String text) {
 						   userInputIP = text;
-						   if (userInputIP.length()>0) startMultiplayer = true;
+						   //if (userInputIP.length()>0) startMultiplayer = true;
 						   ButtonMultiPlayer.setText("Starting new game");
-						     }
+						   ConnectionHandler.getInstance().setServerIp(userInputIP);
+						   ConnectionHandler.getInstance().establishTCPConnection();
+						   }
 
 					   @Override
 					   public void canceled () {
@@ -122,7 +126,12 @@ public class StartScreen extends AbstractGameScreen{
 					});
 				Gdx.input.getTextInput(listener, "IP vom Server eingeben", "localhost", null);
 				
-				
+
+				//get entities
+				Entity player; //den player der für diesen client erzeugt wurde 
+				//					(sollte also auf anfrage von client erzeugt werden)
+				Entity mainBase; //TODO Marwin: ist in der World.. also beides
+				//new ClientSurvivalGameMode(player, mainBase); //TODO Michel: Konstruktor fehlt
 				
 			}
 

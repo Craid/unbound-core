@@ -6,21 +6,20 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import de.unbound.game.network.serialization.EntitySerializer;
+import de.unbound.game.network.serialization.PacketSerializer;
 
 public class UDPThreadReceiver extends Thread{
 
 	private DatagramSocket socket;
 	private int portNumber;
 	private boolean running = false;
-	private static EntitySerializer entitySerializer = new EntitySerializer();
+	private static PacketSerializer entitySerializer = new PacketSerializer();
 	public DatagramPacket lastPacket;
 	
 	public UDPThreadReceiver(int portNumber) {
 			try {
 				this.socket = new DatagramSocket(); // Portnummer ist egal, es wird ein freier autm. gesucht
 			} catch (SocketException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 	}

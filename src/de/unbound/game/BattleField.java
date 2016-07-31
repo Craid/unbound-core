@@ -147,5 +147,12 @@ public class BattleField {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	public Entity getEntitybyId(int id){
+		for(Entity e : gameObjects)
+			if(e.getId() == id)
+				return e;
+		return null;
+	}
 
 }

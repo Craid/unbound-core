@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import de.unbound.game.World;
 import de.unbound.game.model.entities.Entity;
 
-public class EntitySerializer {
+public class PacketSerializer {
 	
 	private ByteBuilderHelper helper;
 	
-	public EntitySerializer() {
+	public PacketSerializer() {
 		helper = new ByteBuilderHelper();
 	}
 	
@@ -49,6 +49,10 @@ public class EntitySerializer {
 	
 	public byte[] getPlayerAsByteArray(){
 		return constructEntityByteStream(World.getInstance().getBattleField().getPlayers().get(0));
+	}
+	
+	public byte[] getTimeStampAsByteArray(){
+		return helper.getTimeStampAsByteArray();
 	}
 
 }
