@@ -111,16 +111,19 @@ public class StartScreen extends AbstractGameScreen{
 					   public void input (String text) {
 						   userInputIP = text;
 						   if (userInputIP.length()>0) startMultiplayer = true;
+						   ButtonMultiPlayer.setText("Starting new game");
 						     }
 
 					   @Override
 					   public void canceled () {
+						   ButtonMultiPlayer.setChecked(false);
+						   ButtonMultiPlayer.setText("Play Multiplayer");
 					   }
 					});
 				Gdx.input.getTextInput(listener, "IP vom Server eingeben", "localhost", null);
 				
 				
-				ButtonMultiPlayer.setText("Starting new game");
+				
 			}
 
 		});
