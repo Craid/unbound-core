@@ -10,16 +10,21 @@ import de.unbound.game.GameCamera;
 import de.unbound.game.World;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
+import de.unbound.game.network.serialization.ByteBuilderHelper;
 
 public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
+	private double timeStamp;
+	private ByteBuilderHelper packageBuilder;
 
 	public ClientSurvivalGameUpdate() {
 		initAbstract(new ClientSurvivalCollisionDetection());
 		init();
+		timeStamp = 0;
+		packageBuilder = new ByteBuilderHelper();
 	}
 
 	protected void init() {
@@ -36,7 +41,15 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	
 	@Override
 	public void doBeforeUpdate() {
+		byte[] data = null;
 		//TODO Michel - Update entities via updatedata from server!
+		double tempTimeStamp = packageBuilder.getTimeStampFromByteArray(data);
+		if(tempTimeStamp > timeStamp){
+			timeStamp = tempTimeStamp;
+			
+		}else{
+			//ignore packet!
+		}
 	}
 
 	@Override

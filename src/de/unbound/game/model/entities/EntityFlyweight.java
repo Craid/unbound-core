@@ -25,60 +25,36 @@ public class EntityFlyweight {
 		return graphic;
 	}
 	
+	public byte getId(){
+		return meta.id;
+	}
+	
 	public float getRangeOfVision() {
 		return meta.rangeOfVision;
-	}
-
-	public void setRangeOfVision(float rangeOfVision) {
-		meta.rangeOfVision = rangeOfVision;
 	}
 
 	public float getRangeOfCollision() {
 		return meta.rangeOfCollision;
 	}
 
-	public void setRangeOfCollision(float rangeOfCollision) {
-		meta.rangeOfCollision = rangeOfCollision;
-	}
-
 	public String getTextureName() {
 		return meta.textureName;
-	}
-
-	public void setTextureName(String textureName) {
-		meta.textureName = textureName;
 	}
 
 	public float getAcceleration() {
 		return meta.acceleration;
 	}
 
-	public void setAcceleration(float acceleration) {
-		meta.acceleration = acceleration;
-	}
-
 	public float getMaxVelocity() {
 		return meta.maxVelocity;
-	}
-
-	public void setMaxVelocity(float maxVelocity) {
-		meta.maxVelocity = maxVelocity;
 	}
 
 	public float getDamageOnContact() {
 		return meta.damageOnContact;
 	}
 
-	public void setDamageOnContact(float damageOnContact) {
-		meta.damageOnContact = damageOnContact;
-	}
-	
 	public int getInitialHP() {
 		return meta.initialHP;
-	}
-
-	public void setInitialHP(int initialHP) {
-		meta.initialHP = initialHP;
 	}
 	
 	public static class EntityFlyweightMeta implements Serializable{
@@ -88,11 +64,13 @@ public class EntityFlyweight {
 		private float rangeOfVision, rangeOfCollision, damageOnContact;
 		private float acceleration, maxVelocity;
 		private int initialHP;
+		private byte id;
 		private String textureName;
 		
 		public EntityFlyweightMeta(){}
 		
-		public EntityFlyweightMeta(float rangeOfVision, float rangeOfCollision, String textureName, float accelaration, float maxVelocity, float damage, int initialHP){
+		public EntityFlyweightMeta(byte id,float rangeOfVision, float rangeOfCollision, String textureName, float accelaration, float maxVelocity, float damage, int initialHP){
+			setId(id);
 			setRangeOfCollision(rangeOfCollision);
 			setRangeOfVision(rangeOfVision);
 			setTextureName(textureName);
@@ -100,6 +78,14 @@ public class EntityFlyweight {
 			setMaxVelocity(maxVelocity);
 			setDamageOnContact(damage);
 			setInitialHP(initialHP);
+		}
+
+		public byte getId() {
+			return id;
+		}
+
+		public void setId(byte id) {
+			this.id = id;
 		}
 
 		public float getRangeOfVision() {
