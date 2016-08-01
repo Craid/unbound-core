@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.xml.internal.ws.api.policy.PolicyResolver.ClientContext;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
@@ -75,9 +76,12 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateOrCreateEntity(DeserializedEntity e, Entity entity) {
+		System.out.println(e.id);
 		if(entity != null){
+			System.out.println("update!");
 			updateEntity(e, entity);
 		}else{
+			System.out.println("create!");
 			createEntity(e);
 		}
 	}
@@ -98,7 +102,9 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateEntity(DeserializedEntity e, Entity entity) {
+		
 		if(battleField.getPlayers().get(0).getId() != entity.getId()){
+			
 			entity.setPosition(new Vector2(e.posX,e.posY));
 			entity.setDirection(new Vector2(e.dirX, e.dirY));
 			entity.getUpdateState().getMove().setVelocity(new Vector2(e.velX,e.velY));
@@ -125,6 +131,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 			clientData[index++] = b;
 		
 		//TODO sende clientData an server udpsender
+		ConnectionHandler.getInstance().udpSender.sendData(clientData);
 	}
 
 	@Override

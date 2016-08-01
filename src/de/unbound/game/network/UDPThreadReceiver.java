@@ -39,7 +39,7 @@ public class UDPThreadReceiver extends Thread{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				byte[] data = new byte[2048];
+				byte[] data = new byte[4096];
 				DatagramPacket packet = new DatagramPacket(data, data.length); // read packet
 				try {
 					socket.receive(packet); // wartet so lange, bis ein Packet ankommt

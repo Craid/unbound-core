@@ -19,8 +19,10 @@ public class PacketDeserializer {
 		DeserializedEntity tempEntity = null;
 		while(index + 29 <= data.length){
 			tempEntity = getNextEntity(data);
-			if(tempEntity.id != -1)
+			if(tempEntity.type != 0)
+				//System.out.println(tempEntity.id);
 				entities.add(tempEntity);
+			else break;
 		}
 		System.out.println("Deserialized Objects from byte array: " + entities.size());
 		return entities;

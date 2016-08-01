@@ -23,6 +23,7 @@ public class UDPThreadSender extends Thread{
 
 	}
 
+
 	
 	public void sendData(byte[] data){
 		DatagramPacket packet = new DatagramPacket(data, data.length, ConnectionHandler.getInstance().serverIp, ConnectionHandler.getInstance().portNumber+1); // 11301 = Port für Server Receiver

@@ -56,7 +56,7 @@ public class TCPThreadReceiver extends Thread {
 		}
 		if (input.length()>15) if (input.substring(0, 9).equalsIgnoreCase("MainBase:")){
 			byte[] array = new String(input.substring(9, input.length())).getBytes();
-			System.out.println("Main Base legnth : " +array.length);
+			System.out.println("Main Base length : " +array.length);
 			ConnectionHandler.getInstance().mainBase = deserializer.getDeserializedEntityFromByteArray(array,0).get(0);
 			System.out.println(ConnectionHandler.getInstance().mainBase.id);
 			mainBaseReceived = true;

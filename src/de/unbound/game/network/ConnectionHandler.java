@@ -14,7 +14,7 @@ public class ConnectionHandler {
 	public InetAddress serverIp;
 	TCPConnecter 	tcpConnecter; // richtet Verbindung zum Server ein
 	public UDPThreadReceiver 	udpReceiver; //empfängt alle UDP-Packages
-	UDPThreadSender 	udpSender; //
+	public UDPThreadSender 	udpSender; //
 	DatagramSocket udpSocket;
 	public DeserializedEntity player;
 	public DeserializedEntity mainBase;
