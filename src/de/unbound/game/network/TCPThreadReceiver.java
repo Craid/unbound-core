@@ -49,6 +49,7 @@ public class TCPThreadReceiver extends Thread {
 			byte[] array = new String(input.substring(7, input.length())).getBytes();
 			System.out.println("Player legnth : " +array.length);
 			ConnectionHandler.getInstance().player = deserializer.getDeserializedEntityFromByteArray(array,0).get(0);
+			System.out.println(ConnectionHandler.getInstance().player.id);
 			playerReceived = true;
 			
 			if (playerReceived & mainBaseReceived) ConnectionHandler.getInstance().setInitializedConnection(true);
@@ -57,6 +58,7 @@ public class TCPThreadReceiver extends Thread {
 			byte[] array = new String(input.substring(9, input.length())).getBytes();
 			System.out.println("Main Base legnth : " +array.length);
 			ConnectionHandler.getInstance().mainBase = deserializer.getDeserializedEntityFromByteArray(array,0).get(0);
+			System.out.println(ConnectionHandler.getInstance().mainBase.id);
 			mainBaseReceived = true;
 			if (playerReceived & mainBaseReceived) ConnectionHandler.getInstance().setInitializedConnection(true);
 			
