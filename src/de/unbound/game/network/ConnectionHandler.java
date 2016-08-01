@@ -1,20 +1,28 @@
 package de.unbound.game.network;
 
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+
+import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
 
 public class ConnectionHandler {
 
 	ConnectionHandler connectionHandler;
 	public int portNumber;
-	InetAddress serverIp;
+	public InetAddress serverIp;
 	TCPConnecter 	tcpConnecter; // richtet Verbindung zum Server ein
-	TCPThreadSender		tcpSender; 
-	TCPThreadReceiver	tcpReceiver; 
-	UDPThreadReceiver 	udpReceiver; //empfängt alle UDP-Packages
-	UDPSender 			udpSender; //
+	public UDPThreadReceiver 	udpReceiver; //empfängt alle UDP-Packages
+	UDPThreadSender 	udpSender; //
+	DatagramSocket udpSocket;
+	public DeserializedEntity player;
+	public DeserializedEntity mainBase;
 	
-	public static ConnectionHandler instance;
+	boolean initializedConnection = false; //wenn Spieler und Main Base empfangen wurden
+	
+
+	private static ConnectionHandler instance;
 	
 	public static ConnectionHandler getInstance(){
 		if(instance == null)
@@ -24,7 +32,15 @@ public class ConnectionHandler {
 	
 
 	private ConnectionHandler(){
+		if (portNumber<80) portNumber = 11300;
 		//this.portNumber = 11300; //default value
+	}
+	
+	public void startConnection(){
+		initializeDatagramSocket();
+		startTCP();
+		//establishTCPConnection();
+//		startUDP();
 	}
 	
 	public void establishTCPConnection(){
@@ -38,10 +54,22 @@ public class ConnectionHandler {
 		tcpConnecter = new TCPConnecter(serverIp, portNumber);
 	}
 	public void closeTCPConnection(){
-
+		//TODO Marwin SCHLIEß ES!
+	}
+	private void initializeDatagramSocket(){
+		try {
+			udpSocket = new DatagramSocket();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void startUDP(){
 
+		udpReceiver = new UDPThreadReceiver(udpSocket);
+		udpSender = new UDPThreadSender(udpSocket,serverIp, portNumber+1);
+		udpReceiver.start();
+		udpSender.start();
 	}
 	public void stopUDP(){
 
@@ -64,6 +92,15 @@ public class ConnectionHandler {
 			serverIp = InetAddress.getByName(ipAsString);
 		} catch (UnknownHostException e) {
 		}
+	}
+	
+	public boolean isInitializedConnection() {
+		return initializedConnection;
+	}
+
+
+	public void setInitializedConnection(boolean initializedConnection) {
+		this.initializedConnection = initializedConnection;
 	}
 
 }

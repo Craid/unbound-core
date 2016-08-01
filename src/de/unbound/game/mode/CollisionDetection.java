@@ -9,7 +9,6 @@ import de.unbound.game.BattleField;
 import de.unbound.game.collisionhandler.BodyCollisionHandler;
 import de.unbound.game.collisionhandler.VisionCollisionHandler;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.state.move.MoveStateRandom;
 import de.unbound.utility.UnboundConstants;
 
 public abstract class CollisionDetection {
@@ -97,25 +96,26 @@ public abstract class CollisionDetection {
 		boolean outOfWidth = outOfRange(e.getPosition().x,width);
 		boolean outOfHeight = outOfRange(e.getPosition().y,height);
 		if (outOfHeight || outOfWidth) {
-			Vector2 newDirection = e.getDirection().cpy();
-			Vector2 newVelocity = e.getUpdateState().getMove().getVelocity()
-					.cpy();
-			if (outOfWidth) {
-				newDirection.x = -newDirection.x;
-				newVelocity.x = -newVelocity.x;
+			if(e.getTextureName().contains(UnboundConstants.MobileEntity.Projectile.name())){
+				e.setActive(false);
+			}else{
+				Vector2 newDirection = e.getDirection().cpy();
+				Vector2 newVelocity = e.getUpdateState().getMove().getVelocity().cpy();
+				if (outOfWidth) {
+					newDirection.x = -newDirection.x;
+					newVelocity.x = -newVelocity.x;
 				
-				e.setPosition(new Vector2(MathUtils.clamp(e.getPosition().x, 0,width), e.getPosition().y));
+					e.setPosition(new Vector2(MathUtils.clamp(e.getPosition().x, 0,width), e.getPosition().y));
+				}
+				if (outOfHeight) {
+					newDirection.y = -newDirection.y;
+					newVelocity.y = -newVelocity.y;
+					e.setPosition(new Vector2(e.getPosition().x, MathUtils.clamp(e.getPosition().y, 0, height)));
+				}
+				e.setDirection(newDirection);
+				e.getUpdateState().getMove().setVelocity(newVelocity);
 			}
-			if (outOfHeight) {
-				newDirection.y = -newDirection.y;
-				newVelocity.y = -newVelocity.y;
-				e.setPosition(new Vector2(e.getPosition().x, MathUtils.clamp(e.getPosition().y, 0, height)));
-			}
-			e.setDirection(newDirection);
-			e.getUpdateState().getMove().setVelocity(newVelocity);
-			e.getUpdateState().setMove(new MoveStateRandom(e));
 		}
-
 	}
 	
 	protected boolean outOfRange(float value, int upperBound) {

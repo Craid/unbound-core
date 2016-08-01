@@ -21,7 +21,7 @@ public class UnboundGame extends Game {
 		screen.render(Gdx.graphics.getDeltaTime());
 	}
 	
-	public void setScreen(AbstractGameScreen screen){
+	public synchronized void setScreen(AbstractGameScreen screen){
 		System.out.println("Set new screen");
 		this.screen = screen;
 	}

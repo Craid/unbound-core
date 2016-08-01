@@ -9,19 +9,20 @@ public class PacketDeserializer {
 	private ByteBuilderHelper helper;
 	
 	public PacketDeserializer(){
-		index = 8;
+		index = 0;
 		helper = new ByteBuilderHelper();
 	}
 	
-	public ArrayList<DeserializedEntity> getDeserializedEntityFromByteArray(byte[] data){
-		index = 8; //0-7 sind timestamp
+	public ArrayList<DeserializedEntity> getDeserializedEntityFromByteArray(byte[] data, int offset){
+		index = offset; 
 		ArrayList<DeserializedEntity> entities = new ArrayList<PacketDeserializer.DeserializedEntity>();
 		DeserializedEntity tempEntity = null;
-		do{
+		while(index + 29 <= data.length){
 			tempEntity = getNextEntity(data);
-			if(tempEntity.id != 0)
+			if(tempEntity.id != -1)
 				entities.add(tempEntity);
-		}while(tempEntity.id != 0);
+		}
+		System.out.println("Deserialized Objects from byte array: " + entities.size());
 		return entities;
 	}
 	
@@ -53,7 +54,7 @@ public class PacketDeserializer {
 
 	public class DeserializedEntity{
 		
-		public int id;
+		public int id = -1;
 		public byte type;
 		public float posX, posY, dirX,dirY, velX, velY;
 		

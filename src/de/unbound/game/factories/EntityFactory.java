@@ -13,7 +13,7 @@ import de.unbound.utility.UnboundConstants;
 public abstract class EntityFactory {
 
 	protected FlyweightFactory flyweightFactory;
-	private BattleField battlefield;
+	protected BattleField battlefield;
 
 	private String race;
 	private boolean hostile;
@@ -49,9 +49,27 @@ public abstract class EntityFactory {
 					* height / 3);
 			tempDeposit.setPosition(new Vector2(x, y));
 		}
-		
+	}
+	
+	public Entity createPlayer(){
 		Entity player = createEntity(UnboundConstants.MobileEntity.Player.name());
-		player.setPosition(new Vector2(width / 2, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		player.setPosition(new Vector2(SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		System.out.println(player.getPosition());
+		return player;
+	}
+	
+	public Entity createSpawner(){
+		Entity spawner = createEntity(UnboundConstants.ImmobileEntity.Spawner.name());
+		spawner.setDirection(new Vector2(0,-1));
+		return spawner;
+	}
+	
+	public Entity createMainBase(){
+		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
+		mainBase.setPosition(new Vector2(SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		mainBase.setDirection(new Vector2(0,1));
+		System.out.println(mainBase.getPosition());
+		return mainBase;
 	}
 
 	/**
@@ -85,12 +103,7 @@ public abstract class EntityFactory {
 	protected abstract void updateTypeAttributes(Entity e,String type);
 
 	public void setBattlefield(BattleField battlefield) {
-		System.out.println(battlefield);
 		this.battlefield = battlefield;
-		System.out.println(this.battlefield);
-		System.out.println(this.battlefield.getScaleX());
-		System.out.println(UnboundConstants.WORLDWIDTH);
-		System.out.println(SPAWNPOINT);
 		SPAWNPOINT.set(UnboundConstants.WORLDWIDTH*battlefield.getScaleX() / 2,
 				UnboundConstants.WORLDHEIGHT*battlefield.getScaleY() - UnboundConstants.SINGLEGRIDHEIGHT);
 	}

@@ -3,7 +3,6 @@ package de.unbound.game.network;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
 import de.unbound.game.network.serialization.PacketSerializer;
 
@@ -15,20 +14,32 @@ public class UDPThreadReceiver extends Thread{
 	private static PacketSerializer entitySerializer = new PacketSerializer();
 	public DatagramPacket lastPacket;
 	
-	public UDPThreadReceiver(int portNumber) {
-			try {
-				this.socket = new DatagramSocket(); // Portnummer ist egal, es wird ein freier autm. gesucht
-			} catch (SocketException e) {
-				e.printStackTrace();
-			} 
+	
+	public UDPThreadReceiver(DatagramSocket udpSocket) {
+				byte[] data = new byte[1024];
+				this.lastPacket = new DatagramPacket(data, data.length); 
+				this.socket = udpSocket; // Portnummer ist egal, es wird ein freier autm. gesucht
+			
 	}
 	
 	
 	public void run(){
 		running = true;
 		while (running){
-			
-				byte[] data = new byte[1024];
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			while (ConnectionHandler.getInstance().isInitializedConnection()){	
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				byte[] data = new byte[2048];
 				DatagramPacket packet = new DatagramPacket(data, data.length); // read packet
 				try {
 					socket.receive(packet); // wartet so lange, bis ein Packet ankommt
@@ -37,7 +48,8 @@ public class UDPThreadReceiver extends Thread{
 					e.printStackTrace(); // Fehler beim Empfang des Packages
 				}
 				String message = new String(packet.getData()); // hier versuchen wir aus dem Packet den String zu lesen
-				System.out.println("[I AM GAME CLIENT] SERVER said: "+ message);
+				//System.out.println("[I AM GAME CLIENT] SERVER said: "+ message);
+			}
 		}
 		socket.close();
 	}

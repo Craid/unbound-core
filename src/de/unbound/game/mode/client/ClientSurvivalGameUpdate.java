@@ -14,6 +14,7 @@ import de.unbound.game.factories.FlyweightFactory;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.entities.EntityFlyweight;
+import de.unbound.game.network.ConnectionHandler;
 import de.unbound.game.network.serialization.PacketDeserializer;
 import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
 import de.unbound.game.network.serialization.PacketSerializer;
@@ -30,12 +31,14 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	private byte[] clientData;
 
 	public ClientSurvivalGameUpdate() {
-		initAbstract(new ClientSurvivalCollisionDetection());
+		super(new ClientSurvivalCollisionDetection());
 		init();
-		timeStamp = 0;
+		timeStamp = -1;
 		packetDeserializer = new PacketDeserializer();
 		packetSerializer = new PacketSerializer();
 		clientData = new byte[8+29]; //timestamp + entity data for player
+		ConnectionHandler.getInstance().startUDP();
+		background.setScale(1.33f*battleField.getScaleX(), 1.08f*battleField.getScaleY());
 	}
 
 	protected void init() {
@@ -52,8 +55,8 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	
 	@Override
 	public void doBeforeUpdate() {
-		byte[] data = null;
-		//TODO Michel - Update entities via updatedata from server!
+		//ConnectionHandler.instance.
+		byte[] data = ConnectionHandler.getInstance().udpReceiver.lastPacket.getData();
 		double tempTimeStamp = packetDeserializer.getTimeStampFromByteArray(data);
 		if(tempTimeStamp > timeStamp){
 			timeStamp = tempTimeStamp;
@@ -64,7 +67,8 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateEntities(byte[] data) {
-		for(DeserializedEntity e : packetDeserializer.getDeserializedEntityFromByteArray(data)){
+		for(DeserializedEntity e : packetDeserializer.getDeserializedEntityFromByteArray(data,8)){
+			System.out.println(e.id + " = " + e.posX + " : " + e.posY);
 			Entity entity = battleField.getEntitybyId(e.id);
 			updateOrCreateEntity(e, entity);
 		}
@@ -94,9 +98,11 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateEntity(DeserializedEntity e, Entity entity) {
-		entity.setPosition(new Vector2(e.posX,e.posY));
-		entity.setDirection(new Vector2(e.dirX, e.dirY));
-		entity.getUpdateState().getMove().setVelocity(new Vector2(e.velX,e.velY));
+		if(battleField.getPlayers().get(0).getId() != entity.getId()){
+			entity.setPosition(new Vector2(e.posX,e.posY));
+			entity.setDirection(new Vector2(e.dirX, e.dirY));
+			entity.getUpdateState().getMove().setVelocity(new Vector2(e.velX,e.velY));
+		}
 	}
 
 	@Override
@@ -133,6 +139,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		updateCameraPosition();
 		batch.setProjectionMatrix(camera.combined); 
 		batch.begin();
+		background.draw(batch);
 		
 		for(Entity e : battleField.getGameObjects()){
 			e.render(batch);
@@ -177,6 +184,16 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		sprite.setRotation(e.getDirection().angle());
 		if(World.getInstance().isOnScreen(e))
 			sprite.draw(batch);
+	}
+
+	@Override
+	public boolean isPaused() {
+		return false;
+	}
+
+	@Override
+	public void onGamePaused() {
+		//do nothing!
 	}
 
 }

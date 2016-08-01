@@ -22,10 +22,9 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
 	private Vector2 upperCorner, halfViewport;
-	private Sprite bathTub;
 
 	public LocalEndlessGameUpdate() {
-		initAbstract(new LocaleEndlessCollisionDetection());
+		super(new LocaleEndlessCollisionDetection());
 		init();
 	}
 
@@ -38,19 +37,7 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 				UnboundConstants.WORLDWIDTH*battleField.getScaleX(),
 				UnboundConstants.WORLDHEIGHT*battleField.getScaleY());
 		halfViewport = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-		bathTub = new Sprite(new Texture(Gdx.files.internal("img/bathtub.png")));
-		bathTub.setPosition(-560, -260);
-		bathTub.setOrigin(0, 0);
-		bathTub.setScale(1.33f, 1.08f);
-	}
-
-	private void test() {
-		if(Gdx.input.isKeyPressed(Input.Keys.X))
-			bathTub.scale(0.01f);
-		if(Gdx.input.isKeyPressed(Input.Keys.C))
-			bathTub.scale(-0.01f);
-		
-		System.out.println(bathTub.getScaleX());
+		background.setScale(1.33f, 1.08f);
 	}
 
 	@Override
@@ -80,14 +67,13 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 
 
 	public void render() {
-		test();
 		Gdx.gl.glClearColor( 0, 0, 0.10f, 1 );
 		Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 		updateCameraPosition();
 		batch.setProjectionMatrix(camera.combined); //ka warum... aber man muss es drinlassen
 		//Damit die batch weiß, welcher Bereich angezeigt werden soll
 		batch.begin();
-		bathTub.draw(batch);
+		background.draw(batch);
 		
 		for(Entity e : battleField.getGameObjects()){
 			e.render(batch);
@@ -140,6 +126,20 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 		sprite.setRotation(e.getDirection().angle());
 		if(World.getInstance().isOnScreen(e))
 			sprite.draw(batch);
+	}
+
+	@Override
+	public boolean isPaused() {
+		return Gdx.input.isKeyPressed(Input.Keys.P);
+	}
+
+	@Override
+	public void onGamePaused() {
+		render();
+		hudBatch.begin();
+		String temp = "Pause!";
+		font.draw(hudBatch, temp, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		hudBatch.end();
 	}
 
 }

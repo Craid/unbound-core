@@ -1,6 +1,9 @@
 package de.unbound.game.mode;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import de.unbound.game.BattleField;
 import de.unbound.game.GameCamera;
@@ -13,31 +16,46 @@ public abstract class AbstractGameUpdate {
 	protected CollisionDetection collisionDetection;
 	protected BattleField battleField;
 	protected GameCamera camera;
+	protected Sprite background;
 	
-	protected void initAbstract(CollisionDetection collisionDetection){
+	public AbstractGameUpdate(CollisionDetection collisionDetection){
+		initAbstract(collisionDetection);
+	}
+	
+	private void initAbstract(CollisionDetection collisionDetection){
 		battleField = new BattleField();
 		this.collisionDetection = collisionDetection;
 		this.collisionDetection.setBattleField(battleField);
+		initBackground();
+	}
+
+	private void initBackground() {
+		background = new Sprite(new Texture(Gdx.files.internal("img/bathtub.png")));
+		background.setPosition(-560, -260);
+		background.setOrigin(0, 0);
 	}
 
 	public void update(double deltaTime){
-		if (isGameOver()) {
-			doBeforeUpdate();
+		if(!isPaused()){
+			if (isGameOver()) {
+				doBeforeUpdate();
 			
-			updateWaveHandler(deltaTime);
-			updateBattleField(deltaTime);
+				updateWaveHandler(deltaTime);
+				updateBattleField(deltaTime);
 			
-			onCollisionHandling(deltaTime);
+				onCollisionHandling(deltaTime);
 
-			for (Entity e : battleField.getGameObjects()) {
-				e.update(deltaTime);
+				for (Entity e : battleField.getGameObjects()) {
+					e.update(deltaTime);
+				}
+
+				doAfterUpdate();
+			} else {
+				onGameEnd();
 			}
-
-			doAfterUpdate();
-		} else {
-			onGameEnd();
+		}else{
+			onGamePaused();
 		}
-		
 	}
 
 	public abstract boolean isGameOver();
@@ -57,6 +75,10 @@ public abstract class AbstractGameUpdate {
 	public abstract void onGameEnd();
 	
 	public abstract void renderEntity(Entity e);
+
+	public abstract boolean isPaused();
+
+	public abstract void onGamePaused();
 	
 	public World getWorld() {
 		return world;

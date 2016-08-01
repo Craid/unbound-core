@@ -111,7 +111,6 @@ public class BattleField {
 		else if(!e.isImmobile())
 			enemiesForNextUpdate.add(e);
 			
-
 		gameObjectsForNextUpdate.add(e);
 	}
 	

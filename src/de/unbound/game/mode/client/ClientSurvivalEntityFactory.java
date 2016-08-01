@@ -1,5 +1,7 @@
 package de.unbound.game.mode.client;
 
+import com.badlogic.gdx.math.Vector2;
+
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.model.state.update.UpdateStateImmobileNotAttacking;
@@ -19,9 +21,9 @@ public class ClientSurvivalEntityFactory extends EntityFactory {
 	}
 	
 	protected void updateTypeAttributes(Entity e,String type) {
-		if(type.contains(UnboundConstants.MobileEntity.Player.name()))
+		if(type.contains(UnboundConstants.MobileEntity.Player.name())){
 			e.setUpdateState(new UpdateStatePlayer(e));
-		else if(type.contains(UnboundConstants.MobileEntity.Projectile.name()))
+		}else if(type.contains(UnboundConstants.MobileEntity.Projectile.name()))
 			e.setUpdateState(new UpdateStateProjectile(e));
 		else if(!e.isImmobile())
 			e.setUpdateState(new UpdateStateMobileNotAttacking(e));

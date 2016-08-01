@@ -33,7 +33,6 @@ public class TCPConnecter extends Thread{
 			receiver.start();
 			sender.sendInitialMessage();
 			sender.start();
-			
 	}
 	
 

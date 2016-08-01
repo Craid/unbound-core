@@ -1,8 +1,10 @@
 package de.unbound.game.mode.client;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.mode.WaveHandler;
-import de.unbound.game.mode.local.LocalEndlessEntityFactory;
+import de.unbound.game.model.entities.Entity;
+import de.unbound.game.network.ConnectionHandler;
 
 public class ClientSurvivalWaveHandler extends WaveHandler {
 	
@@ -13,14 +15,25 @@ public class ClientSurvivalWaveHandler extends WaveHandler {
 	}
 	
 	public static ClientSurvivalWaveHandler createLocalEndlessWaveHandlerPreset() {
-		EntityFactory ownFactory = new LocalEndlessEntityFactory("Prelate", false);
-		EntityFactory enemyFactory = new LocalEndlessEntityFactory("Duck", true);
+		EntityFactory ownFactory = new ClientSurvivalEntityFactory("Prelate", false);
+		EntityFactory enemyFactory = new ClientSurvivalEntityFactory("Duck", true);
 		return new ClientSurvivalWaveHandler(ownFactory,enemyFactory);
 	}
 	
 	@Override
 	public void update(double deltaTime) {
-		
+		//do nothing!
 	}
+	
+	@Override
+	public void initializeMap(BattleField battleField) {
+		Entity temp = getOwnFactory().createPlayer();
+		temp.setId(ConnectionHandler.getInstance().player.id);
+		
+		temp =  getOwnFactory().createMainBase();
+		temp.setId(ConnectionHandler.getInstance().mainBase.id);
 
+		battleField.update(0); //initial update to write Entities to list
+	}
+	
 }

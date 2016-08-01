@@ -1,5 +1,6 @@
 package de.unbound.game.mode.local;
 
+import de.unbound.game.BattleField;
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.mode.WaveHandler;
 import de.unbound.game.model.entities.WaveOrder;
@@ -40,6 +41,14 @@ public class LocalEndlessWaveHandler extends WaveHandler {
 		int scavenger = level%5;
 		int pawn = (level%5) * 3;
 		return new WaveOrder(boss, pawn, scavenger, commander);
+	}
+
+	@Override
+	public void initializeMap(BattleField battleField) {
+		getEnemyFactory().createSpawner();
+		getOwnFactory().createMap(this.getSeed());
+		getOwnFactory().createPlayer();
+		battleField.update(0); //initial update to write Entities to list
 	}
 	
 }

@@ -10,7 +10,6 @@ public class PCInputHandler extends InputHandler{
 	@Override
 	public boolean keyDown(int arg0) {
 		addCommandToSequencer(new ToggleFireCommand());
-//		System.out.println(arg0);
 		return false;
 	}
 
