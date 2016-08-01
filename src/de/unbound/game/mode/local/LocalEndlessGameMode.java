@@ -4,6 +4,6 @@ import de.unbound.game.mode.GameMode;
 
 public class LocalEndlessGameMode extends GameMode{
 	public LocalEndlessGameMode(){
-		super(LocalEndlessWaveHandler.createLocalEndlessWaveHandlerPreset(),new LocalGameUpdate());
+		super(LocalEndlessWaveHandler.createLocalEndlessWaveHandlerPreset(),new LocalEndlessGameUpdate());
 	}
 }

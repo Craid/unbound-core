@@ -5,9 +5,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class GameCamera extends OrthographicCamera{
 	
-	public GameCamera() {
-		super(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+	
+	public GameCamera(int width, int height){
+		super(width,height);
+		
 		initialize();
+	}
+	
+	public GameCamera() {
+		this(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 	}
 	
 	private void initialize(){

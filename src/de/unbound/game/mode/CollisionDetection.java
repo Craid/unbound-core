@@ -92,8 +92,10 @@ public abstract class CollisionDetection {
 	 * @param e
 	 */
 	protected void limit(Entity e) {
-		boolean outOfWidth = outOfRange(e.getPosition().x,UnboundConstants.WORLDWIDTH);
-		boolean outOfHeight = outOfRange(e.getPosition().y,UnboundConstants.WORLDHEIGHT);
+		int width = UnboundConstants.WORLDWIDTH*battleField.getScaleX();
+		int height = UnboundConstants.WORLDHEIGHT*battleField.getScaleY();
+		boolean outOfWidth = outOfRange(e.getPosition().x,width);
+		boolean outOfHeight = outOfRange(e.getPosition().y,height);
 		if (outOfHeight || outOfWidth) {
 			Vector2 newDirection = e.getDirection().cpy();
 			Vector2 newVelocity = e.getUpdateState().getMove().getVelocity()
@@ -102,12 +104,12 @@ public abstract class CollisionDetection {
 				newDirection.x = -newDirection.x;
 				newVelocity.x = -newVelocity.x;
 				
-				e.setPosition(new Vector2(MathUtils.clamp(e.getPosition().x, 0,UnboundConstants.WORLDWIDTH), e.getPosition().y));
+				e.setPosition(new Vector2(MathUtils.clamp(e.getPosition().x, 0,width), e.getPosition().y));
 			}
 			if (outOfHeight) {
 				newDirection.y = -newDirection.y;
 				newVelocity.y = -newVelocity.y;
-				e.setPosition(new Vector2(e.getPosition().x, MathUtils.clamp(e.getPosition().y, 0, UnboundConstants.WORLDHEIGHT)));
+				e.setPosition(new Vector2(e.getPosition().x, MathUtils.clamp(e.getPosition().y, 0, height)));
 			}
 			e.setDirection(newDirection);
 			e.getUpdateState().getMove().setVelocity(newVelocity);

@@ -18,36 +18,6 @@ public class LocalEndlessEntityFactory extends EntityFactory {
 		super(race, hostile);
 	}
 
-	public void createMap(double seed) {
-		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
-		mainBase.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
-				UnboundConstants.SINGLEGRIDHEIGHT*2));
-		
-		Entity tempEntity = createEntity(UnboundConstants.ImmobileEntity.Tower.name());
-		tempEntity.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
-				UnboundConstants.WORLDHEIGHT / 3));
-
-		tempEntity = createEntity(UnboundConstants.ImmobileEntity.Tower.name());
-		tempEntity.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
-				UnboundConstants.WORLDHEIGHT * 2 / 3));
-
-		Random random = new Random((long) seed);
-
-		for (int i = 0; i < 6; i++) {
-			Entity tempDeposit = createEntity(UnboundConstants.ImmobileEntity.Deposit.name());
-			float x = (float) ((int) (random.nextFloat()
-					* UnboundConstants.SINGLEGRIDWIDTH * UnboundConstants.GRIDWIDTH) + UnboundConstants.SINGLEGRIDWIDTH);
-			float y = (float) ((int) (random.nextFloat()
-					* UnboundConstants.SINGLEGRIDHEIGHT * 2) + (i / 2)
-					* UnboundConstants.WORLDHEIGHT / 3);
-			tempDeposit.setPosition(new Vector2(x, y));
-		}
-		
-		Entity player = createEntity(UnboundConstants.MobileEntity.Player.name());
-		player.setPosition(new Vector2(UnboundConstants.WORLDWIDTH / 2,
-				UnboundConstants.SINGLEGRIDHEIGHT*2));
-	}
-	
 	protected void updateTypeAttributes(Entity e,String type) {
 		if(type.contains(UnboundConstants.MobileEntity.Player.name()))
 			e.setUpdateState(new UpdateStatePlayer(e));

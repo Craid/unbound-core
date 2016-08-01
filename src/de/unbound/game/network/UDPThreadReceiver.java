@@ -3,7 +3,6 @@ package de.unbound.game.network;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 
 import de.unbound.game.network.serialization.PacketSerializer;
@@ -39,7 +38,6 @@ public class UDPThreadReceiver extends Thread{
 				}
 				String message = new String(packet.getData()); // hier versuchen wir aus dem Packet den String zu lesen
 				System.out.println("[I AM GAME CLIENT] SERVER said: "+ message);
-			
 		}
 		socket.close();
 	}

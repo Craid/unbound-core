@@ -1,9 +1,9 @@
 package de.unbound.game.mode;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import de.unbound.game.BattleField;
+import de.unbound.game.GameCamera;
 import de.unbound.game.World;
 import de.unbound.game.model.entities.Entity;
 
@@ -12,7 +12,7 @@ public abstract class AbstractGameUpdate {
 	protected World world;
 	protected CollisionDetection collisionDetection;
 	protected BattleField battleField;
-	protected OrthographicCamera camera;
+	protected GameCamera camera;
 	
 	protected void initAbstract(CollisionDetection collisionDetection){
 		battleField = new BattleField();

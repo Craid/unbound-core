@@ -1,9 +1,6 @@
 package de.unbound.game.network;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketException;
@@ -30,7 +27,7 @@ public class TCPThreadSender extends Thread {
 			input = "New Player\n";
 			sktSend.write(input);
 			sktSend.flush();
-			System.out.println("okkkkkk");
+			//System.out.println("okkkkkk");
 			Thread.sleep(500);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,11 +42,11 @@ public class TCPThreadSender extends Thread {
 			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
 			//System.out.println("Bitte Benutzernamen eingeben: ");
 			//String input = console.readLine() + "\n";
-			String input = "New Player\n";
+			String input = "Heartbeat\n";
 			//sktSend.write(input);
 			//sktSend.flush();
 			do {
-				Thread.sleep(250);
+				Thread.sleep(2500);
 				//System.out.println("ok");
 				//input = console.readLine() + "\n";
 				sktSend.write(input);
