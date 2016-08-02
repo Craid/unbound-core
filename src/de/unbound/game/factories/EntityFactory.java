@@ -18,9 +18,6 @@ public abstract class EntityFactory {
 	private String race;
 	private boolean hostile;
 	
-	private static Vector2 SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
-			UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
-
 	public EntityFactory(String race, boolean hostile) {
 		flyweightFactory = FlyweightFactory.getInstance();
 		this.race = race;
@@ -28,8 +25,8 @@ public abstract class EntityFactory {
 	}
 
 	public void createMap(double seed) {
-		int width = UnboundConstants.WORLDWIDTH*battlefield.getScaleX();
-		int height = UnboundConstants.WORLDHEIGHT*battlefield.getScaleY();
+		int width = UnboundConstants.WORLDWIDTH;
+		int height = UnboundConstants.WORLDHEIGHT;
 		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
 		mainBase.setPosition(new Vector2(width / 2, UnboundConstants.SINGLEGRIDHEIGHT*2));
 		
@@ -53,8 +50,7 @@ public abstract class EntityFactory {
 	
 	public Entity createPlayer(){
 		Entity player = createEntity(UnboundConstants.MobileEntity.Player.name());
-		player.setPosition(new Vector2(SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
-		System.out.println(player.getPosition());
+		player.setPosition(new Vector2(UnboundConstants.SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
 		return player;
 	}
 	
@@ -66,9 +62,8 @@ public abstract class EntityFactory {
 	
 	public Entity createMainBase(){
 		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
-		mainBase.setPosition(new Vector2(SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		mainBase.setPosition(new Vector2(UnboundConstants.SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
 		mainBase.setDirection(new Vector2(0,1));
-		System.out.println(mainBase.getPosition());
 		return mainBase;
 	}
 
@@ -92,7 +87,7 @@ public abstract class EntityFactory {
 	public Entity createEntity(String type) {
 		Entity e = new Entity();
 		e.setModel(flyweightFactory.getFlyweight(race + type));
-		e.setPosition(SPAWNPOINT.cpy());
+		e.setPosition(UnboundConstants.SPAWNPOINT.cpy());
 		e.setHostile(hostile);
 		updateTypeAttributes(e,type);
 		e.setHp(e.getModel().getInitialHP());
@@ -104,8 +99,8 @@ public abstract class EntityFactory {
 
 	public void setBattlefield(BattleField battlefield) {
 		this.battlefield = battlefield;
-		SPAWNPOINT.set(UnboundConstants.WORLDWIDTH*battlefield.getScaleX() / 2,
-				UnboundConstants.WORLDHEIGHT*battlefield.getScaleY() - UnboundConstants.SINGLEGRIDHEIGHT);
+		UnboundConstants.SPAWNPOINT.set(UnboundConstants.WORLDWIDTH / 2,
+				UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
 	}
 
 	public String getRace() {

@@ -44,11 +44,10 @@ public class LocalEndlessWaveHandler extends WaveHandler {
 	}
 
 	@Override
-	public void initializeMap(BattleField battleField) {
+	public void createMap(BattleField battleField) {
 		getEnemyFactory().createSpawner();
 		getOwnFactory().createMap(this.getSeed());
 		getOwnFactory().createPlayer();
-		battleField.update(0); //initial update to write Entities to list
 	}
 	
 }

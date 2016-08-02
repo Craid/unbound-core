@@ -12,43 +12,31 @@ public class UDPThreadReceiver extends Thread{
 	private int portNumber;
 	private boolean running = false;
 	private static PacketSerializer entitySerializer = new PacketSerializer();
-	public DatagramPacket lastPacket;
+	private DatagramPacket lastPacket;
 	
 	
 	public UDPThreadReceiver(DatagramSocket udpSocket) {
-				byte[] data = new byte[1024];
+				byte[] data = new byte[4096];
 				this.lastPacket = new DatagramPacket(data, data.length); 
 				this.socket = udpSocket; // Portnummer ist egal, es wird ein freier autm. gesucht
-			
 	}
 	
 	
 	public void run(){
 		running = true;
 		while (running){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			while (ConnectionHandler.getInstance().isInitializedConnection()){	
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		
 				byte[] data = new byte[4096];
 				DatagramPacket packet = new DatagramPacket(data, data.length); // read packet
 				try {
 					socket.receive(packet); // wartet so lange, bis ein Packet ankommt
-					lastPacket = packet; // letztes Packet wird in Variable geschrieben
+					setLastPacket(packet); // letztes Packet wird in Variable geschrieben
 				} catch (IOException e) {
 					e.printStackTrace(); // Fehler beim Empfang des Packages
 				}
 				String message = new String(packet.getData()); // hier versuchen wir aus dem Packet den String zu lesen
-				//System.out.println("[I AM GAME CLIENT] SERVER said: "+ message);
 			}
 		}
 		socket.close();
@@ -67,6 +55,16 @@ public class UDPThreadReceiver extends Thread{
 	
 	public int getPortNumber(){
 		return portNumber;
+	}
+
+
+	public synchronized DatagramPacket getLastPacket() {
+		return lastPacket;
+	}
+
+
+	public synchronized void setLastPacket(DatagramPacket lastPacket) {
+		this.lastPacket = lastPacket;
 	}
 	
 	

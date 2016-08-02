@@ -15,7 +15,7 @@ public class EntitiyFlyweightModelJsonHelper {
 	private byte id;
 	
 	private EntitiyFlyweightModelJsonHelper(){
-		id = 0;
+		id = 1;
 		//TODO uncomment to update flyweightmodel.json
 		//needs to be moved from desktop/<root> to android/assests/model/
 		initDocument();

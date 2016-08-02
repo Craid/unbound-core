@@ -5,21 +5,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.sun.xml.internal.ws.api.policy.PolicyResolver.ClientContext;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
-import de.unbound.game.factories.EntityFactory;
-import de.unbound.game.factories.FlyweightFactory;
 import de.unbound.game.mode.AbstractGameUpdate;
+import de.unbound.game.mode.client.util.EntityUpdater;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.game.model.entities.EntityFlyweight;
 import de.unbound.game.network.ConnectionHandler;
 import de.unbound.game.network.serialization.PacketDeserializer;
-import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
 import de.unbound.game.network.serialization.PacketSerializer;
-import de.unbound.utility.UnboundConstants;
 
 public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 
@@ -27,9 +21,10 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
 	private double timeStamp;
-	private PacketDeserializer packetDeserializer;
+	public PacketDeserializer packetDeserializer;
 	private PacketSerializer packetSerializer;
 	private byte[] clientData;
+	private EntityUpdater entityUdpater;
 
 	public ClientSurvivalGameUpdate() {
 		super(new ClientSurvivalCollisionDetection());
@@ -39,7 +34,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		packetSerializer = new PacketSerializer();
 		clientData = new byte[8+29]; //timestamp + entity data for player
 		ConnectionHandler.getInstance().startUDP();
-		background.setScale(1.33f*battleField.getScaleX(), 1.08f*battleField.getScaleY());
+		entityUdpater = new EntityUpdater(this);
 	}
 
 	protected void init() {
@@ -57,59 +52,17 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	@Override
 	public void doBeforeUpdate() {
 		//ConnectionHandler.instance.
-		byte[] data = ConnectionHandler.getInstance().udpReceiver.lastPacket.getData();
+		byte[] data = ConnectionHandler.getInstance().udpReceiver.getLastPacket().getData();
 		double tempTimeStamp = packetDeserializer.getTimeStampFromByteArray(data);
 		if(tempTimeStamp > timeStamp){
 			timeStamp = tempTimeStamp;
-			updateEntities(data);
+			entityUdpater.updateEntities(data);
 		}else{
 			//ignore packet!
 		}
 	}
 
-	private void updateEntities(byte[] data) {
-		for(DeserializedEntity e : packetDeserializer.getDeserializedEntityFromByteArray(data,8)){
-			System.out.println(e.id + " = " + e.posX + " : " + e.posY);
-			Entity entity = battleField.getEntitybyId(e.id);
-			updateOrCreateEntity(e, entity);
-		}
-	}
-
-	private void updateOrCreateEntity(DeserializedEntity e, Entity entity) {
-		System.out.println(e.id);
-		if(entity != null){
-			System.out.println("update!");
-			updateEntity(e, entity);
-		}else{
-			System.out.println("create!");
-			createEntity(e);
-		}
-	}
-
-	private void createEntity(DeserializedEntity e) {
-		EntityFlyweight f  = FlyweightFactory.getInstance().getFlyweight(e.type);
-		if(f != null){
-			EntityFactory factory = World.getInstance().getMatchingFactory(f.getTextureName());
-			String type = removeRace(f.getTextureName());
-			factory.createEntity(type);
-		}
-	}
-
-	private String removeRace(String raceAndType) {
-		for(UnboundConstants.Race r : UnboundConstants.Race.values())
-			raceAndType = raceAndType.replace(r.name(), "");
-		return raceAndType;
-	}
-
-	private void updateEntity(DeserializedEntity e, Entity entity) {
-		
-		if(battleField.getPlayers().get(0).getId() != entity.getId()){
-			
-			entity.setPosition(new Vector2(e.posX,e.posY));
-			entity.setDirection(new Vector2(e.dirX, e.dirY));
-			entity.getUpdateState().getMove().setVelocity(new Vector2(e.velX,e.velY));
-		}
-	}
+	
 
 	@Override
 	public void onCollisionHandling(double deltaTime) {
@@ -123,15 +76,14 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void sendPlayerToServer() {
-		//clientData wird aktualisiert
 		int index = 0;
 		for(byte b : packetSerializer.getTimeStampAsByteArray())
 			clientData[index++] = b;
 		for(byte b : packetSerializer.getPlayerAsByteArray())
 			clientData[index++] = b;
 		
-		//TODO sende clientData an server udpsender
 		ConnectionHandler.getInstance().udpSender.sendData(clientData);
+		System.out.println(clientData.length);
 	}
 
 	@Override
@@ -173,10 +125,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateCameraPosition(){
-		camera.position.x = battleField.getPlayers().get(0).getPosition().x;
-		camera.position.y = battleField.getPlayers().get(0).getPosition().y;
-		camera.zoom = 2.4f;
-		camera.update();
+		camera.setPositionToEntity(followingEntity);
 	}
 
 	@Override

@@ -69,7 +69,7 @@ public class ConnectionHandler {
 		udpReceiver = new UDPThreadReceiver(udpSocket);
 		udpSender = new UDPThreadSender(udpSocket,serverIp, portNumber+1);
 		udpReceiver.start();
-		udpSender.start();
+		//udpSender.start(); eig gar nicht nötig
 	}
 	public void stopUDP(){
 

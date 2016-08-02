@@ -26,14 +26,12 @@ public class ClientSurvivalWaveHandler extends WaveHandler {
 	}
 	
 	@Override
-	public void initializeMap(BattleField battleField) {
+	public void createMap(BattleField battleField) {
 		Entity temp = getOwnFactory().createPlayer();
 		temp.setId(ConnectionHandler.getInstance().player.id);
 		
 		temp =  getOwnFactory().createMainBase();
 		temp.setId(ConnectionHandler.getInstance().mainBase.id);
-
-		battleField.update(0); //initial update to write Entities to list
 	}
 	
 }

@@ -19,12 +19,13 @@ public class PacketDeserializer {
 		DeserializedEntity tempEntity = null;
 		while(index + 29 <= data.length){
 			tempEntity = getNextEntity(data);
-			if(tempEntity.type != 0)
-				//System.out.println(tempEntity.id);
+			if(tempEntity.type != 0){
 				entities.add(tempEntity);
-			else break;
+				
+			}else break;
 		}
-		//System.out.println("Deserialized Objects from byte array: " + entities.size());
+		System.out.println(entities.size()+ " = Anzahl Entitaeten aus UDP");
+		System.out.println(getTimeStampFromByteArray(data));
 		return entities;
 	}
 	

@@ -1,6 +1,7 @@
 package de.unbound.game.mode;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,6 +10,7 @@ import de.unbound.game.BattleField;
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
 import de.unbound.game.model.entities.Entity;
+import de.unbound.utility.UnboundConstants;
 
 public abstract class AbstractGameUpdate {
 
@@ -17,6 +19,7 @@ public abstract class AbstractGameUpdate {
 	protected BattleField battleField;
 	protected GameCamera camera;
 	protected Sprite background;
+	public Entity followingEntity;
 	
 	public AbstractGameUpdate(CollisionDetection collisionDetection){
 		initAbstract(collisionDetection);
@@ -33,12 +36,15 @@ public abstract class AbstractGameUpdate {
 		background = new Sprite(new Texture(Gdx.files.internal("img/bathtub.png")));
 		background.setPosition(-560, -260);
 		background.setOrigin(0, 0);
+		background.setScale(1.33f, 1.08f);
 	}
 
 	public void update(double deltaTime){
 		if(!isPaused()){
 			if (isGameOver()) {
 				doBeforeUpdate();
+				
+				toggleFollowEntity();
 			
 				updateWaveHandler(deltaTime);
 				updateBattleField(deltaTime);
@@ -55,6 +61,25 @@ public abstract class AbstractGameUpdate {
 			}
 		}else{
 			onGamePaused();
+		}
+	}
+	
+	private void toggleFollowEntity(){
+		if(Gdx.input.isKeyPressed(Input.Keys.NUM_1))
+			followingEntity = battleField.getMainBase();
+		if(Gdx.input.isKeyPressed(Input.Keys.NUM_2))
+			followingEntity = battleField.getPlayers().get(0);
+		if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)){
+			Entity spawner = null;
+			String spawnerType = World.getInstance().getWaveHandler().getEnemyFactory().getRace()
+					+UnboundConstants.ImmobileEntity.Spawner.name();
+			for(Entity e : battleField.getGameObjects()){
+				if(e.getTextureName().equals(spawnerType)){
+					spawner = e;
+					break;
+				}
+			}
+			followingEntity = spawner;
 		}
 	}
 

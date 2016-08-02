@@ -3,6 +3,7 @@ package de.unbound.game.mode;
 import java.util.ArrayList;
 
 import de.unbound.game.BattleField;
+import de.unbound.game.World;
 import de.unbound.game.factories.EntityFactory;
 import de.unbound.game.model.entities.WaveOrder;
 
@@ -35,7 +36,23 @@ public abstract class WaveHandler {
 		initializeMap(battleField);
 	}
 
-	public abstract void initializeMap(BattleField battleField);
+	
+	
+	public void initializeMap(BattleField battleField){
+		createMap(battleField);
+		updateAfterInitialiaztion(battleField);
+	}
+	
+	public abstract void createMap(BattleField battleField);
+	
+	public void updateAfterInitialiaztion(BattleField battleField){
+		battleField.update(0); //initial update to write Entities to list
+		try{
+			World.getInstance().getGameUpdate().followingEntity = battleField.getPlayers().get(0);
+		}catch(Exception e){
+			//Silent close
+		}
+	}
 
 	public EntityFactory getOwnFactory() {
 		return ownFactory;

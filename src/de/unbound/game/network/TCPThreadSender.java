@@ -41,7 +41,7 @@ public class TCPThreadSender extends Thread {
 			input = "New Player\n";
 			sktSend.write(input);
 			sktSend.flush();
-			//System.out.println("okkkkkk");
+
 			input = String.valueOf(ConnectionHandler.getInstance().udpSocket.getLocalPort());
 			input = input + "\n";
 			sktSend.write(input);
@@ -57,11 +57,9 @@ public class TCPThreadSender extends Thread {
 		try {
 			
 			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
-			//System.out.println("Bitte Benutzernamen eingeben: ");
-			//String input = console.readLine() + "\n";
+
 			String input = "Heartbeat\n";
-			//sktSend.write(input);
-			//sktSend.flush();
+
 			do {
 				Thread.sleep(7500); //heartbeat
 				sktSend.write(input);
@@ -70,7 +68,6 @@ public class TCPThreadSender extends Thread {
 			System.out.println("You are now signed off.");
 			running = false;
 			sktSend.close();
-			//console.close();
 
 		} catch (SocketException e) {
 			System.out.println("Server Connection lost");

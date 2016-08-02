@@ -22,18 +22,17 @@ public class TCPThreadReceiver extends Thread {
 
 	@Override
 	public void run() {
+		String input = "initialized";
 		System.out.println("Receive Thread Started");
 		BufferedReader sktReceive;
 		try {
 			sktReceive = new BufferedReader(new InputStreamReader(
 					skt.getInputStream()));
-			String input = "aaaa";
+			
 			while (running) {
 				input = sktReceive.readLine();
-				System.out.println("input: " + input);
 				checkInput(input);
-				System.out.println(input+" <---I just read");
-				
+				System.out.println(input+" <--- I just read this TCP Message");
 			}
 			sktReceive.close();
 			skt.close();

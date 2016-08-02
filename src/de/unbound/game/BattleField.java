@@ -16,16 +16,9 @@ public class BattleField {
 	private ArrayList<Entity> immobileEntities, immobileEntitiesForNextUpdate;
 	private ArrayList<Entity> gameObjects, gameObjectsForNextUpdate; // Alle Entitäten auf dem Battlefield!
 	private int score;
-	private int scaleX,scaleY;
-	
-	public BattleField(int scaleX, int scaleY){
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
-		init();
-	}
 	
 	public BattleField() {
-		this(1,1);
+		init();
 	}
 	
 	public void init() {
@@ -159,22 +152,6 @@ public class BattleField {
 			if(e.getId() == id)
 				return e;
 		return null;
-	}
-
-	public int getScaleX() {
-		return scaleX;
-	}
-
-	public void setScaleX(int scaleX) {
-		this.scaleX = scaleX;
-	}
-
-	public int getScaleY() {
-		return scaleY;
-	}
-
-	public void setScaleY(int scaleY) {
-		this.scaleY = scaleY;
 	}
 
 }

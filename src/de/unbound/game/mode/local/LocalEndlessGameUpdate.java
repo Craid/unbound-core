@@ -3,25 +3,20 @@ package de.unbound.game.mode.local;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.model.entities.Entity;
-import de.unbound.utility.UnboundConstants;
 
 public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private SpriteBatch hudBatch;
-	private Vector2 upperCorner, halfViewport;
 
 	public LocalEndlessGameUpdate() {
 		super(new LocaleEndlessCollisionDetection());
@@ -33,11 +28,6 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 		hudBatch = new SpriteBatch();
 		camera = new GameCamera();
 		font = new BitmapFont();
-		upperCorner = new Vector2(
-				UnboundConstants.WORLDWIDTH*battleField.getScaleX(),
-				UnboundConstants.WORLDHEIGHT*battleField.getScaleY());
-		halfViewport = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-		background.setScale(1.33f, 1.08f);
 	}
 
 	@Override
@@ -100,16 +90,7 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 	}
 
 	private void updateCameraPosition(){
-		float playerPosX = battleField.getPlayers().get(0).getPosition().x;
-		float playerPosY = battleField.getPlayers().get(0).getPosition().y;
-		float mapWidth = upperCorner.x;
-		float mapHeight = upperCorner.y;
-		
-		camera.position.x = MathUtils.clamp(playerPosX, halfViewport.x, mapWidth - halfViewport.x);
-		camera.position.y = MathUtils.clamp(playerPosY, halfViewport.y*2, mapHeight - halfViewport.y);
-		
-		camera.zoom = 2.4f;
-		camera.update();
+		camera.setPositionToEntity(followingEntity);
 	}
 
 	@Override

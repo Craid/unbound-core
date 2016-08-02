@@ -91,8 +91,8 @@ public abstract class CollisionDetection {
 	 * @param e
 	 */
 	protected void limit(Entity e) {
-		int width = UnboundConstants.WORLDWIDTH*battleField.getScaleX();
-		int height = UnboundConstants.WORLDHEIGHT*battleField.getScaleY();
+		int width = UnboundConstants.WORLDWIDTH;
+		int height = UnboundConstants.WORLDHEIGHT;
 		boolean outOfWidth = outOfRange(e.getPosition().x,width);
 		boolean outOfHeight = outOfRange(e.getPosition().y,height);
 		if (outOfHeight || outOfWidth) {

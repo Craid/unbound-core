@@ -93,10 +93,7 @@ public class StartScreen extends AbstractGameScreen {
 		// revert the checked state.
 		buttonSinglePlayer.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
-				// System.out.println("Clicked! Is checked: " +
-				// button.isChecked());
 				buttonSinglePlayer.setText("Starting new game");
-				// g.setScreen( new GameScreen());
 				game.setScreen(new GameScreen(game, new LocalEndlessGameMode()));
 			}
 		});

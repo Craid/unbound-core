@@ -1,5 +1,9 @@
 package de.unbound.utility;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
 
 public class UnboundConstants {
 
@@ -14,7 +18,13 @@ public class UnboundConstants {
 
 	public static final double SHOTSPEED = 1;
 
-
+	public static Vector2 SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
+			UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
+	
+	public static Rectangle WORLD = new Rectangle(0, 0, WORLDWIDTH, WORLDHEIGHT);
+	public static Circle SPAWNER = new Circle(SPAWNPOINT,SINGLEBIGUNITWIDTH );
+	
+	
 	public enum Race{
 		Duck,Prelate;
 	}
