@@ -24,7 +24,7 @@ public class PacketDeserializer {
 				entities.add(tempEntity);
 			else break;
 		}
-		System.out.println("Deserialized Objects from byte array: " + entities.size());
+		//System.out.println("Deserialized Objects from byte array: " + entities.size());
 		return entities;
 	}
 	
