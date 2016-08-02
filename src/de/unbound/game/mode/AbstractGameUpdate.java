@@ -20,6 +20,7 @@ public abstract class AbstractGameUpdate {
 	protected GameCamera camera;
 	protected Sprite background;
 	public Entity followingEntity;
+	public String commands;
 	
 	public AbstractGameUpdate(CollisionDetection collisionDetection){
 		initAbstract(collisionDetection);
@@ -29,6 +30,7 @@ public abstract class AbstractGameUpdate {
 		battleField = new BattleField();
 		this.collisionDetection = collisionDetection;
 		this.collisionDetection.setBattleField(battleField);
+		commands = "";
 		initBackground();
 	}
 
@@ -119,6 +121,23 @@ public abstract class AbstractGameUpdate {
 	
 	public Camera getCamera(){
 		return camera;
+	}
+	
+	public String[] getCommands() {
+		String[] allCommands = new String[0];
+		if (commands.length() != 0) {
+			synchronized (commands) {
+				allCommands = new String(commands).split("\n");
+				commands = "";
+			}
+		}
+		return allCommands;
+	}
+
+	public void appendCommands(String commands) {
+		synchronized (this.commands) {
+			this.commands += commands + "\n";
+		}
 	}
 	
 }

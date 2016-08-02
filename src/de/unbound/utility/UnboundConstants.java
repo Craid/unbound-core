@@ -7,6 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class UnboundConstants {
 
+	public static String IPADDRESS = "localhost";
+	//176.198.201.21
+	public static int tcpPort = 11300;	
+	public static int udpPort = 11301;
+	
 	public static final int GRIDWIDTH = 7;
 	public static final int GRIDHEIGHT = 20;
 
@@ -18,11 +23,14 @@ public class UnboundConstants {
 
 	public static final double SHOTSPEED = 1;
 
-	public static Vector2 SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
+	public static Vector2 ENEMY_SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
 			UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
 	
+	public static Vector2 SPAWNPOINT = new Vector2(UnboundConstants.WORLDWIDTH / 2,
+			UnboundConstants.SINGLEGRIDHEIGHT * 2);
+	
 	public static Rectangle WORLD = new Rectangle(0, 0, WORLDWIDTH, WORLDHEIGHT);
-	public static Circle SPAWNER = new Circle(SPAWNPOINT,SINGLEBIGUNITWIDTH );
+	public static Circle SPAWNER = new Circle(ENEMY_SPAWNPOINT,SINGLEBIGUNITWIDTH );
 	
 	
 	public enum Race{

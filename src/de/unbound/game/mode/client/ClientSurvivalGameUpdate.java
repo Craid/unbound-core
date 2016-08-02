@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.unbound.game.GameCamera;
 import de.unbound.game.World;
 import de.unbound.game.mode.AbstractGameUpdate;
+import de.unbound.game.mode.client.util.ClientSurvivalConfig;
 import de.unbound.game.mode.client.util.EntityUpdater;
+import de.unbound.game.mode.client.util.TCPGameCommandHandler;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.network.ConnectionHandler;
 import de.unbound.game.network.serialization.PacketDeserializer;
@@ -25,16 +27,25 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	private PacketSerializer packetSerializer;
 	private byte[] clientData;
 	private EntityUpdater entityUdpater;
+	private ConnectionHandler connectionHandler;
+	private TCPGameCommandHandler tcpCommandHandler;
+	
 
-	public ClientSurvivalGameUpdate() {
+	public ClientSurvivalGameUpdate(ClientSurvivalConfig config) {
 		super(new ClientSurvivalCollisionDetection());
 		init();
 		timeStamp = -1;
 		packetDeserializer = new PacketDeserializer();
 		packetSerializer = new PacketSerializer();
 		clientData = new byte[8+29]; //timestamp + entity data for player
-		ConnectionHandler.getInstance().startUDP();
+		
+		connectionHandler = config.connectionHandler;
+		connectionHandler.startUDP();
+		
 		entityUdpater = new EntityUpdater(this);
+		
+		tcpCommandHandler = new TCPGameCommandHandler(connectionHandler.tcpConnecter);
+		
 	}
 
 	protected void init() {
@@ -51,8 +62,13 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	
 	@Override
 	public void doBeforeUpdate() {
-		//ConnectionHandler.instance.
-		byte[] data = ConnectionHandler.getInstance().udpReceiver.getLastPacket().getData();
+		handleUDPInput();
+		tcpCommandHandler.handleInput();
+	}
+
+
+	private void handleUDPInput() {
+		byte[] data = connectionHandler.udpReceiver.getLatestBytes();
 		double tempTimeStamp = packetDeserializer.getTimeStampFromByteArray(data);
 		if(tempTimeStamp > timeStamp){
 			timeStamp = tempTimeStamp;
@@ -61,8 +77,6 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 			//ignore packet!
 		}
 	}
-
-	
 
 	@Override
 	public void onCollisionHandling(double deltaTime) {
@@ -82,8 +96,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		for(byte b : packetSerializer.getPlayerAsByteArray())
 			clientData[index++] = b;
 		
-		ConnectionHandler.getInstance().udpSender.sendData(clientData);
-		System.out.println(clientData.length);
+		connectionHandler.udpSender.sendData(clientData);
 	}
 
 	@Override

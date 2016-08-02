@@ -50,7 +50,7 @@ public abstract class EntityFactory {
 	
 	public Entity createPlayer(){
 		Entity player = createEntity(UnboundConstants.MobileEntity.Player.name());
-		player.setPosition(new Vector2(UnboundConstants.SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		player.setPosition(new Vector2(UnboundConstants.ENEMY_SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
 		return player;
 	}
 	
@@ -62,7 +62,7 @@ public abstract class EntityFactory {
 	
 	public Entity createMainBase(){
 		Entity mainBase = createEntity(UnboundConstants.ImmobileEntity.MainBase.name());
-		mainBase.setPosition(new Vector2(UnboundConstants.SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
+		mainBase.setPosition(new Vector2(UnboundConstants.ENEMY_SPAWNPOINT.x, UnboundConstants.SINGLEGRIDHEIGHT*2));
 		mainBase.setDirection(new Vector2(0,1));
 		return mainBase;
 	}
@@ -87,7 +87,7 @@ public abstract class EntityFactory {
 	public Entity createEntity(String type) {
 		Entity e = new Entity();
 		e.setModel(flyweightFactory.getFlyweight(race + type));
-		e.setPosition(UnboundConstants.SPAWNPOINT.cpy());
+		e.setPosition(UnboundConstants.ENEMY_SPAWNPOINT.cpy());
 		e.setHostile(hostile);
 		updateTypeAttributes(e,type);
 		e.setHp(e.getModel().getInitialHP());
@@ -99,7 +99,7 @@ public abstract class EntityFactory {
 
 	public void setBattlefield(BattleField battlefield) {
 		this.battlefield = battlefield;
-		UnboundConstants.SPAWNPOINT.set(UnboundConstants.WORLDWIDTH / 2,
+		UnboundConstants.ENEMY_SPAWNPOINT.set(UnboundConstants.WORLDWIDTH / 2,
 				UnboundConstants.WORLDHEIGHT - UnboundConstants.SINGLEGRIDHEIGHT);
 	}
 

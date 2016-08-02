@@ -5,19 +5,17 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
 
-import de.unbound.game.network.serialization.PacketDeserializer;
-
 public class TCPThreadReceiver extends Thread {
 
 	private Socket skt;
 	public boolean running = true;
 	boolean playerReceived = false;
 	boolean mainBaseReceived = false;
-	private PacketDeserializer deserializer;
+	private String commands;
 
 	public TCPThreadReceiver(Socket skt) {
 		this.skt = skt;
-		deserializer = new PacketDeserializer();
+		commands = "";
 	}
 
 	@Override
@@ -28,11 +26,11 @@ public class TCPThreadReceiver extends Thread {
 		try {
 			sktReceive = new BufferedReader(new InputStreamReader(
 					skt.getInputStream()));
-			
+
 			while (running) {
 				input = sktReceive.readLine();
-				checkInput(input);
-				System.out.println(input+" <--- I just read this TCP Message");
+				appendCommands(input);
+				System.out.println("[TCP Receiver] : " + input);
 			}
 			sktReceive.close();
 			skt.close();
@@ -41,26 +39,27 @@ public class TCPThreadReceiver extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	public void checkInput(String input){
-		if (input.length()>15) if (input.substring(0, 7).equalsIgnoreCase("Player:")){
-			byte[] array = new String(input.substring(7, input.length())).getBytes();
-			System.out.println("Player legnth : " +array.length);
-			ConnectionHandler.getInstance().player = deserializer.getDeserializedEntityFromByteArray(array,0).get(0);
-			System.out.println(ConnectionHandler.getInstance().player.id);
-			playerReceived = true;
-			
-			if (playerReceived & mainBaseReceived) ConnectionHandler.getInstance().setInitializedConnection(true);
+
+	public String[] getCommands() {
+		String[] allCommands = new String[0];
+		if (commands.length() != 0) {
+			synchronized (commands) {
+				allCommands = new String(commands).split("\n");
+				commands = "";
+			}
 		}
-		if (input.length()>15) if (input.substring(0, 9).equalsIgnoreCase("MainBase:")){
-			byte[] array = new String(input.substring(9, input.length())).getBytes();
-			System.out.println("Main Base length : " +array.length);
-			ConnectionHandler.getInstance().mainBase = deserializer.getDeserializedEntityFromByteArray(array,0).get(0);
-			System.out.println(ConnectionHandler.getInstance().mainBase.id);
-			mainBaseReceived = true;
-			if (playerReceived & mainBaseReceived) ConnectionHandler.getInstance().setInitializedConnection(true);
-			
+		return allCommands;
+	}
+
+	public void appendCommands(String commands) {
+		synchronized (this.commands) {
+			this.commands += commands + "\n";
 		}
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
 	}
 }

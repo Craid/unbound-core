@@ -5,60 +5,42 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
+import de.unbound.utility.UnboundConstants;
 
 public class ConnectionHandler {
 
-	ConnectionHandler connectionHandler;
 	public int portNumber;
 	public InetAddress serverIp;
-	TCPConnecter 	tcpConnecter; // richtet Verbindung zum Server ein
+	public TCPConnector 	tcpConnecter; // richtet Verbindung zum Server ein
 	public UDPThreadReceiver 	udpReceiver; //empfängt alle UDP-Packages
-	public UDPThreadSender 	udpSender; //
+	public UDPSender 	udpSender; //
 	DatagramSocket udpSocket;
-	public DeserializedEntity player;
-	public DeserializedEntity mainBase;
+	public int ownUdpPort;
 	
 	boolean initializedConnection = false; //wenn Spieler und Main Base empfangen wurden
 	
-
-	private static ConnectionHandler instance;
-	
-	public static ConnectionHandler getInstance(){
-		if(instance == null)
-			instance = new ConnectionHandler();
-		return instance;
-	}
-	
-
-	private ConnectionHandler(){
-		if (portNumber<80) portNumber = 11300;
-		//this.portNumber = 11300; //default value
+	public ConnectionHandler(){
+		if (portNumber<80) portNumber = UnboundConstants.tcpPort;
+		setServerIp(UnboundConstants.IPADDRESS);
+		
+		startConnection();
 	}
 	
 	public void startConnection(){
 		initializeDatagramSocket();
 		startTCP();
 		//establishTCPConnection();
-//		startUDP();
+		//		startUDP();
 	}
 	
-	public void establishTCPConnection(){
-		if (serverIp==null)
-			try {
-				serverIp = InetAddress.getLocalHost();
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
-		if (portNumber<80) portNumber = 11300;
-		tcpConnecter = new TCPConnecter(serverIp, portNumber);
-	}
+
 	public void closeTCPConnection(){
 		//TODO Marwin SCHLIEß ES!
 	}
 	private void initializeDatagramSocket(){
 		try {
 			udpSocket = new DatagramSocket();
+			ownUdpPort = udpSocket.getLocalPort();
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,8 +48,8 @@ public class ConnectionHandler {
 	}
 	public void startUDP(){
 
-		udpReceiver = new UDPThreadReceiver(udpSocket);
-		udpSender = new UDPThreadSender(udpSocket,serverIp, portNumber+1);
+		udpReceiver = new UDPThreadReceiver(udpSocket,this);
+		udpSender = new UDPSender(udpSocket,serverIp);
 		udpReceiver.start();
 		//udpSender.start(); eig gar nicht nötig
 	}
@@ -76,14 +58,23 @@ public class ConnectionHandler {
 	}
 	
 	public void startTCP(){
-		tcpConnecter = new TCPConnecter(serverIp, 11300);
+		tcpConnecter = new TCPConnector(giveInetAddress(UnboundConstants.IPADDRESS), UnboundConstants.tcpPort,this);
 	}
-	public void stopTCP(){
-
-	}
-
-
 	
+	public InetAddress giveInetAddress(String args){
+		try {
+			this.serverIp = InetAddress.getByName(args);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return serverIp;
+	}
+	
+	public void stopTCP(){
+		tcpConnecter.stopTCPConnection();
+	}
+
 	public void setPortNumber(int port){
 		this.portNumber = port;
 	}

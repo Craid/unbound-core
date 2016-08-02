@@ -5,23 +5,23 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class UDPThreadSender extends Thread{
+import de.unbound.utility.UnboundConstants;
+
+public class UDPSender{
 
 	private InetAddress ipServer;
-	private int portServer;
 	private DatagramSocket socket;
 	public static DatagramPacket lastPacket;
 	public boolean running;
 
-	public UDPThreadSender(DatagramSocket udpSocket,InetAddress ipAddress, int portServer) {
+	public UDPSender(DatagramSocket udpSocket,InetAddress ipAddress) {
 			this.socket = udpSocket;
 			this.ipServer = ipAddress;
-			this.portServer = portServer;
 			running = true;
 	}
 
 	public void sendData(byte[] data){
-		DatagramPacket packet = new DatagramPacket(data, data.length, ConnectionHandler.getInstance().serverIp, ConnectionHandler.getInstance().portNumber+1); // 11301 = Port für Server Receiver
+		DatagramPacket packet = new DatagramPacket(data, data.length, ipServer, UnboundConstants.udpPort); // 11301 = Port für Server Receiver
 		try {
 			socket.send(packet);
 		} catch (IOException e) {
@@ -29,18 +29,11 @@ public class UDPThreadSender extends Thread{
 		}
 	}
 	
-	public void run(){
-		while (running){
 
-		while (ConnectionHandler.getInstance().isInitializedConnection()){
-
-				//sendData("ClientUDP".getBytes());
-			}
-		}
-	}
 	public void toggleRunning(){
 		running = !running;
 	}
+	
 	public void setRunning(boolean active){
 		running = active;
 	}

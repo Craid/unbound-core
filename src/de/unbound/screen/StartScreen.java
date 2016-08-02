@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import de.unbound.UnboundGame;
 import de.unbound.game.mode.client.ClientSurvivalGameMode;
+import de.unbound.game.mode.client.util.ClientSurvivalConfig;
+import de.unbound.game.mode.client.util.TCPInitCommandHandler;
 import de.unbound.game.mode.local.LocalEndlessGameMode;
 import de.unbound.game.network.ConnectionHandler;
 
@@ -31,6 +33,9 @@ public class StartScreen extends AbstractGameScreen {
 	Stage stage;
 	String userInputIP = "localhost";
 	boolean startMultiplayer = false;
+	private boolean clickedMultiplayer;
+	protected ConnectionHandler connectionHandler;
+	protected TCPInitCommandHandler handler;
 
 	public StartScreen(UnboundGame game) {
 		super(game);
@@ -40,6 +45,7 @@ public class StartScreen extends AbstractGameScreen {
 		this.game = game;
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		clickedMultiplayer = false;
 		create();
 	}
 
@@ -112,15 +118,9 @@ public class StartScreen extends AbstractGameScreen {
 		buttonMultiPlayer.addListener(new ChangeListener() {
 			
 			public void changed(ChangeEvent event, Actor actor) {
-				userInputIP = "localhost";
-				// if (userInputIP.length()>0) startMultiplayer = true;
-				ConnectionHandler.getInstance().setServerIp(userInputIP);
-				ConnectionHandler.getInstance().startConnection();
-				while (!ConnectionHandler.getInstance().isInitializedConnection())
-					;
-
-				System.out.println("Starting new game");
-				game.setScreen(new GameScreen(game, new ClientSurvivalGameMode()));
+				connectionHandler = new ConnectionHandler();
+				handler = new TCPInitCommandHandler(connectionHandler);
+				clickedMultiplayer = true;
 			}
 			
 		});
@@ -141,9 +141,23 @@ public class StartScreen extends AbstractGameScreen {
 		// "(Vorerst) Klicke mit der Maus/Touchpad 1x um das Spiel zu starten",
 		// 100, 100);
 		batch.end();
-		// moment
-		if (startMultiplayer)
-			game.setScreen(new GameScreen(game, new ClientSurvivalGameMode()));
-
+		if(clickedMultiplayer)
+			handleMultiplayer();
 	}
+	
+	private void handleMultiplayer(){
+		if(!handler.isAllReceived()){
+			handler.handleInput();
+		}else{
+			connectionHandler.setInitializedConnection(true);
+		
+			ClientSurvivalConfig config = new ClientSurvivalConfig();
+			config.desList = handler.getDesList();
+			config.connectionHandler = connectionHandler;
+
+			System.out.println("Starting new game");
+			game.setScreen(new GameScreen(game, new ClientSurvivalGameMode(config)));
+		}
+	}
+	
 }

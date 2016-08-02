@@ -24,8 +24,6 @@ public class PacketDeserializer {
 				
 			}else break;
 		}
-		System.out.println(entities.size()+ " = Anzahl Entitaeten aus UDP");
-		System.out.println(getTimeStampFromByteArray(data));
 		return entities;
 	}
 	
@@ -60,6 +58,11 @@ public class PacketDeserializer {
 		public int id = -1;
 		public byte type;
 		public float posX, posY, dirX,dirY, velX, velY;
+		
+		@Override
+		public String toString() {
+			return id + "." + type + ":" + posX + "/" + posY + ":" + dirX + "/" + dirY + ":" + velX + "/" + velY;
+		}
 		
 	}
 

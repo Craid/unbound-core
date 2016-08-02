@@ -30,11 +30,11 @@ public class GameCamera extends OrthographicCamera{
 	}
 	
 	public void setPositionToEntity(Entity e){
-		float playerPosX = e.getPosition().x;
-		float playerPosY = e.getPosition().y;
+		float entityPosX = e.getPosition().x;
+		float entityPosY = e.getPosition().y;
 		
-		position.x = MathUtils.clamp(playerPosX, halfViewport.x, upperCorner.x - halfViewport.x);
-		position.y = MathUtils.clamp(playerPosY, halfViewport.y*2, upperCorner.y - halfViewport.y);
+		position.x = MathUtils.clamp(entityPosX, halfViewport.x, upperCorner.x - halfViewport.x);
+		position.y = MathUtils.clamp(entityPosY, halfViewport.y*2, upperCorner.y - halfViewport.y);
 		
 		zoom = 2.4f;
 		update();

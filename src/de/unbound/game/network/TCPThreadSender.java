@@ -9,9 +9,11 @@ public class TCPThreadSender extends Thread {
 
 	private Socket skt;
 	public boolean running = true;
+	ConnectionHandler connectionHandler;
 
-	public TCPThreadSender(Socket skt) {
+	public TCPThreadSender(Socket skt,ConnectionHandler connectionHandler) {
 		this.skt = skt;
+		this.connectionHandler = connectionHandler;
 	}
 
 	public String generateRandomPlayerName(){
@@ -29,6 +31,7 @@ public class TCPThreadSender extends Thread {
 		else if (rnd<=1.00) randomName = "David";
 		return randomName;
 	}
+	
 	public void sendInitialMessage(){
 		BufferedWriter sktSend;
 		try {
@@ -42,15 +45,16 @@ public class TCPThreadSender extends Thread {
 			sktSend.write(input);
 			sktSend.flush();
 
-			input = String.valueOf(ConnectionHandler.getInstance().udpSocket.getLocalPort());
+			input = String.valueOf(connectionHandler.udpSocket.getLocalPort());
 			input = input + "\n";
 			sktSend.write(input);
 			sktSend.flush();
-			Thread.sleep(500);
+			Thread.sleep(50);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 	public void run() {
 		System.out.println("TCP Send Thread Started");
 		BufferedWriter sktSend;
@@ -64,7 +68,8 @@ public class TCPThreadSender extends Thread {
 				Thread.sleep(7500); //heartbeat
 				sktSend.write(input);
 				sktSend.flush();
-			} while (!input.equalsIgnoreCase("EXIT\n"));
+			} while (!input.equalsIgnoreCase("EXIT\n") && running);
+			
 			System.out.println("You are now signed off.");
 			running = false;
 			sktSend.close();
@@ -74,6 +79,10 @@ public class TCPThreadSender extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setRunning(boolean running){
+		this.running = running;
 	}
 
 }
