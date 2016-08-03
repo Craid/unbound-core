@@ -2,12 +2,13 @@ package de.unbound.game.mode.client.util;
 
 import java.util.ArrayList;
 
+import de.unbound.game.mode.AbstractCommandHandler;
 import de.unbound.game.network.ConnectionHandler;
 import de.unbound.game.network.TCPThreadReceiver;
 import de.unbound.game.network.serialization.PacketDeserializer;
 import de.unbound.game.network.serialization.PacketDeserializer.DeserializedEntity;
 
-public class TCPInitCommandHandler {
+public class TCPInitCommandHandler extends AbstractCommandHandler {
 
 	private TCPThreadReceiver tcpReceiver;
 	private boolean playerReceived, mainBaseReceived;
@@ -20,15 +21,12 @@ public class TCPInitCommandHandler {
 		desList = new ArrayList<PacketDeserializer.DeserializedEntity>();
 	}
 
-	public void handleInput() {
-		String[] commands = tcpReceiver.getCommands();
-		for (String command : commands){
-			System.out.println("Now handling: " + command);
-			handleCommand(command);
-		}
+	@Override
+	public String[] getCommands() {
+		return tcpReceiver.getCommands();
 	}
-
-	private void handleCommand(String command) {
+	
+	public void handleCommand(String command) {
 		if (command.length()>15) if (command.contains("Player:")){
 			byte[] array = new String(command.substring(7, command.length())).getBytes();
 			System.out.println("Player legnth : " + array.length);

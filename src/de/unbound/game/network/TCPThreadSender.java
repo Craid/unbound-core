@@ -1,19 +1,26 @@
 package de.unbound.game.network;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketException;
 
 public class TCPThreadSender extends Thread {
 
-	private Socket skt;
 	public boolean running = true;
 	ConnectionHandler connectionHandler;
+	BufferedWriter sktSend;
+	private String commands;
 
 	public TCPThreadSender(Socket skt,ConnectionHandler connectionHandler) {
-		this.skt = skt;
 		this.connectionHandler = connectionHandler;
+		try {
+			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		commands = "";
 	}
 
 	public String generateRandomPlayerName(){
@@ -33,23 +40,8 @@ public class TCPThreadSender extends Thread {
 	}
 	
 	public void sendInitialMessage(){
-		BufferedWriter sktSend;
 		try {
-			//Thread.sleep(500);
-			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
-			String input = generateRandomPlayerName()+"\n";
-			sktSend.write(input);
-			sktSend.flush();
-			
-			input = "New Player\n";
-			sktSend.write(input);
-			sktSend.flush();
-
-			input = String.valueOf(connectionHandler.udpSocket.getLocalPort());
-			input = input + "\n";
-			sktSend.write(input);
-			sktSend.flush();
-			Thread.sleep(50);
+			sendMessage(generateRandomPlayerName()+":"+String.valueOf(connectionHandler.udpSocket.getLocalPort())+"\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -57,27 +49,40 @@ public class TCPThreadSender extends Thread {
 	
 	public void run() {
 		System.out.println("TCP Send Thread Started");
-		BufferedWriter sktSend;
 		try {
-			
-			sktSend = new BufferedWriter(new OutputStreamWriter(skt.getOutputStream()));
-
 			String input = "Heartbeat\n";
-
 			do {
-				Thread.sleep(7500); //heartbeat
-				sktSend.write(input);
-				sktSend.flush();
-			} while (!input.equalsIgnoreCase("EXIT\n") && running);
+				if(commands.length() != 0){
+					System.out.println("[TCP Send] "+ commands);
+					sendMessage(commands);
+					commands = "";
+				}
+			} while (!input.equalsIgnoreCase("EXIT\n") && running); 
+			//TODO TCPClientGameCommandHandler: Falls Exit, dann set running false!
+			//}while(running);
 			
 			System.out.println("You are now signed off.");
-			running = false;
 			sktSend.close();
 
 		} catch (SocketException e) {
 			System.out.println("Server Connection lost");
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void sendMessage(String input) throws IOException {
+		sktSend.write(input);
+		sktSend.flush();
+	}
+	
+	public String getCommands() {
+		return commands;
+	}
+
+	public void appendCommands(String commands) {
+		synchronized (this.commands) {
+			this.commands += commands + "\n";
 		}
 	}
 	

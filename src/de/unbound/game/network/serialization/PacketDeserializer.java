@@ -31,8 +31,15 @@ public class PacketDeserializer {
 		DeserializedEntity e = new DeserializedEntity();
 		e.id = helper.intFromByteArray(data, index);
 		index += 4;
+		
+		
 		e.type = helper.byteFromByteArray(data, index);
 		index += 1;
+//		e.type = data[index];
+//		index += 1;
+		
+		
+		
 		e.posX = helper.floatFromByteArray(data, index);
 		index += 4;
 		e.posY = helper.floatFromByteArray(data, index);

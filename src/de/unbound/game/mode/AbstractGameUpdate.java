@@ -21,6 +21,7 @@ public abstract class AbstractGameUpdate {
 	protected Sprite background;
 	public Entity followingEntity;
 	public String commands;
+	protected AbstractCommandHandler commandHandler;
 	
 	public AbstractGameUpdate(CollisionDetection collisionDetection){
 		initAbstract(collisionDetection);
@@ -46,6 +47,8 @@ public abstract class AbstractGameUpdate {
 			if (isGameOver()) {
 				doBeforeUpdate();
 				
+				handleCommands();
+				
 				toggleFollowEntity();
 			
 				updateWaveHandler(deltaTime);
@@ -66,6 +69,10 @@ public abstract class AbstractGameUpdate {
 		}
 	}
 	
+	private void handleCommands() {
+		commandHandler.handleInput();
+	}
+
 	private void toggleFollowEntity(){
 		if(Gdx.input.isKeyPressed(Input.Keys.NUM_1))
 			followingEntity = battleField.getMainBase();

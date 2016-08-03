@@ -11,7 +11,6 @@ import de.unbound.game.World;
 import de.unbound.game.mode.AbstractGameUpdate;
 import de.unbound.game.mode.client.util.ClientSurvivalConfig;
 import de.unbound.game.mode.client.util.EntityUpdater;
-import de.unbound.game.mode.client.util.TCPGameCommandHandler;
 import de.unbound.game.model.entities.Entity;
 import de.unbound.game.network.ConnectionHandler;
 import de.unbound.game.network.serialization.PacketDeserializer;
@@ -28,7 +27,8 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	private byte[] clientData;
 	private EntityUpdater entityUdpater;
 	private ConnectionHandler connectionHandler;
-	private TCPGameCommandHandler tcpCommandHandler;
+	private ClientSurvivalSendCommandHandler sendCommandhelper;
+	private int updateCounter;
 	
 
 	public ClientSurvivalGameUpdate(ClientSurvivalConfig config) {
@@ -43,9 +43,11 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		connectionHandler.startUDP();
 		
 		entityUdpater = new EntityUpdater(this);
+		updateCounter = 0;
 		
-		tcpCommandHandler = new TCPGameCommandHandler(connectionHandler.tcpConnecter);
-		
+		sendCommandhelper = new ClientSurvivalSendCommandHandler(connectionHandler.tcpConnecter, this);
+		commandHandler = new ClientSurvivalReceiveCommandHandler(connectionHandler.tcpConnecter);
+		System.out.println(commandHandler);
 	}
 
 	protected void init() {
@@ -63,7 +65,8 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 	@Override
 	public void doBeforeUpdate() {
 		handleUDPInput();
-		tcpCommandHandler.handleInput();
+		if(updateCounter++>4)
+			sendCommandhelper.handleInput();
 	}
 
 

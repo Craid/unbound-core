@@ -15,7 +15,6 @@ public class CreateTowerCommand extends Command {
 	
 	public void execute(){
 		if(UnboundConstants.WORLD.contains(pos) && !UnboundConstants.SPAWNER.contains(pos)){
-			World.getInstance().createTower(pos.x, pos.y);
 			World.getInstance().getGameUpdate().appendCommands("Tower:"+pos.x+":"+pos.y);
 		}
 	} 

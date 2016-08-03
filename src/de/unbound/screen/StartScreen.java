@@ -157,6 +157,7 @@ public class StartScreen extends AbstractGameScreen {
 
 			System.out.println("Starting new game");
 			game.setScreen(new GameScreen(game, new ClientSurvivalGameMode(config)));
+			System.out.println("Started");
 		}
 	}
 	

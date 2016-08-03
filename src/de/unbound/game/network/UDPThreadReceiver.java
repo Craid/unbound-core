@@ -17,7 +17,7 @@ public class UDPThreadReceiver extends Thread{
 	private long timeStamp;
 	
 	public UDPThreadReceiver(DatagramSocket udpSocket,ConnectionHandler connectionHandler) {
-		byte[] data = new byte[4096];
+		byte[] data = new byte[8192];
 		this.lastPacket = new DatagramPacket(data, data.length); 
 		this.socket = udpSocket; // Portnummer ist egal, es wird ein freier autm. gesucht
 		this.connectionHandler = connectionHandler;

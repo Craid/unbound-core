@@ -29,8 +29,11 @@ public class PacketSerializer {
 		int i = 0;
 		for(byte b : helper.intToByteArray(entity.getId()))
 			bytes[i++] = b;
+		
 		for(byte b : helper.byteToByteArray(entity.getModel().getId()))
 			bytes[i++] = b;
+//		bytes[i++] = entity.getModel().getId();
+		
 		for(byte b : helper.floatToByteArray(entity.getPosition().x))
 			bytes[i++] = b;
 		for(byte b : helper.floatToByteArray(entity.getPosition().y))

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 public class UnboundConstants {
 
 	public static String IPADDRESS = "localhost";
+	//public static String IPADDRESS = "176.198.201.21";
 	//176.198.201.21
 	public static int tcpPort = 11300;	
 	public static int udpPort = 11301;

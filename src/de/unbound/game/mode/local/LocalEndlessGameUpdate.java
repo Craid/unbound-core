@@ -19,7 +19,7 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 	private SpriteBatch hudBatch;
 
 	public LocalEndlessGameUpdate() {
-		super(new LocaleEndlessCollisionDetection());
+		super(new LocalEndlessCollisionDetection());
 		init();
 	}
 
@@ -28,6 +28,7 @@ public class LocalEndlessGameUpdate extends AbstractGameUpdate {
 		hudBatch = new SpriteBatch();
 		camera = new GameCamera();
 		font = new BitmapFont();
+		commandHandler = new LocalEndlessCommandHandler(this);
 	}
 
 	@Override
