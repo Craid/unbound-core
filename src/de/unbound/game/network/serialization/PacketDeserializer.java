@@ -17,7 +17,7 @@ public class PacketDeserializer {
 		index = offset; 
 		ArrayList<DeserializedEntity> entities = new ArrayList<PacketDeserializer.DeserializedEntity>();
 		DeserializedEntity tempEntity = null;
-		while(index + 29 <= data.length){
+		while(index + 32 <= data.length){
 			tempEntity = getNextEntity(data);
 			if(tempEntity.type != 0){
 				entities.add(tempEntity);
@@ -31,15 +31,8 @@ public class PacketDeserializer {
 		DeserializedEntity e = new DeserializedEntity();
 		e.id = helper.intFromByteArray(data, index);
 		index += 4;
-		
-		
-		e.type = helper.byteFromByteArray(data, index);
-		index += 1;
-//		e.type = data[index];
-//		index += 1;
-		
-		
-		
+		e.type = helper.intFromByteArray(data, index);
+		index += 4;
 		e.posX = helper.floatFromByteArray(data, index);
 		index += 4;
 		e.posY = helper.floatFromByteArray(data, index);
@@ -62,8 +55,7 @@ public class PacketDeserializer {
 
 	public class DeserializedEntity{
 		
-		public int id = -1;
-		public byte type;
+		public int id = -1, type;
 		public float posX, posY, dirX,dirY, velX, velY;
 		
 		@Override

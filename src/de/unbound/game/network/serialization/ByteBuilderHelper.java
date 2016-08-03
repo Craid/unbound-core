@@ -19,11 +19,6 @@ public class ByteBuilderHelper {
 	     return ByteBuffer.wrap(bytes, startingIndex, 8).getLong();
 	}
 	
-	public byte byteFromByteArray(byte[] bytes, int startingIndex) {
-	     return ByteBuffer.wrap(bytes, startingIndex, 1).get();
-	}
-	
-	
 	public byte [] longToByteArray (long value){
 	    return ByteBuffer.allocate(8).putLong(value).array();
 	}
@@ -35,11 +30,6 @@ public class ByteBuilderHelper {
 	public byte [] intToByteArray (int value){  
 	     return ByteBuffer.allocate(4).putInt(value).array();
 	}
-	
-	public byte [] byteToByteArray (byte value){  
-	     return ByteBuffer.allocate(1).put(value).array();
-	}
-	
 	
 	public byte [] getTimeStampAsByteArray (){
 	    return ByteBuffer.allocate(8).putLong(System.currentTimeMillis()).array();

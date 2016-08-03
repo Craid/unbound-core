@@ -37,7 +37,7 @@ public class ClientSurvivalGameUpdate extends AbstractGameUpdate {
 		timeStamp = -1;
 		packetDeserializer = new PacketDeserializer();
 		packetSerializer = new PacketSerializer();
-		clientData = new byte[8+29]; //timestamp + entity data for player
+		clientData = new byte[8+32]; //timestamp + entity data for player
 		
 		connectionHandler = config.connectionHandler;
 		connectionHandler.startUDP();

@@ -31,7 +31,7 @@ public class FlyweightFactory {
 		return flyweights.get(name);
 	}
 	
-	public EntityFlyweight getFlyweight(byte id) {
+	public EntityFlyweight getFlyweight(int id) {
 		for(EntityFlyweightMeta f : meta.values())
 			if(f.getId() == id)
 				return getFlyweight(f.getTextureName());

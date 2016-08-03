@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
 
-import de.unbound.game.network.serialization.ByteBuilderHelper;
-
 public class TCPThreadReceiver extends Thread {
 
 	private Socket skt;
@@ -31,8 +29,7 @@ public class TCPThreadReceiver extends Thread {
 			while (running) {
 				input = sktReceive.readLine();
 				appendCommands(input);
-//				System.out.println("[TCP Receiver] : " + new String(input));
-				printtest(input.getBytes());
+				System.out.println("[TCP Receiver] : " + new String(input));
 			}
 			sktReceive.close();
 			skt.close();
@@ -42,19 +39,6 @@ public class TCPThreadReceiver extends Thread {
 			e.printStackTrace();
 		}
 
-	}
-
-	private void printtest(byte[] bytes) {
-		byte[] sum = bytes;
-		ByteBuilderHelper bh = new ByteBuilderHelper();
-		System.out.println(bh.intFromByteArray(sum,0)+" = Entity ID");
-		System.out.println(sum[4]+" = Entity Class");
-		System.out.println(bh.floatFromByteArray(sum,5)+" = Position X");
-		System.out.println(bh.floatFromByteArray(sum,9)+" = Position Y");
-		System.out.println(bh.floatFromByteArray(sum,13)+" = Direction X");
-		System.out.println(bh.floatFromByteArray(sum,17)+" = Direction Y");
-		System.out.println(bh.floatFromByteArray(sum,21)+" = Velocity X");
-		System.out.println(bh.floatFromByteArray(sum,25)+" = Velocity Y");
 	}
 
 	public String[] getCommands() {

@@ -14,7 +14,7 @@ public class PacketSerializer {
 	}
 	
 	public byte[] constructUDPPackage(ArrayList<Entity> entities){
-		byte[] data = new byte[8+entities.size()*29];
+		byte[] data = new byte[8+entities.size()*32];
 		int index = 0;
 		for(byte b : helper.getTimeStampAsByteArray())
 			data[index++] = b;
@@ -25,14 +25,13 @@ public class PacketSerializer {
 	}
 	
 	public byte[] constructEntityByteStream(Entity entity){
-		byte[] bytes = new byte[29];
+		byte[] bytes = new byte[32];
 		int i = 0;
 		for(byte b : helper.intToByteArray(entity.getId()))
 			bytes[i++] = b;
 		
-		for(byte b : helper.byteToByteArray(entity.getModel().getId()))
+		for(byte b : helper.intToByteArray(entity.getModel().getId()))
 			bytes[i++] = b;
-//		bytes[i++] = entity.getModel().getId();
 		
 		for(byte b : helper.floatToByteArray(entity.getPosition().x))
 			bytes[i++] = b;
